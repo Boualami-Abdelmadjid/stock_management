@@ -1,0 +1,7 @@
+{% include 'base/root.html' %} {% block content %} {% if user.store %}
+<p>You are associated to the store {{ store.name }}</p>
+<p>You're role is {{user.role}}</p>
+{% else %}
+<p>You are not associated to any store</p>
+<a href="{% url 'create-store' %}">Create a store</a>
+{% endif %} {% endblock %}

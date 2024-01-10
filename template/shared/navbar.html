@@ -1,0 +1,17 @@
+<nav>
+  <div>
+    <a href="{% url 'create-category' %}">Create category</a>
+    <a href="{% url 'create-router' %}">Create router</a>
+  </div>
+  <div>
+    {% if user.is_authenticated %}
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit">logout</button>
+    </form>
+    {% else %}
+    <a href="{% url 'login' %}">login</a>
+    <a href="{% url 'signup' %}">Signup</a>
+    {% endif %}
+  </div>
+</nav>

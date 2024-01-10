@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  box-sizing: 0;
+}
+nav {
+  background-color: rgb(12, 201, 97);
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+nav > div {
+  display: flex;
+  gap: 2rem;
+  font-size: 1.2rem;
+}
+nav > div > a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+nav > div button {
+  background-color: transparent;
+  border-color: transparent;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}

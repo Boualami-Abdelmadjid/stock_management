@@ -1,0 +1,19 @@
+{% include 'base/root.html' %} {% block content %}
+<main>
+  <form onsubmit="create_category(event,this)">
+    {% csrf_token %}
+    <input
+      type="text"
+      name="name"
+      placeholder="category name"
+      minlength="5"
+      required
+    />
+    <select name="type" id="type">
+      <option value="indoor">Indoor</option>
+      <option value="outdoor">Outdoor</option>
+    </select>
+    <button type="text">Create a category</button>
+    {% endblock %}
+  </form>
+</main>
