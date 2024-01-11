@@ -1,15 +1,15 @@
 const create_account = async (e, elem) => {
   e.preventDefault();
-  const [username, email, password1, password2] = Array.from(
+  const [email, username, password1, password2] = Array.from(
     elem.querySelectorAll("input")
-  )
-    .slice(1)
-    .map((input) => input.value);
+  ).map((input) => input.value);
+  console.log(email, username, password1, password2);
   if (password1 !== password2) {
     console.log("passwords do not match");
     return;
   }
   const body = JSON.stringify({ username, email, password1, password2 });
+  console.log(body);
   const res = await fetch("/signup/", {
     method: "POST",
     body,
@@ -70,6 +70,7 @@ const create_category = async (e, elem) => {
   const type = elem.querySelector("select[name=type]")?.value;
 
   const body = JSON.stringify({ name, type });
+  console.log(name, type);
   const res = await fetch("/create-category/", {
     method: "POST",
     body,

@@ -7,6 +7,7 @@ import json
 
 from django.shortcuts import render
 from django.views.generic import View
+from django.views.generic.list import ListView
 from django.http import JsonResponse
 from django.db.models import Q
 from django.contrib.auth import authenticate, login
@@ -18,9 +19,18 @@ from main.common import *
 
 class HomePage(View):
     def get(self,req):
+        context = {}
         user = req.user
+        #Get 6 categories and routers, display 5 only, if there are more than 6 then we know there is more than 5 and we show the button 
+        #that redirect to page that shows all the categories/routers
+        categories = Category.objects.filter(store=user.store)[:6]
+        routers = Router.objects.filter(store=user.store)[:6]
+        context['more_categories'] = len(categories) > 1
+        context['more_routers'] = len(routers) > 1
+        context['categories'] = categories[:5]
+        context['routers'] = routers[:5]
         
-        return render(req,'main/other/homepage.html')
+        return render(req,'main/other/homepage.html',context=context)
 
 class SignupView(View):
     def get(self,req):
@@ -130,6 +140,7 @@ class CreateCategoryView(View):
         try:
             user = req.user
             store = user.store
+            print(user,store)
             #We format the body of the request to a python object
             body = json.loads(req.body)
             #We retrieve the name from the body of the request
@@ -173,6 +184,16 @@ class CreateRouterView(View):
         except Exception as e:
             print(e)
         return JsonResponse(res,status=res['status'])
+    
+class CategoriesView(ListView):
+    model = Category
+    paginate_by = 10
+    template_name = 'main/category/list.html'
+
+    def get_queryset(self):
+        user = self.request.user
+        return Category.objects.filter(store=user.store)
+    
         
 
 

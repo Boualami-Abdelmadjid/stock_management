@@ -1,17 +1,22 @@
-<nav>
-  <div>
-    <a href="{% url 'create-category' %}">Create category</a>
-    <a href="{% url 'create-router' %}">Create router</a>
+<nav
+  class="bg-primary-500 text-white px-8 py-4 flex justify-between font-semibold text-lg"
+>
+  <div class="flex gap-8">
+    <a href="/" class="cursor-pointer">Home</a>
+    <a class="cursor-pointer" href="{% url 'create-category' %}"
+      >Create category</a
+    >
+    <a class="cursor-pointer" href="{% url 'create-router' %}">Create router</a>
   </div>
-  <div>
+  <div class="flex gap-8">
     {% if user.is_authenticated %}
     <form method="post" action="{% url 'logout' %}">
       {% csrf_token %}
       <button type="submit">logout</button>
     </form>
     {% else %}
-    <a href="{% url 'login' %}">login</a>
-    <a href="{% url 'signup' %}">Signup</a>
+    <a class="cursor-pointer" href="{% url 'login' %}">login</a>
+    <a class="cursor-pointer" href="{% url 'signup' %}">Signup</a>
     {% endif %}
   </div>
 </nav>

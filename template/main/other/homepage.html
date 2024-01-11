@@ -1,7 +1,132 @@
-{% include 'base/root.html' %} {% block content %} {% if user.store %}
-<p>You are associated to the store {{ store.name }}</p>
-<p>You're role is {{user.role}}</p>
-{% else %}
-<p>You are not associated to any store</p>
-<a href="{% url 'create-store' %}">Create a store</a>
-{% endif %} {% endblock %}
+{% include 'base/root.html' %} {% block content %}
+<main class="max-w-[1400px] mx-auto">
+  {% if user.store %}
+  <h1 class="text-center text-xl my-8">
+    You are {{user.role}} for {{ user.store.name }}
+  </h1>
+  <!-- Categories -->
+  <div class="relative overflow-x-auto">
+    <div
+      class="flex justify-between mt-8 mb-4 items-center text-primary-500 font-medium"
+    >
+      <h2 class="text-xl">Categories</h2>
+      {% if categories %}
+      <a
+        class="inline-block rounded-md bg-primary-600 text-white px-4 py-2"
+        href="{% url 'create-category' %}"
+        >Create one</a
+      >
+      {% endif %}
+    </div>
+    {% if categories %}
+    <table
+      class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+    >
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3">Name</th>
+          <th scope="col" class="px-6 py-3">Type</th>
+          <th scope="col" class="px-6 py-3">Number of routers</th>
+          <th scope="col" class="px-6 py-3">Created at</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for category in categories %}
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {{ category.name }}
+          </th>
+          <td class="px-6 py-4">{{ category.type }}</td>
+          <td class="px-6 py-4">300</td>
+          <td class="px-6 py-4">{{ category.created_at|date }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% if more_categories %}
+    <a
+      class="block text-center text-primary-400 mt-8 font-semibold underline"
+      href="#"
+      >Show all categories</a
+    >
+    {% endif %} {% else %}
+    <p class="text-center text-lg font-semibold">
+      You have no categories,
+      <a class="text-primary-500" href="{% url 'create-category' %}"
+        >Create one</a
+      >
+    </p>
+    {% endif %}
+  </div>
+  <!-- routers -->
+  <div class="relative overflow-x-auto">
+    <div
+      class="flex justify-between mt-8 mb-4 items-center text-primary-500 font-medium"
+    >
+      <h2 class="text-xl">Routers</h2>
+      {% if routers %}
+      <a
+        class="inline-block rounded-md bg-primary-600 text-white px-4 py-2"
+        href="{% url 'create-router' %}"
+        >Create one</a
+      >
+      {% endif %}
+    </div>
+    {% if routers %}
+    <table
+      class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+    >
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3">category</th>
+          <th scope="col" class="px-6 py-3">EMEI</th>
+          <th scope="col" class="px-6 py-3">Serial number</th>
+          <th scope="col" class="px-6 py-3">Created at</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for router in routers %}
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {{ router.category.name }}
+          </th>
+          <td class="px-6 py-4">{{ router.emei }}</td>
+          <td class="px-6 py-4">{{router.serial_number }}</td>
+          <td class="px-6 py-4">{{ router.created_at|date }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% if more_routers %}
+    <a
+      class="block text-center text-primary-400 mt-8 font-semibold underline"
+      href="#"
+      >Show all routers</a
+    >
+    {% endif %} {% else %}
+    <p class="text-center text-lg font-semibold">
+      You have no routers,
+      <a class="text-primary-500" href="{% url 'create-router' %}"
+        >Create one</a
+      >
+    </p>
+    {% endif %}
+  </div>
+  {% else %}
+  <p class="mt-16 mb-4 text-xl">You are not associated to any store</p>
+  <a class="block text-xl text-primary-500" href="{% url 'create-store' %}"
+    >Create a store</a
+  >
+  {% endif %}
+</main>
+{% endblock %}
