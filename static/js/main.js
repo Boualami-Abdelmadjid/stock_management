@@ -9,7 +9,6 @@ const create_account = async (e, elem) => {
     return;
   }
   const body = JSON.stringify({ username, email, password1, password2 });
-  console.log(body);
   const res = await fetch("/signup/", {
     method: "POST",
     body,
@@ -190,6 +189,27 @@ const categories_suggestions = async (e, elem) => {
   }
 };
 
+const edit_category = async (e, elem) => {
+  e.preventDefault();
+  const { id } = elem.closest(".edit_form").dataset;
+  const type = elem.querySelector("select[name=type]")?.value;
+  const name = elem.querySelector("input[name=name]")?.value;
+
+  const body = JSON.stringify({ id, name, type });
+  const res = await fetch("/category/", {
+    method: "PUT",
+    body,
+    headers: {
+      "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+    },
+  }).then((res) => res.json());
+  if (res.status == 200) {
+    window.location.reload();
+  } else {
+    console.error(res.message);
+  }
+};
+
 const create_sugestion = (container, content, link = "#") => {
   const suggestion = document.createElement("a");
   suggestion.innerHTML = content;
@@ -203,8 +223,8 @@ const hide_suggestion = (suggestions_container) => {
   suggestions_container.classList.add("hidden");
 };
 
-const open_edit = (elem) => {
-  const form = document.querySelector(".edit_form");
+const open_edit_router = (elem) => {
+  const form = document.querySelector(".edit_form.router");
   const container = elem.closest("tr");
   const { id, sn, emei, category } = container.dataset;
 
@@ -217,11 +237,105 @@ const open_edit = (elem) => {
   const selected_category = Array.from(category_container.options).find(
     (option) => option.value == category
   );
+
+  if (selected_category) {
+    selected_category.selected = true;
+  }
+  form.classList.remove("hidden");
+};
+
+const open_edit_category = (elem) => {
+  const form = document.querySelector(".edit_form.category");
+  const container = elem.closest("tr");
+  const { id, name, type } = container.dataset;
+
+  form.dataset.id = id;
+  const name_container = form.querySelector("[name=name]");
+  const type_container = form.querySelector("[name=type]");
+  name_container.value = name;
+  const selected_category = Array.from(type_container.options).find(
+    (option) => option.value == type
+  );
   selected_category.selected = true;
   form.classList.remove("hidden");
+};
+
+const delete_category = async (id) => {
+  const body = JSON.stringify({ id });
+  const res = await fetch("/category/", {
+    method: "DELETE",
+    body,
+    headers: {
+      "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+    },
+  }).then((res) => res.json());
+  if (res.status == 200) {
+    window.location.reload();
+  } else {
+    console.error(res.message);
+  }
 };
 
 const close_edit_form = (elem) => {
   const form = elem.closest(".edit_form");
   form.classList.add("hidden");
+};
+
+const show_user_form = (elem, action) => {
+  const form = document.querySelector(".edit_form");
+  if (action == "edit") {
+    const { id, username, role } = elem.closest(".user_container").dataset;
+    form.querySelector("[name=username]").value = username;
+    form.querySelector("[name=username]").disabled = true;
+    form.querySelector("button").innerHTML = "Edit";
+    form.querySelector("h1").innerHTML = "Edit a user";
+    const selected_category = Array.from(
+      document.querySelector("select").options
+    ).find((option) => option.value == role);
+
+    if (selected_category) {
+      selected_category.selected = true;
+    }
+  } else {
+    form.querySelector("button").innerHTML = "Edit";
+    form.querySelector("h1").innerHTML = "Edit a user";
+  }
+
+  form.classList.remove("hidden");
+};
+
+const add_user_to_store = async (e, elem) => {
+  e.preventDefault();
+  const username = elem.querySelector("input[name=username]").value;
+  const role = elem.querySelector("select").value;
+  const body = JSON.stringify({ username, role });
+  const res = await fetch("/profile/", {
+    method: "POST",
+    body,
+    headers: {
+      "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+    },
+  }).then((res) => res.json());
+  if (res.status == 200) {
+    window.location.reload();
+  } else {
+    console.log(res);
+  }
+};
+
+const delete_user_from_group = async (elem) => {
+  const { id } = elem.closest(".user_container").dataset;
+  const body = JSON.stringify({ id });
+  const res = await fetch("/profile/", {
+    method: "DELETE",
+    body,
+    headers: {
+      "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+    },
+  }).then((res) => res.json());
+  if (res.status == 200) {
+    window.location.reload();
+  } else {
+    console.log(res);
+  }
 };

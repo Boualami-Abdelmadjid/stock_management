@@ -107,6 +107,61 @@ class LoginView(View):
             print(e)
         return JsonResponse(res, status=res['status'])
     
+class ProfileView(View):
+    def get(self,req):
+        context = {}
+        user = req.user
+        store_users = list(req.user.store.user_set.all().exclude(id=user.id).values())
+        context['store_users'] = store_users
+        return render(req,'main/account/profile.html',context=context)
+    
+    def post(self,req):
+        res = {"status":500,"message":"Something wrong hapenned"}
+        try:
+            store = req.user.store
+            body = json.loads(req.body)
+            username = body.get('username')
+            role = body.get('role')
+            
+            added_user = User.objects.filter(Q(username=username) | Q(email=username)).first()
+            if added_user:
+                added_user.store = store
+                added_user.role = role
+                added_user.save()
+                res['status'] = 200
+                res['message'] = 'User added successfully'
+            else :
+                res['message'] = 'User not found'
+        except Exception as e:
+            print(e)
+        return JsonResponse(res,status=res['status'])
+    
+    def delete(self,req):
+        res = {"status":500,"message":"Something wrong hapenned"}
+        try:
+            if req.user.role != "store_manager":
+                res['status'] = 403
+                res['message'] = "You don't have enough permissions"
+                return JsonResponse(res,status=res['status'])
+            body = json.loads(req.body)
+            user_id = body.get('id')
+            
+            store_user = User.objects.filter(id=user_id).first()
+            if store_user:
+                store_user.role = None
+                store_user.store = None
+                store_user.save()
+                res['status'] = 200
+                res['message'] = 'User deleted successfully'
+            else:
+                res['message'] = "Can't find the user"
+        except Exception as e:
+            print(e)
+        return JsonResponse(res,status=res['status'])
+
+        
+
+    
 
 class CreateStoreView(View):
     def get(self,req):
@@ -192,6 +247,45 @@ class CategoriesView(ListView):
     def get_queryset(self):
         user = self.request.user
         return Category.objects.filter(store=user.store).order_by('-id')
+    
+class CategoryView(View):
+    def put(self,req):
+        res = {"status":500,"message":"Something wrong hapenned"}
+        try:
+            body = json.loads(req.body)
+            category_id = body.get('id')
+            name = body.get('name')
+            category_type = body.get('type')
+
+            category = Category.objects.filter(store = req.user.store,id=category_id).first()
+            if category:
+                category.name = name
+                category.type = category_type
+                category.save()
+                res['status'] = 200
+                res['message'] = 'Category edited successfully'
+
+        except Exception as e:
+            print(e)
+        return JsonResponse(res,status=res['status'])
+    
+    def delete(self,req):
+        res = {"status":500,"message":"Something wrong hapenned"}
+        try:
+            if req.user.role != "store_manager":
+                res['status'] = 403
+                res['message'] = "You don't have enough permissions"
+                return JsonResponse(res,status=res['status'])
+            body = json.loads(req.body)
+            category_id = body.get('id')
+            category = Category.objects.filter(store = req.user.store, id=category_id).first()
+            if category:
+                category.delete()
+                res['message'] = 'Category deleted successfully'
+                res['status'] = 200
+        except Exception as e:
+            print(e)
+        return JsonResponse(res,status=res['status'])
 
     
 class RoutersView(ListView):
@@ -234,6 +328,11 @@ class RouterView(View):
     def delete(self,req):
         res = {"status":500,"message":"Something wrong hapenned"}
         try:
+            print(req.user.role)
+            if req.user.role != "store_manager":
+                res['status'] = 403
+                res['message'] = "You don't have enough permissions"
+                return JsonResponse(res,status=res['status'])
             body = json.loads(req.body)
             router_id = body.get('id')
             router = Router.objects.filter(store = req.user.store, id=router_id).first()

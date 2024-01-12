@@ -76,18 +76,4 @@
     </div>
   </section>
 </main>
-<!-- <main>
-  <form onsubmit="create_router(event,this)" class="mt-8">
-    {% csrf_token %}
-
-    <input name="serial_number" type="text" placeholder="serial number" />
-    <input name="emei" type="text" placeholder="EMEI" />
-    <select name="category" id="category">
-      {% for category in categories %}
-      <option value="{{category.id}}">{{category.name}}</option>
-      {% endfor %}
-    </select>
-    <button type="text">Create a router</button>
-    {% endblock %}
-  </form>
-</main> -->
+{% endblock %}

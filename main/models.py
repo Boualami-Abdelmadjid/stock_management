@@ -7,7 +7,7 @@ class User(AbstractUser):
     Roles = (
         ('store_manager','Store manager'),
         ('senior_management','Senior management'),
-        ('Stock_handler','Stock handler')
+        ('stock_handler','Stock handler')
     )
     email = models.CharField(max_length=50)
     role = models.CharField(choices=Roles,max_length=150,blank=True,null=True)
@@ -36,7 +36,6 @@ class Category(models.Model):
     
     def count_routers(self):
         results = self.router_set.all().count()
-        print(results)
         return results
     
     class Meta:

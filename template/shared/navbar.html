@@ -1,13 +1,22 @@
 <nav
   class="bg-primary-500 text-white px-8 py-4 flex justify-between font-semibold text-lg"
 >
-  <div class="flex gap-8">
+  <div class="flex gap-8 items-center">
     <a href="/" class="cursor-pointer">Home</a>
     <a class="cursor-pointer" href="{% url 'categories' %}">Categories</a>
     <a class="cursor-pointer" href="{% url 'routers' %}">Routers</a>
+    <a class="cursor-pointer" href="{% url 'profile' %}">Profile</a>
+    {% if user.is_superuser %}
+    <a class="cursor-pointer" href="/admin">Admin</a>
+    {% endif %}
   </div>
-  <div class="flex gap-8">
+  <div class="flex gap-8 items-center">
     {% if user.is_authenticated %}
+    <span>Welcome {{ user.username }}</span>
+    {% if user.store %} {% endif %}
+    <span class="bg-primary-800 text-white py-1 px-4 rounded-md"
+      >{{ user.store.name }}</span
+    >
     <form method="post" action="{% url 'logout' %}">
       {% csrf_token %}
       <button type="submit">logout</button>

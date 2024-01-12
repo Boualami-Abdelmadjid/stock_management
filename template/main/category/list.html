@@ -1,4 +1,4 @@
-{% extends 'base/root.html' %} {% block content %}
+{% extends 'base/root.html' %} {% load paginator_tags %} {% block content %}
 <main class="max-w-[1400px] mx-auto py-8 relative">
   <div
     class="flex justify-between mt-8 mb-4 items-center text-primary-500 font-medium"
@@ -23,7 +23,7 @@
     >
     {% endif %}
   </div>
-  {% if page_obj %} {% for category in page_obj %}
+  {% if page_obj %} 
   <table
     class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
   >
@@ -40,7 +40,12 @@
     </thead>
     <tbody>
       {% for category in page_obj %}
-      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+      <tr
+        data-id="{{category.id}}"
+        data-name="{{category.name}}"
+        data-type="{{category.type}}"
+        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+      >
         <th
           scope="row"
           class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -52,30 +57,43 @@
         <td class="px-6 py-4">{{ category.created_at|date:'Y-m-d H:i' }}</td>
         <td class="px-6 py-4 flex gap-4">
           <i
+            title="edit"
             class="fa-regular fa-pen-to-square text-lg text-primary-400 cursor-pointer"
+            onclick="open_edit_category(this)"
           ></i>
-          <i class="fa-solid fa-trash text-lg text-red-400 cursor-pointer"></i>
+          <i
+            title="delete"
+            class="fa-solid fa-trash text-lg text-red-400 cursor-pointer"
+            onclick="delete_category({{category.id}})"
+          ></i>
         </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
 
-  {% endfor %} {% else %}
+   {% else %}
   <p>You have no categories</p>
   {% endif %}
 
-  <div class="pagination">
-    <span class="step-links">
-      {% if page_obj.has_previous %}
-      <a href="?page=1">&laquo; first</a>
-      <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-      {% endif %} {% if page_obj.has_next %}
-      <a href="?page={{ page_obj.next_page_number }}">next</a>
-      <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-      {% endif %}
-    </span>
+  <div class="flex gap-2 justify-center my-4">
+    {% get_proper_elided_page_range paginator page_obj.number as page_range %}
+    <!-- here -->
+    {% for i in page_range %} {% if page_obj.number == i %}
+    <a
+      class="px-3 py-1 rounded-md border-2 text-primary-500 border-primary-500"
+    >
+      {{ i }}
+    </a>
+    {% else %} {% if i == paginator.ELLIPSIS %}
+    <a class="px-3 py-1 rounded-md border-2"> {{ paginator.ELLIPSIS }} </a>
+    {% else %}
+
+    <a class="px-3 py-1 rounded-md border-2" href="?page={{ i }}">{{ i }}</a>
+
+    {% endif %} {% endif %} {% endfor %}
   </div>
+  {% include 'main/category/edit-form.html' %}
 </main>
 
 {% endblock %}
