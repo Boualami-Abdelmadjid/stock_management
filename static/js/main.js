@@ -105,3 +105,39 @@ const create_router = async (e, elem) => {
     console.error(res.message);
   }
 };
+
+const routers_suggestions = async (e, elem) => {
+  const { value } = e.target;
+  const suggestions_container = elem.nextElementSibling;
+  if (value) {
+    const res = await fetch(`/routers-suggestions/?value=${value}`).then(
+      (res) => res.json()
+    );
+    if (res.status == 200 && res?.routers.length) {
+      const suggestions_container = elem.nextElementSibling;
+      suggestions_container.innerHTML = "";
+      suggestions_container.classList.add("grid");
+      suggestions_container.classList.remove("hidden");
+      res.routers.forEach((router) => {
+        create_router_sugestion(suggestions_container, router);
+      });
+    } else {
+      hide_router_suggestion(suggestions_container);
+    }
+  } else {
+    hide_router_suggestion(suggestions_container);
+  }
+};
+
+const create_router_sugestion = (container, router) => {
+  const suggestion = document.createElement("a");
+  suggestion.innerHTML = router.emei;
+  suggestion.href = "#";
+  container.appendChild(suggestion);
+};
+
+const hide_router_suggestion = (suggestions_container) => {
+  suggestions_container.innerHTML = "";
+  suggestions_container.classList.remove("grid");
+  suggestions_container.classList.add("hidden");
+};

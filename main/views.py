@@ -192,8 +192,31 @@ class CategoriesView(ListView):
 
     def get_queryset(self):
         user = self.request.user
-        return Category.objects.filter(store=user.store)
+        return Category.objects.filter(store=user.store).order_by('-id')
+
     
-        
+class RoutersView(ListView):
+    model = Router
+    paginate_by = 10
+    template_name = 'main/router/list.html'
+
+    def get_queryset(self):
+        user = self.request.user
+        return Router.objects.filter(store=user.store).order_by('-id')  
+
+class RouterSuggestions(View):
+    def get(self,req):
+        res = {"status":500,"message":"Something wrong hapenned"}
+        try :
+            user = req.user
+            value = req.GET.get('value')
+            routers = list(Router.objects.filter(Q(store = user.store) & (Q(emei__startswith=value) | Q(serial_number__startswith=value))).values('emei'))
+            res['status'] = 200
+            res['routers'] = routers
+            del res['message']
+        except Exception as e:
+            print(e)
+        return JsonResponse(res,status=res['status'])
+
 
 

@@ -3,10 +3,8 @@
 >
   <div class="flex gap-8">
     <a href="/" class="cursor-pointer">Home</a>
-    <a class="cursor-pointer" href="{% url 'create-category' %}"
-      >Create category</a
-    >
-    <a class="cursor-pointer" href="{% url 'create-router' %}">Create router</a>
+    <a class="cursor-pointer" href="{% url 'categories' %}">Categories</a>
+    <a class="cursor-pointer" href="{% url 'routers' %}">Routers</a>
   </div>
   <div class="flex gap-8">
     {% if user.is_authenticated %}

@@ -3,16 +3,28 @@
   <div
     class="flex justify-between mt-8 mb-4 items-center text-primary-500 font-medium"
   >
-    <h1 class="text-xl">Categories</h1>
+    <h1 class="text-xl">Routers</h1>
     {% if page_obj %}
+    <div class="relative">
+      <input
+        type="text"
+        placeholder="Search.."
+        class="border-1 text-gray-900 border-gray-300 px-4 py-2 rounded-md mb-2 block"
+        oninput="routers_suggestions(event,this)"
+      />
+      <div
+        class="suggestions hidden justify-items-center absolute top-12 w-full bg-white z-10 border-2 border-gray-300 rounded-md"
+      ></div>
+    </div>
     <a
       class="inline-block rounded-md bg-primary-600 text-white px-4 py-2"
-      href="{% url 'create-category' %}"
+      href="{% url 'create-router' %}"
       >Create one</a
     >
     {% endif %}
   </div>
-  {% if page_obj %} {% for category in page_obj %}
+  {% if page_obj %}
+
   <table
     class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
   >
@@ -27,23 +39,23 @@
       </tr>
     </thead>
     <tbody>
-      {% for category in page_obj %}
+      {% for router in page_obj %}
       <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
         <th
           scope="row"
           class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
         >
-          {{ category.name }}
+          {{ router.category.name }}
         </th>
-        <td class="px-6 py-4">{{ category.type }}</td>
-        <td class="px-6 py-4">300</td>
-        <td class="px-6 py-4">{{ category.created_at|date:'Y-m-d H:i' }}</td>
+        <td class="px-6 py-4">{{ router.serial_number }}</td>
+        <td class="px-6 py-4">{{ router.emei }}</td>
+        <td class="px-6 py-4">{{ router.created_at|date:'Y-m-d H:i' }}</td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
 
-  {% endfor %} {% else %}
+  {% else %}
   <p>You have no categories</p>
   {% endif %}
 
