@@ -34,6 +34,11 @@ class Category(models.Model):
     def __str__(self):
         return self.name
     
+    def count_routers(self):
+        results = self.router_set.all().count()
+        print(results)
+        return results
+    
     class Meta:
         verbose_name_plural = "categories"
 

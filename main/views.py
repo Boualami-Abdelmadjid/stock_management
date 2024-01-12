@@ -140,7 +140,6 @@ class CreateCategoryView(View):
         try:
             user = req.user
             store = user.store
-            print(user,store)
             #We format the body of the request to a python object
             body = json.loads(req.body)
             #We retrieve the name from the body of the request
@@ -203,6 +202,50 @@ class RoutersView(ListView):
     def get_queryset(self):
         user = self.request.user
         return Router.objects.filter(store=user.store).order_by('-id')  
+    
+    def get_context_data(self,**kwargs):
+        context = super(RoutersView,self).get_context_data(**kwargs)
+        context['categories'] =  Category.objects.filter(store=self.request.user.store)
+        return context
+
+class RouterView(View):
+    def put(self,req):
+        res = {"status":500,"message":"Something wrong hapenned"}
+        try:
+            body = json.loads(req.body)
+            router_id = body.get('id')
+            category = body.get('category')
+            serial_number = body.get('serial_number')
+            emei = body.get('emei')
+            
+            category_instance = Category.objects.filter(id=category).first()
+            router = Router.objects.filter(store = req.user.store,id=router_id).first()
+            router.category = category_instance
+            router.serial_number = serial_number
+            router.emei = emei
+            router.save()
+            res['status'] = 200
+            res['message'] = 'Router edited successfully'
+
+        except Exception as e:
+            print(e)
+        return JsonResponse(res,status=res['status'])
+    
+    def delete(self,req):
+        res = {"status":500,"message":"Something wrong hapenned"}
+        try:
+            body = json.loads(req.body)
+            router_id = body.get('id')
+            router = Router.objects.filter(store = req.user.store, id=router_id).first()
+            if router:
+                router.delete()
+                res['message'] = 'Router deleted successfully'
+                res['status'] = 200
+        except Exception as e:
+            print(e)
+        return JsonResponse(res,status=res['status'])
+
+
 
 class RouterSuggestions(View):
     def get(self,req):
@@ -213,6 +256,20 @@ class RouterSuggestions(View):
             routers = list(Router.objects.filter(Q(store = user.store) & (Q(emei__startswith=value) | Q(serial_number__startswith=value))).values('emei'))
             res['status'] = 200
             res['routers'] = routers
+            del res['message']
+        except Exception as e:
+            print(e)
+        return JsonResponse(res,status=res['status'])
+    
+class CategorySuggestions(View):
+    def get(self,req):
+        res = {"status":500,"message":"Something wrong hapenned"}
+        try :
+            user = req.user
+            value = req.GET.get('value')
+            categories = list(Category.objects.filter(store = user.store ,name__startswith=value).values('name'))
+            res['status'] = 200
+            res['categories'] = categories
             del res['message']
         except Exception as e:
             print(e)

@@ -1,10 +1,21 @@
 {% extends 'base/root.html' %} {% block content %}
-<main class="max-w-[1400px] mx-auto py-8">
+<main class="max-w-[1400px] mx-auto py-8 relative">
   <div
     class="flex justify-between mt-8 mb-4 items-center text-primary-500 font-medium"
   >
     <h1 class="text-xl">Categories</h1>
     {% if page_obj %}
+    <div class="relative">
+      <input
+        type="text"
+        placeholder="Search.."
+        class="border-1 text-gray-900 border-gray-300 px-4 py-2 rounded-md mb-2 block"
+        oninput="categories_suggestions(event,this)"
+      />
+      <div
+        class="suggestions hidden justify-items-center absolute top-12 w-full bg-white z-10 border-2 border-gray-300 rounded-md"
+      ></div>
+    </div>
     <a
       class="inline-block rounded-md bg-primary-600 text-white px-4 py-2"
       href="{% url 'create-category' %}"
@@ -21,9 +32,10 @@
     >
       <tr>
         <th scope="col" class="px-6 py-3">Category</th>
-        <th scope="col" class="px-6 py-3">Serial number</th>
-        <th scope="col" class="px-6 py-3">EMEI</th>
+        <th scope="col" class="px-6 py-3">Type</th>
+        <th scope="col" class="px-6 py-3">Amount of routers</th>
         <th scope="col" class="px-6 py-3">Created at</th>
+        <th scope="col" class="px-6 py-3">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -36,8 +48,14 @@
           {{ category.name }}
         </th>
         <td class="px-6 py-4">{{ category.type }}</td>
-        <td class="px-6 py-4">300</td>
+        <td class="px-6 py-4">{{ category.count_routers }}</td>
         <td class="px-6 py-4">{{ category.created_at|date:'Y-m-d H:i' }}</td>
+        <td class="px-6 py-4 flex gap-4">
+          <i
+            class="fa-regular fa-pen-to-square text-lg text-primary-400 cursor-pointer"
+          ></i>
+          <i class="fa-solid fa-trash text-lg text-red-400 cursor-pointer"></i>
+        </td>
       </tr>
       {% endfor %}
     </tbody>

@@ -42,7 +42,7 @@
             {{ category.name }}
           </th>
           <td class="px-6 py-4">{{ category.type }}</td>
-          <td class="px-6 py-4">300</td>
+          <td class="px-6 py-4">{{ category.count_routers }}</td>
           <td class="px-6 py-4">{{ category.created_at|date }}</td>
         </tr>
         {% endfor %}
