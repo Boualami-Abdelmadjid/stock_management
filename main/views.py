@@ -15,6 +15,9 @@ from django.contrib.auth import authenticate, login
 from main.models import *
 from main.common import *
 
+import logging
+logger = logging.getLogger(__name__)
+
 # Create your views here.
 
 class HomePage(View):
@@ -50,12 +53,10 @@ class SignupView(View):
                 if password1 != password2:
                     res['message'] = 'Passwords do not match'
                 elif len(password1) < 8:
-                    print(len(password1))
                     res['message'] = 'The password is too short'
                 elif username_or_email_exists(username,email):
                     res['message'] = 'Username or email already exists'
                 else:
-                    print('here')
                     #First create the user instance with the username only
                     user = User.objects.create(username=username,email=email)
                     #Later use set_password method, this method will hash the password of the user instead of leaving it in plain text (For security)
@@ -66,7 +67,7 @@ class SignupView(View):
 
                 
         except Exception as e:
-            print(e)
+            logger.exception(e)
         return JsonResponse(res, status=res['status'])
     
 class LoginView(View):
@@ -79,10 +80,8 @@ class LoginView(View):
             body = json.loads(req.body)
             username = body.get('username')
             password = body.get('password')
-            print(username,password)
             if username and password:
                 #Check if a user with the username or email provided exists
-                print(username,password)
                 user = authenticate(req, username = username, password=password)
                 if not user:
                     #In case the user tried to login using his email, find the user and authenticate using the username of the found user
@@ -104,7 +103,7 @@ class LoginView(View):
 
                 
         except Exception as e:
-            print(e)
+            logger.exception(e)
         return JsonResponse(res, status=res['status'])
     
 class ProfileView(View):
@@ -118,6 +117,10 @@ class ProfileView(View):
     def post(self,req):
         res = {"status":500,"message":"Something wrong hapenned"}
         try:
+            if req.user.role != "store_manager":
+                res['status'] = 403
+                res['message'] = "You don't have enough permissions"
+                return JsonResponse(res,status=res['status'])
             store = req.user.store
             body = json.loads(req.body)
             username = body.get('username')
@@ -133,7 +136,7 @@ class ProfileView(View):
             else :
                 res['message'] = 'User not found'
         except Exception as e:
-            print(e)
+            logger.exception(e)
         return JsonResponse(res,status=res['status'])
     
     def delete(self,req):
@@ -156,7 +159,7 @@ class ProfileView(View):
             else:
                 res['message'] = "Can't find the user"
         except Exception as e:
-            print(e)
+            logger.exception(e)
         return JsonResponse(res,status=res['status'])
 
         
@@ -184,7 +187,7 @@ class CreateStoreView(View):
             res['status'] = 200
             del res['message']
         except Exception as e:
-            print(e)
+            logger.exception(e)
         return JsonResponse(res,status=res['status'])
 
 class CreateCategoryView(View):
@@ -193,6 +196,10 @@ class CreateCategoryView(View):
     def post(self,req):
         res = {"status":500,"message":"Something wrong hapenned"}
         try:
+            if req.user.role != "store_manager":
+                res['status'] = 403
+                res['message'] = "You don't have enough permissions"
+                return JsonResponse(res,status=res['status'])
             user = req.user
             store = user.store
             #We format the body of the request to a python object
@@ -207,7 +214,7 @@ class CreateCategoryView(View):
             res['status'] = 200
             del res['message']
         except Exception as e:
-            print(e)
+            logger.exception(e)
         return JsonResponse(res,status=res['status'])
     
 class CreateRouterView(View):
@@ -220,6 +227,10 @@ class CreateRouterView(View):
     def post(self,req):
         res = {"status":500,"message":"Something wrong hapenned"}
         try:
+            if req.user.role != "store_manager":
+                res['status'] = 403
+                res['message'] = "You don't have enough permissions"
+                return JsonResponse(res,status=res['status'])
             user = req.user
             store = user.store
             #We format the body of the request to a python object
@@ -236,7 +247,7 @@ class CreateRouterView(View):
             res['status'] = 200
             del res['message']
         except Exception as e:
-            print(e)
+            logger.exception(e)
         return JsonResponse(res,status=res['status'])
     
 class CategoriesView(ListView):
@@ -252,6 +263,10 @@ class CategoryView(View):
     def put(self,req):
         res = {"status":500,"message":"Something wrong hapenned"}
         try:
+            if req.user.role != "store_manager":
+                res['status'] = 403
+                res['message'] = "You don't have enough permissions"
+                return JsonResponse(res,status=res['status'])
             body = json.loads(req.body)
             category_id = body.get('id')
             name = body.get('name')
@@ -266,7 +281,7 @@ class CategoryView(View):
                 res['message'] = 'Category edited successfully'
 
         except Exception as e:
-            print(e)
+            logger.exception(e)
         return JsonResponse(res,status=res['status'])
     
     def delete(self,req):
@@ -284,7 +299,7 @@ class CategoryView(View):
                 res['message'] = 'Category deleted successfully'
                 res['status'] = 200
         except Exception as e:
-            print(e)
+            logger.exception(e)
         return JsonResponse(res,status=res['status'])
 
     
@@ -306,6 +321,10 @@ class RouterView(View):
     def put(self,req):
         res = {"status":500,"message":"Something wrong hapenned"}
         try:
+            if req.user.role != "store_manager":
+                res['status'] = 403
+                res['message'] = "You don't have enough permissions"
+                return JsonResponse(res,status=res['status'])
             body = json.loads(req.body)
             router_id = body.get('id')
             category = body.get('category')
@@ -322,13 +341,12 @@ class RouterView(View):
             res['message'] = 'Router edited successfully'
 
         except Exception as e:
-            print(e)
+            logger.exception(e)
         return JsonResponse(res,status=res['status'])
     
     def delete(self,req):
         res = {"status":500,"message":"Something wrong hapenned"}
         try:
-            print(req.user.role)
             if req.user.role != "store_manager":
                 res['status'] = 403
                 res['message'] = "You don't have enough permissions"
@@ -341,7 +359,7 @@ class RouterView(View):
                 res['message'] = 'Router deleted successfully'
                 res['status'] = 200
         except Exception as e:
-            print(e)
+            logger.exception(e)
         return JsonResponse(res,status=res['status'])
 
 
@@ -357,7 +375,7 @@ class RouterSuggestions(View):
             res['routers'] = routers
             del res['message']
         except Exception as e:
-            print(e)
+            logger.exception(e)
         return JsonResponse(res,status=res['status'])
     
 class CategorySuggestions(View):
@@ -371,7 +389,7 @@ class CategorySuggestions(View):
             res['categories'] = categories
             del res['message']
         except Exception as e:
-            print(e)
+            logger.exception(e)
         return JsonResponse(res,status=res['status'])
 
 

@@ -9,11 +9,13 @@
     >
       <h2 class="text-xl">Categories</h2>
       {% if categories %}
+      {% if user.role == 'store_manager' %}
       <a
         class="inline-block rounded-md bg-primary-600 text-white px-4 py-2"
         href="{% url 'create-category' %}"
         >Create one</a
       >
+      {% endif %}
       {% endif %}
     </div>
     {% if categories %}
@@ -28,7 +30,9 @@
           <th scope="col" class="px-6 py-3">Type</th>
           <th scope="col" class="px-6 py-3">Number of routers</th>
           <th scope="col" class="px-6 py-3">Created at</th>
+          {% if user.role == 'store_manager' %}
           <th scope="col" class="px-6 py-3">Actions</th>
+          {% endif %}
         </tr>
       </thead>
       <tbody>
@@ -48,6 +52,7 @@
           <td class="px-6 py-4">{{ category.type }}</td>
           <td class="px-6 py-4">{{ category.count_routers }}</td>
           <td class="px-6 py-4">{{ category.created_at|date:'Y-m-d H:i' }}</td>
+          {% if user.role == 'store_manager' %}
           <td class="px-6 py-4 flex gap-4">
             <i
               title="edit"
@@ -60,6 +65,7 @@
               onclick="delete_category({{category.id}})"
             ></i>
           </td>
+          {% endif %}
         </tr>
         {% endfor %}
       </tbody>
@@ -86,11 +92,13 @@
     >
       <h2 class="text-xl">Routers</h2>
       {% if routers %}
+      {% if user.role == 'store_manager' %}
       <a
         class="inline-block rounded-md bg-primary-600 text-white px-4 py-2"
         href="{% url 'create-router' %}"
         >Create one</a
       >
+      {% endif %}
       {% endif %}
     </div>
     {% if routers %}
@@ -105,7 +113,9 @@
           <th scope="col" class="px-6 py-3">EMEI</th>
           <th scope="col" class="px-6 py-3">Serial number</th>
           <th scope="col" class="px-6 py-3">Created at</th>
+          {% if user.role == 'store_manager' %}
           <th scope="col" class="px-6 py-3">Actions</th>
+          {% endif %}
         </tr>
       </thead>
       <tbody>
@@ -126,6 +136,7 @@
           <td class="px-6 py-4">{{ router.emei }}</td>
           <td class="px-6 py-4">{{router.serial_number }}</td>
           <td class="px-6 py-4">{{ router.created_at|date:'Y-m-d H:i' }}</td>
+          {% if user.role == 'store_manager' %}
           <td class="px-6 py-4 flex gap-4">
             <i
               title="edit"
@@ -138,6 +149,7 @@
               onclick="delete_router({{router.id}})"
             ></i>
           </td>
+          {% endif %}
         </tr>
         {% endfor %}
       </tbody>
@@ -162,6 +174,9 @@
   <a class="block text-xl text-primary-500" href="{% url 'create-store' %}"
     >Create a store</a
   >
-  {% endif %} {% include 'main/router/edit-form.html' %} {% include 'main/category/edit-form.html' %}
+  {% endif %} 
+  {% if user.role == 'store_manager' %}
+  {% include 'main/router/edit-form.html' %} {% include 'main/category/edit-form.html' %}
+  {% endif %}
 </main>
 {% endblock %}

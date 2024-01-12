@@ -16,12 +16,15 @@
         class="suggestions hidden justify-items-center absolute top-12 w-full bg-white z-10 border-2 border-gray-300 rounded-md"
       ></div>
     </div>
+    {% if user.role == 'store_manager' %}
     <a
       class="inline-block rounded-md bg-primary-600 text-white px-4 py-2"
       href="{% url 'create-router' %}"
       >Create one</a
     >
-    {% endif %}
+    {% else %}
+    <span></span>
+    {% endif %} {% endif %}
   </div>
   {% if page_obj %}
 
@@ -36,7 +39,9 @@
         <th scope="col" class="px-6 py-3">Serial number</th>
         <th scope="col" class="px-6 py-3">EMEI</th>
         <th scope="col" class="px-6 py-3">Created at</th>
+        {% if user.role == 'store_manager' %}
         <th scope="col" class="px-6 py-3">Actions</th>
+        {% endif %}
       </tr>
     </thead>
     <tbody>
@@ -57,6 +62,7 @@
         <td class="px-6 py-4">{{ router.serial_number }}</td>
         <td class="px-6 py-4">{{ router.emei }}</td>
         <td class="px-6 py-4">{{ router.created_at|date:'Y-m-d H:i' }}</td>
+        {% if user.role == 'store_manager' %}
         <td class="px-6 py-4 flex gap-4">
           <i
             title="edit"
@@ -69,6 +75,7 @@
             onclick="delete_router({{router.id}})"
           ></i>
         </td>
+        {% endif %}
       </tr>
       {% endfor %}
     </tbody>
@@ -94,11 +101,10 @@
     <a class="px-3 py-1 rounded-md border-2" href="?page={{ i }}">{{ i }}</a>
 
     {% endif %} {% endif %} {% endfor %}
-
   </div>
-
+  {% if user.role == 'store_manager' %}
   <!-- Edit form -->
-  {% include 'main/router/edit-form.html' %}
+  {% include 'main/router/edit-form.html' %} {% endif %}
 </main>
 
 {% endblock %}

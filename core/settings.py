@@ -152,3 +152,43 @@ INTERNAL_IPS = [
 
 NPM_BIN_PATH = 'npm.cmd'
 TAILWIND_CSS_PATH = 'css/tailwind.css'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s',
+        },
+    },
+    'handlers': {
+        'default': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': BASE_DIR / "logs" / "debug.log",
+            'formatter': 'standard',
+            'maxBytes' : 1024*1024*25, # 25MB
+            'backupCount': 100, # 100 max backup files
+        },
+        'main': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': BASE_DIR / "logs" / "main.log",
+            'formatter': 'standard',
+            'maxBytes' : 1024*1024*25, # 25MB
+            'backupCount': 100, # 100 max backup files
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['default'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'main': {
+            'handlers': ['main'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}

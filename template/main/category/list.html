@@ -16,14 +16,17 @@
         class="suggestions hidden justify-items-center absolute top-12 w-full bg-white z-10 border-2 border-gray-300 rounded-md"
       ></div>
     </div>
+    {% if user.role == 'store_manager' %}
     <a
       class="inline-block rounded-md bg-primary-600 text-white px-4 py-2"
       href="{% url 'create-category' %}"
       >Create one</a
     >
-    {% endif %}
+    {% else %}
+    <span></span>
+    {% endif %} {% endif %}
   </div>
-  {% if page_obj %} 
+  {% if page_obj %}
   <table
     class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
   >
@@ -35,7 +38,9 @@
         <th scope="col" class="px-6 py-3">Type</th>
         <th scope="col" class="px-6 py-3">Amount of routers</th>
         <th scope="col" class="px-6 py-3">Created at</th>
+        {% if user.role == 'store_manager' %}
         <th scope="col" class="px-6 py-3">Actions</th>
+        {% endif %}
       </tr>
     </thead>
     <tbody>
@@ -55,6 +60,7 @@
         <td class="px-6 py-4">{{ category.type }}</td>
         <td class="px-6 py-4">{{ category.count_routers }}</td>
         <td class="px-6 py-4">{{ category.created_at|date:'Y-m-d H:i' }}</td>
+        {% if user.role == 'store_manager' %}
         <td class="px-6 py-4 flex gap-4">
           <i
             title="edit"
@@ -67,12 +73,13 @@
             onclick="delete_category({{category.id}})"
           ></i>
         </td>
+        {% endif %}
       </tr>
       {% endfor %}
     </tbody>
   </table>
 
-   {% else %}
+  {% else %}
   <p>You have no categories</p>
   {% endif %}
 

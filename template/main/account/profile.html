@@ -31,12 +31,14 @@
       class="flex justify-between mt-2 mb-4 items-center text-primary-500 font-medium"
     >
       <h3 class="text-xl text-primary-400">Users of the store</h3>
+      {% if user.role == 'store_manager' %}
       <button
         class="inline-block rounded-md bg-primary-600 text-white px-4 py-2"
         onclick="show_user_form(this,'add')"
       >
         Add one
       </button>
+      {% endif %}
     </div>
     <div class="flex flex-col gap-2 my-2">
       <div
@@ -44,7 +46,9 @@
       >
         <p>Username</p>
         <p>Role</p>
+        {% if user.role == 'store_manager' %}
         <p>Actions</p>
+        {% endif %}
       </div>
       {% for store_user in store_users %}
       <div
@@ -55,6 +59,7 @@
       >
         <p>{{store_user.username }}</p>
         <p>{{store_user.role }}</p>
+        {% if user.role == 'store_manager' %}
         <p class="flex gap-4">
           <i
             title="edit"
@@ -67,6 +72,7 @@
             onclick="delete_user_from_group(this)"
           ></i>
         </p>
+        {% endif %}
       </div>
       {% empty %}
       <div
@@ -80,6 +86,7 @@
     </div>
   </div>
 
+  {% if user.role == 'store_manager' %}
   <div
     class="edit_form user absolute hidden inset-0 w-full h-full backdrop-blur-md py-8"
   >
@@ -149,5 +156,6 @@
       </div>
     </div>
   </div>
+  {% endif %}
 </main>
 {% endblock %}
