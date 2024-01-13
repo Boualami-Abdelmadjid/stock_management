@@ -9,11 +9,14 @@ class StoreAdmin(admin.ModelAdmin):
     list_display=('name','created_at')
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display=('name','type','store','created_at')
+    list_display=('name','type','store','deleted','created_at')
+    list_editable = ('deleted',)
 
 class RouterAdmin(admin.ModelAdmin):
-    list_display=('store','category','emei','serial_number','created_at')
+    list_display=('store','category','emei','serial_number','deleted','created_at')
     search_fields = ('store__name','email','serial_number')
+    list_editable = ('deleted',)
+
 
 class LogAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Log._meta.get_fields()]

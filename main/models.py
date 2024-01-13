@@ -40,7 +40,7 @@ class Category(models.Model):
         return self.name
     
     def count_routers(self):
-        results = self.router_set.all().count()
+        results = self.router_set.filter(deleted=False).count()
         return results
     
     class Meta:
@@ -84,9 +84,9 @@ class Log(models.Model):
     
 class Monitoring(models.Model):
     store = models.ForeignKey(Store,on_delete=models.CASCADE)
-    day = models.DateField(auto_now=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     routers = models.IntegerField(default=0)
+    day = models.DateField(auto_now=True)
 
     def __str__(self):
         return str(self.day)+' '+self.category.name

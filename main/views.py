@@ -176,35 +176,46 @@ class DashboardView(View):
 
         #Routers per category section
         categories = Category.objects.filter(store=store,deleted=False)
+        
         for index,category in enumerate(categories):
             obj = []
-            for day in days:
+            for day_index,day in enumerate(days):
                 date_start = day
                 date_end = day + timedelta(days=1)
                 monitoring = Monitoring.objects.filter(store=store,category=category,day__gte=date_start,day__lt=date_end).first()
                 if monitoring:
                     obj.append(monitoring.routers)
                 else:
-                    obj.append(0)
+                    default = 0
+                    if day_index > 0:
+                        default = obj[day_index - 1]
+                    obj.append(default)
             color = colors[index % len(colors)]
             monitor_obj = {'label':category.name,'values':obj,'color':color+'33','border':color}
             
             monitors.append(monitor_obj)
         
         #Routers by store section
-        for day in days:
+        for day_index,day in enumerate(days):
             date_start = day
             date_end = day + timedelta(days=1)
             condition1 = Q(store=store)
             condition2 = Q(day__gte=date_start)
             condition3 = Q(day__lt=date_end)
+
             condition = Case(
                 When(condition1 & condition2 & condition3, then=F('routers')),
                 default=0,
                 output_field=IntegerField()
             )
             result = Monitoring.objects.aggregate(total=Sum(condition))
-            store_monitors.append(result.get('total'))
+            total = result.get('total')
+            #When there is no entry for this date, and index > 1, keep the same amount of routers of yesterday for today
+            if not total and day_index > 0 and not Monitoring.objects.filter(store=store,day__gte=date_start,day__lt=date_end):
+                total = store_monitors[day_index - 1]
+
+                
+            store_monitors.append(total)
             # monitoring = Monitoring.objects.filter(store=store,day__gte=date_start,day__lt=date_end)
         context['store_monitors'] = store_monitors    
         context['monitors'] = monitors

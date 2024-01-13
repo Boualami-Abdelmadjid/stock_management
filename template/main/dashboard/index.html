@@ -78,10 +78,12 @@
   // Configuration options for the chart
   var options = {
     scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+    }
   };
 
   // Get the canvas element
