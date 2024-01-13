@@ -1,0 +1,98 @@
+{% extends 'base/root.html' %} {% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<main class="max-w-[1400px] mx-auto py-8">
+  <h1 class="text-primary-500 text-xl font-semibold my-4">Dashboard</h1>
+
+  <div class="flex justify-around w-full my-8">
+    <div class="w-5/12 h-full">
+      <p class="text-primary-400 text-center font-medium mb-2 text-lg">
+        Routers by category
+      </p>
+      <canvas id="myBarChart"></canvas>
+    </div>
+    <div class="w-5/12 h-full">
+      <p class="text-primary-400 text-center font-medium mb-2 text-lg">
+        Routers by store
+      </p>
+      <canvas id="myLineChart"></canvas>
+    </div>
+  </div>
+</main>
+<script>
+  // Sample data for the bar chart
+  {% for monitor in monitors %}
+  console.log('{{monitor.label}}')
+  console.log({{monitor.values|safe}})
+  {% endfor %}
+  let data = {
+    labels: {{days|safe}},
+    datasets: [
+    {% for monitor in monitors %}
+    {
+        label: "{{monitor.label}}",
+        data: {{monitor.values|safe}},
+        backgroundColor: "{{monitor.color}}",
+        borderColor: "{{monitor.border}}",
+        borderWidth: 1,
+      },
+    {% endfor %}
+    ],
+  };
+
+  // Configuration options for the chart
+  var options = {
+    scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+    }
+  };
+
+  // Get the canvas element
+  var ctx = document.getElementById("myBarChart").getContext("2d");
+
+  // Create the bar chart
+  var myBarChart = new Chart(ctx, {
+    type: "bar",
+    data: data,
+    options: options,
+  });
+</script>
+<script>
+  // Sample data for the line chart
+  let LineData = {
+    labels: {{days|safe}},
+    datasets: [
+      {
+        label: "{{user.store.name}}",
+        data: {{store_monitors|safe}},
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  // Configuration options for the chart
+  var options = {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  };
+
+  // Get the canvas element
+  var ctx = document.getElementById("myLineChart").getContext("2d");
+  document.getElementById("myLineChart").width = "300";
+
+  // Create the line chart
+  var myLineChart = new Chart(ctx, {
+    type: "line",
+    data: LineData,
+    options: options,
+  });
+</script>
+{% endblock %}

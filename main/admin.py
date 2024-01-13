@@ -18,8 +18,13 @@ class RouterAdmin(admin.ModelAdmin):
 class LogAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Log._meta.get_fields()]
 
+class MonitoringAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in Monitoring._meta.get_fields()]
+
+
 admin.site.register(User,UserAdmin)
 admin.site.register(Store,StoreAdmin)
 admin.site.register(Category,CategoryAdmin)
 admin.site.register(Router,RouterAdmin)
 admin.site.register(Log,LogAdmin)
+admin.site.register(Monitoring,MonitoringAdmin)

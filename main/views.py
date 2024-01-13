@@ -4,13 +4,14 @@
 #Last import custom method written by you
 
 import json
+from datetime import datetime,timedelta
 
 from django.shortcuts import render
 from django.views.generic import View
 from django.views.generic.list import ListView
 from django.http import JsonResponse
-from django.db.models import Q
 from django.contrib.auth import authenticate, login
+from django.db.models import Q,Sum, F, Case, When, IntegerField
 
 from main.models import *
 from main.common import *
@@ -163,7 +164,52 @@ class ProfileView(View):
         return JsonResponse(res,status=res['status'])
 
         
+class DashboardView(View):
+    def get(self,req):
+        user = req.user
+        store = user.store
+        context = {}
+        monitors = []
+        store_monitors = []
+        colors = ["#e58989","#edcb8d","#6868e5"]
+        days = list(reversed([datetime.today() - timedelta(days=x) for x in range(5)]))
 
+        #Routers per category section
+        categories = Category.objects.filter(store=store,deleted=False)
+        for index,category in enumerate(categories):
+            obj = []
+            for day in days:
+                date_start = day
+                date_end = day + timedelta(days=1)
+                monitoring = Monitoring.objects.filter(store=store,category=category,day__gte=date_start,day__lt=date_end).first()
+                if monitoring:
+                    obj.append(monitoring.routers)
+                else:
+                    obj.append(0)
+            color = colors[index % len(colors)]
+            monitor_obj = {'label':category.name,'values':obj,'color':color+'33','border':color}
+            
+            monitors.append(monitor_obj)
+        
+        #Routers by store section
+        for day in days:
+            date_start = day
+            date_end = day + timedelta(days=1)
+            condition1 = Q(store=store)
+            condition2 = Q(day__gte=date_start)
+            condition3 = Q(day__lt=date_end)
+            condition = Case(
+                When(condition1 & condition2 & condition3, then=F('routers')),
+                default=0,
+                output_field=IntegerField()
+            )
+            result = Monitoring.objects.aggregate(total=Sum(condition))
+            store_monitors.append(result.get('total'))
+            # monitoring = Monitoring.objects.filter(store=store,day__gte=date_start,day__lt=date_end)
+        context['store_monitors'] = store_monitors    
+        context['monitors'] = monitors
+        context['days'] = [day.strftime("%A") for day in days]
+        return render(req,'main/dashboard/index.html',context=context)
     
 
 class CreateStoreView(View):

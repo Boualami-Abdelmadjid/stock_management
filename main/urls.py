@@ -12,6 +12,7 @@ urlpatterns = [
     path('login/',LoginView.as_view(), name="login"),
     path('logout/',LogoutView.as_view(), name="logout"),
     path('profile/',ProfileView.as_view(), name="profile"),
+    path('dashboard/',DashboardView.as_view(), name="dashboard"),
     path('categories/',CategoriesView.as_view(), name="categories"),
     path('category/',CategoryView.as_view(), name="category"),
     path('routers/',RoutersView.as_view(), name="routers"),
