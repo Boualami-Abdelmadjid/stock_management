@@ -3,11 +3,13 @@
 >
   <div class="flex gap-8 items-center">
     <a href="/" class="cursor-pointer">Home</a>
+    <a class="cursor-pointer" href="#">Dashboard</a>
+    <a class="cursor-pointer" href="{% url 'logs' %}">Logs</a>
     <a class="cursor-pointer" href="{% url 'categories' %}">Categories</a>
     <a class="cursor-pointer" href="{% url 'routers' %}">Routers</a>
     <a class="cursor-pointer" href="{% url 'profile' %}">Profile</a>
     {% if user.is_superuser %}
-    <a class="cursor-pointer" href="/admin">Admin</a>
+    <a class="cursor-pointer" target="_blank" href="/admin">Admin</a>
     {% endif %}
   </div>
   <div class="flex gap-8 items-center">

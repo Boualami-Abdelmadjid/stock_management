@@ -21,4 +21,5 @@ urlpatterns = [
     path('create-store/',login_required(CreateStoreView.as_view()), name="create-store"),
     path('create-category/',login_required(CreateCategoryView.as_view()), name="create-category"),
     path('create-router/',login_required(CreateRouterView.as_view()), name="create-router"),
+    path('logs/',LogsView.as_view(), name='logs')
 ]

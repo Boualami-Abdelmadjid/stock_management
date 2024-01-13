@@ -73,7 +73,7 @@
     {% if more_categories %}
     <a
       class="block text-center text-primary-400 mt-8 font-semibold underline"
-      href="#"
+      href="{% url 'categories' %}"
       >Show all categories</a
     >
     {% endif %} {% else %}
@@ -157,7 +157,7 @@
     {% if more_routers %}
     <a
       class="block text-center text-primary-400 mt-8 font-semibold underline"
-      href="#"
+      href="{% url 'routers' %}"
       >Show all routers</a
     >
     {% endif %} {% else %}

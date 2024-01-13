@@ -26,10 +26,10 @@ class HomePage(View):
         user = req.user
         #Get 6 categories and routers, display 5 only, if there are more than 6 then we know there is more than 5 and we show the button 
         #that redirect to page that shows all the categories/routers
-        categories = Category.objects.filter(store=user.store)[:6]
-        routers = Router.objects.filter(store=user.store)[:6]
-        context['more_categories'] = len(categories) > 1
-        context['more_routers'] = len(routers) > 1
+        categories = Category.objects.filter(store=user.store,deleted=False)[:6]
+        routers = Router.objects.filter(store=user.store,deleted=False)[:6]
+        context['more_categories'] = len(categories) > 5
+        context['more_routers'] = len(routers) > 5
         context['categories'] = categories[:5]
         context['routers'] = routers[:5]
         
@@ -210,6 +210,7 @@ class CreateCategoryView(View):
             #Create the Category and save it
             category = Category.objects.create(name=name,type=category_type,store=store)
             category.save()
+            Log.objects.create(user = user,store = store,instance='category',instance_id=category.id,category_name=category.name,action='add')
 
             res['status'] = 200
             del res['message']
@@ -221,7 +222,7 @@ class CreateRouterView(View):
     def get(self,req):
         context = {}
         store = req.user.store
-        categories = list(Category.objects.filter(store=store).values())
+        categories = list(Category.objects.filter(store=store,deleted=False).values())
         context['categories'] = categories
         return render(req,'main/router/create-router.html',context=context)
     def post(self,req):
@@ -243,6 +244,7 @@ class CreateRouterView(View):
             category = Category.objects.filter(id=category).first()
             router = Router.objects.create(store=store,category=category,emei=emei,serial_number=serial_number)
             router.save()
+            Log.objects.create(user = user,store = store,instance='router',instance_id=router.id,emei=router.emei,action='add')
 
             res['status'] = 200
             del res['message']
@@ -257,7 +259,7 @@ class CategoriesView(ListView):
 
     def get_queryset(self):
         user = self.request.user
-        return Category.objects.filter(store=user.store).order_by('-id')
+        return Category.objects.filter(store=user.store,deleted=False).order_by('-id')
     
 class CategoryView(View):
     def put(self,req):
@@ -277,6 +279,7 @@ class CategoryView(View):
                 category.name = name
                 category.type = category_type
                 category.save()
+                Log.objects.create(user = req.user,store = req.user.store,instance='category',instance_id=category.id,category_name=category.name,action='edit')
                 res['status'] = 200
                 res['message'] = 'Category edited successfully'
 
@@ -295,7 +298,9 @@ class CategoryView(View):
             category_id = body.get('id')
             category = Category.objects.filter(store = req.user.store, id=category_id).first()
             if category:
-                category.delete()
+                category.deleted = True
+                category.save()
+                Log.objects.create(user = req.user,store = req.user.store,instance='category',instance_id=category.id,category_name=category.name,action='delete')
                 res['message'] = 'Category deleted successfully'
                 res['status'] = 200
         except Exception as e:
@@ -310,11 +315,11 @@ class RoutersView(ListView):
 
     def get_queryset(self):
         user = self.request.user
-        return Router.objects.filter(store=user.store).order_by('-id')  
+        return Router.objects.filter(store=user.store,deleted=False).order_by('-id')  
     
     def get_context_data(self,**kwargs):
         context = super(RoutersView,self).get_context_data(**kwargs)
-        context['categories'] =  Category.objects.filter(store=self.request.user.store)
+        context['categories'] =  Category.objects.filter(store=self.request.user.store,deleted=False)
         return context
 
 class RouterView(View):
@@ -337,6 +342,7 @@ class RouterView(View):
             router.serial_number = serial_number
             router.emei = emei
             router.save()
+            Log.objects.create(user = req.user,store = req.user.store,instance='router',instance_id=router.id,emei=router.emei,action='edit')
             res['status'] = 200
             res['message'] = 'Router edited successfully'
 
@@ -355,7 +361,10 @@ class RouterView(View):
             router_id = body.get('id')
             router = Router.objects.filter(store = req.user.store, id=router_id).first()
             if router:
-                router.delete()
+                router.deleted = True
+                router.save()
+                Log.objects.create(user = req.user,store = req.user.store,instance='router',instance_id=router.id,emei=router.emei,action='delete')
+                logger.info(f'{req.user.username} deleted router with sn: {router.serial_number} - emei : {router.emei}')
                 res['message'] = 'Router deleted successfully'
                 res['status'] = 200
         except Exception as e:
@@ -370,7 +379,7 @@ class RouterSuggestions(View):
         try :
             user = req.user
             value = req.GET.get('value')
-            routers = list(Router.objects.filter(Q(store = user.store) & (Q(emei__startswith=value) | Q(serial_number__startswith=value))).values('emei'))
+            routers = list(Router.objects.filter(Q(store = user.store) & Q(deleted = False) & (Q(emei__startswith=value) | Q(serial_number__startswith=value))).values('emei'))
             res['status'] = 200
             res['routers'] = routers
             del res['message']
@@ -384,13 +393,50 @@ class CategorySuggestions(View):
         try :
             user = req.user
             value = req.GET.get('value')
-            categories = list(Category.objects.filter(store = user.store ,name__startswith=value).values('name'))
+            categories = list(Category.objects.filter(store = user.store ,name__startswith=value,deleted=False).values('name'))
             res['status'] = 200
             res['categories'] = categories
             del res['message']
         except Exception as e:
             logger.exception(e)
         return JsonResponse(res,status=res['status'])
+    
+class LogsView(ListView):
+    model = Log
+    paginate_by = 20
+    template_name = "main/logs/list.html"
+
+    def get_queryset(self):
+        user = self.request.user
+        logs = Log.objects.filter(store=user.store).order_by('-id')
+        try:
+            query = self.request.GET
+            emei = query.get('emei')
+            searched_user = query.get('user')
+            action = query.get('action')
+            instance = query.get('instance')
+            if emei:
+                logs = logs.filter(Q(emei__icontains=emei) | Q(category_name__icontains=emei))
+            if searched_user:
+                searched_user_instance = User.objects.filter(store=user.store, id=searched_user).first()
+                if searched_user:
+                    logs = logs.filter(user = searched_user_instance)
+                else:
+                    logs = logs.none()
+            if action:
+                logs = logs.filter(action=action)
+            if instance:
+                logs = logs.filter(instance=instance)
+        except Exception as e:
+            logger.exception(e)
+        return logs
+    
+    def get_context_data(self,**kwargs):
+        context = super(LogsView,self).get_context_data(**kwargs)
+        user = self.request.user
+        store = user.store
+        context['users'] = User.objects.filter(Q(store = store) | Q(is_superuser = True))
+        return context
 
 
 
