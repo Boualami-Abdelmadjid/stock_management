@@ -8,9 +8,24 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}" />
     {% tailwind_css %}
     <script src="{% static 'js/main.js' %}"></script>
-    <script defer src="https://kit.fontawesome.com/f192566f0e.js" crossorigin="anonymous"></script>
+    <script
+      defer
+      src="https://kit.fontawesome.com/f192566f0e.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+    <script src="{% static 'js/common.js' %}"></script>
+
   </head>
-  <body>
+  <body id="root">
     {% include 'shared/navbar.html' %} {% csrf_token %} {% block content %} {% endblock %}
   </body>
 </html>

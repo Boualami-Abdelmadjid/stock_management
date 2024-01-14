@@ -19,7 +19,7 @@ const create_account = async (e, elem) => {
   if (res.status == 200) {
     window.location.href = "/";
   } else {
-    console.log(res);
+    show_error(res.message);
   }
 };
 
@@ -40,7 +40,7 @@ const login = async (e, elem) => {
   if (res.status == 200) {
     window.location.href = "/";
   } else {
-    console.log(res);
+    show_error(res.message);
   }
 };
 
@@ -57,9 +57,11 @@ const create_store = async (e, elem) => {
     },
   }).then((res) => res.json());
   if (res.status == 200) {
-    console.log("Store created successfully");
+    show_success("Store created successfully", () => {
+      window.location.href = "/";
+    });
   } else {
-    console.error(res.message);
+    show_error(res.message);
   }
 };
 
@@ -78,9 +80,11 @@ const create_category = async (e, elem) => {
     },
   }).then((res) => res.json());
   if (res.status == 200) {
-    console.log("Category created successfully");
+    show_success("Category created successfully", () => {
+      window.location.href = "/";
+    });
   } else {
-    console.error(res.message);
+    show_error(res.message);
   }
 };
 
@@ -99,9 +103,15 @@ const create_router = async (e, elem) => {
     },
   }).then((res) => res.json());
   if (res.status == 200) {
-    window.location.reload();
+    show_success(
+      "Router created successfully",
+      () => {
+        window.location.reload();
+      },
+      true
+    );
   } else {
-    console.error(res.message);
+    show_error(res.message);
   }
 };
 
@@ -121,9 +131,11 @@ const edit_router = async (e, elem) => {
     },
   }).then((res) => res.json());
   if (res.status == 200) {
-    window.location.reload();
+    show_success("Router edited successfully", () => {
+      window.location.reload();
+    });
   } else {
-    console.error(res.message);
+    show_error(res.message);
   }
 };
 
@@ -137,9 +149,11 @@ const delete_router = async (id) => {
     },
   }).then((res) => res.json());
   if (res.status == 200) {
-    window.location.reload();
+    show_success("Router deleted successfully", () => {
+      window.location.reload();
+    });
   } else {
-    console.error(res.message);
+    show_error(res.message);
   }
 };
 
@@ -204,7 +218,9 @@ const edit_category = async (e, elem) => {
     },
   }).then((res) => res.json());
   if (res.status == 200) {
-    window.location.reload();
+    show_success("Category edited successfully", () => {
+      window.location.reload();
+    });
   } else {
     console.error(res.message);
   }
@@ -270,9 +286,11 @@ const delete_category = async (id) => {
     },
   }).then((res) => res.json());
   if (res.status == 200) {
-    window.location.reload();
+    show_success("Category deleted successfully", () => {
+      window.location.reload();
+    });
   } else {
-    console.error(res.message);
+    show_error(res.message);
   }
 };
 
@@ -317,9 +335,11 @@ const add_user_to_store = async (e, elem) => {
     },
   }).then((res) => res.json());
   if (res.status == 200) {
-    window.location.reload();
+    show_success("User added successfully", () => {
+      window.location.reload();
+    });
   } else {
-    console.log(res);
+    show_error(res.message);
   }
 };
 
@@ -334,8 +354,10 @@ const delete_user_from_group = async (elem) => {
     },
   }).then((res) => res.json());
   if (res.status == 200) {
-    window.location.reload();
+    show_success("User deleted successfully", () => {
+      window.location.reload();
+    });
   } else {
-    console.log(res);
+    show_error(res.message);
   }
 };

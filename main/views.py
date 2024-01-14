@@ -12,6 +12,8 @@ from django.views.generic.list import ListView
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login
 from django.db.models import Q,Sum, F, Case, When, IntegerField
+from django.utils.timezone import get_current_timezone, make_aware, now
+
 
 from main.models import *
 from main.common import *
@@ -169,10 +171,28 @@ class DashboardView(View):
         user = req.user
         store = user.store
         context = {}
-        monitors = []
-        store_monitors = []
         colors = ["#e58989","#edcb8d","#6868e5"]
         days = list(reversed([datetime.today() - timedelta(days=x) for x in range(5)]))
+        #Employees part
+        employees = User.objects.filter(store=store)
+        actions = ['add','edit','delete']
+        for action in actions:
+            context[action] =  {}
+            for emp_index,employee in enumerate(employees):
+                obj = []
+                for day_index,day in enumerate(days):
+                    date_start = make_aware(day)
+                    date_end = make_aware(day + timedelta(days=1))
+                    logs = Log.objects.filter(store=store,user=employee,action=action,created_at__gte=date_start,created_at__lt=date_end).count()
+                    if logs:
+                        obj.append(logs)
+                    else:
+                        obj.append(0)
+                color = colors[emp_index % len(colors)]
+                context[action][employee.username] = {'obj':obj,'color':color+'33','border':color}
+        #Moniors part
+        context['monitors'] = []
+        store_monitors = []
 
         #Routers per category section
         categories = Category.objects.filter(store=store,deleted=False)
@@ -193,7 +213,7 @@ class DashboardView(View):
             color = colors[index % len(colors)]
             monitor_obj = {'label':category.name,'values':obj,'color':color+'33','border':color}
             
-            monitors.append(monitor_obj)
+            context['monitors'].append(monitor_obj)
         
         #Routers by store section
         for day_index,day in enumerate(days):
@@ -217,8 +237,8 @@ class DashboardView(View):
                 
             store_monitors.append(total)
             # monitoring = Monitoring.objects.filter(store=store,day__gte=date_start,day__lt=date_end)
+        context['action'] = actions
         context['store_monitors'] = store_monitors    
-        context['monitors'] = monitors
         context['days'] = [day.strftime("%A") for day in days]
         return render(req,'main/dashboard/index.html',context=context)
     
@@ -372,7 +392,21 @@ class RoutersView(ListView):
 
     def get_queryset(self):
         user = self.request.user
-        return Router.objects.filter(store=user.store,deleted=False).order_by('-id')  
+        query = self.request.GET
+        routers = Router.objects.filter(store=user.store,deleted=False).order_by('-id')
+        emei = query.get('emei')
+        serial = query.get('serial')
+        category = query.get('category')
+        if emei:
+            routers = routers.filter(emei__icontains=emei)
+        if serial:
+            routers = routers.filter(serial_number__icontains=serial)
+        if category:
+            category_instance = Category.objects.filter(id=category).first()
+            if category_instance:
+                routers = routers.filter(category=category_instance)
+
+        return routers
     
     def get_context_data(self,**kwargs):
         context = super(RoutersView,self).get_context_data(**kwargs)

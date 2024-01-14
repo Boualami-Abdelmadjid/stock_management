@@ -1709,3 +1709,965 @@ django.core.exceptions.FieldError: Cannot resolve keyword 'day_glte' into field.
 2024-01-13 23:42:54,004 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2024-01-13 23:43:01,512 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\middleware.py changed, reloading.
 2024-01-13 23:43:01,995 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:16:49,940 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:17:02,944 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-14 17:17:34,550 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:17:35,130 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:17:37,562 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:17:38,055 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:17:41,481 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:17:41,993 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:17:45,419 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:17:45,903 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:17:51,381 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:17:51,913 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:18:00,299 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:18:00,864 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:18:02,267 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:18:02,761 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:18:10,098 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:18:10,583 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:18:17,089 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:18:17,577 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:18:19,804 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:18:20,318 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:18:21,523 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:18:22,005 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:18:30,361 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:18:30,850 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:18:32,051 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:18:32,529 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:18:46,001 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:18:46,483 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:18:55,863 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:18:56,396 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:19:00,878 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:19:01,387 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:19:06,857 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:19:07,381 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:19:17,777 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:19:18,292 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:19:36,070 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:19:36,594 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:19:42,103 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:19:42,585 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:19:51,164 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:19:51,692 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:19:53,102 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:19:53,620 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:19:54,995 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:19:55,513 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:19:57,943 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:19:58,434 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:20:02,920 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:20:03,428 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:20:07,889 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:20:08,417 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:20:09,818 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:20:10,338 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:20:13,767 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:20:14,249 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:20:32,011 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:20:32,502 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:20:33,890 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:20:34,371 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:20:39,856 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:20:40,354 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:22:00,853 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:22:01,400 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:22:12,034 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:22:12,565 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:22:14,973 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:22:15,558 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:22:40,776 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:22:41,297 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:23:02,291 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:23:02,804 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:23:05,239 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:23:05,718 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:23:29,631 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:23:30,134 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:23:43,804 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:23:44,283 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:23:57,261 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:23:57,766 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:24:13,666 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:24:14,159 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:24:26,942 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:24:27,460 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:25:14,037 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:25:14,611 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:25:24,194 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:25:24,733 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:25:29,205 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:25:29,736 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:25:34,014 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:25:34,493 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:25:37,906 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:25:38,395 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:25:54,282 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:25:54,768 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:26:05,523 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:26:06,032 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:27:03,952 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:27:04,521 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:27:06,942 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:27:07,431 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:27:10,677 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:27:11,247 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:27:12,624 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:27:13,115 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:27:20,452 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:27:20,934 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:27:22,131 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:27:22,623 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:27:29,966 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:27:30,442 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:27:34,709 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:27:35,210 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:27:36,411 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:27:36,916 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:27:44,281 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:27:44,768 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:27:50,271 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:27:50,774 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:28:07,292 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:28:07,815 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:28:09,212 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:28:09,707 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:28:11,940 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:28:12,452 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:28:18,967 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:28:19,507 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:28:21,741 [ERROR] django.request: Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\main\views.py", line 191, in get
+    context[action][employee.username] = obj
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+TypeError: list indices must be integers or slices, not str
+2024-01-14 17:28:45,669 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:28:46,163 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:29:18,470 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:29:18,958 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:32:38,943 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-14 17:33:48,960 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-14 17:54:15,034 [ERROR] django.request: Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 502, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endfor'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\main\views.py", line 243, in get
+    return render(req,'main/dashboard/index.html',context=context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    return parser.parse()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 504, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 555, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 133: 'endfor', expected 'endblock'. Did you forget to register or load this tag?
+2024-01-14 17:54:16,245 [ERROR] django.request: Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 502, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endfor'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\main\views.py", line 243, in get
+    return render(req,'main/dashboard/index.html',context=context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    return parser.parse()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 504, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 555, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 133: 'endfor', expected 'endblock'. Did you forget to register or load this tag?
+2024-01-14 17:55:36,225 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:55:36,730 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:56:07,839 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:56:08,364 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:56:09,571 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:56:10,082 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:56:21,707 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:56:22,207 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:56:35,401 [ERROR] django.request: Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\main\views.py", line 191, in get
+    color = colors[index % len(colors)]
+                   ^^^^^
+UnboundLocalError: cannot access local variable 'index' where it is not associated with a value
+2024-01-14 17:56:51,446 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:56:51,997 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:56:55,479 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:56:56,042 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:56:58,449 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:56:58,993 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:57:16,868 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:57:17,352 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:58:23,535 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:58:24,055 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:58:27,496 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:58:27,980 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:58:56,014 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:58:56,559 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:58:59,030 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:58:59,529 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:59:11,176 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:59:11,667 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 17:59:28,438 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 17:59:28,994 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:02:38,167 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:02:38,697 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:04:19,934 [ERROR] django.request: Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\main\views.py", line 243, in get
+    return render(req,'main/dashboard/index.html',context=context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    return parser.parse()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\defaulttags.py", line 860, in do_for
+    nodelist_loop = parser.parse(
+                    ^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\defaulttags.py", line 859, in do_for
+    sequence = parser.compile_filter(bits[in_index + 1])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 597, in compile_filter
+    return FilterExpression(token, self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 698, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '{{action}}.items' from '{{action}}.items'
+2024-01-14 18:05:03,850 [ERROR] django.request: Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\main\views.py", line 243, in get
+    return render(req,'main/dashboard/index.html',context=context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    return parser.parse()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\defaulttags.py", line 860, in do_for
+    nodelist_loop = parser.parse(
+                    ^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\defaulttags.py", line 859, in do_for
+    sequence = parser.compile_filter(bits[in_index + 1])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 597, in compile_filter
+    return FilterExpression(token, self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 698, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '{{action.items}}' from '{{action.items}}'
+2024-01-14 18:05:04,834 [ERROR] django.request: Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\main\views.py", line 243, in get
+    return render(req,'main/dashboard/index.html',context=context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    return parser.parse()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\defaulttags.py", line 860, in do_for
+    nodelist_loop = parser.parse(
+                    ^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\defaulttags.py", line 859, in do_for
+    sequence = parser.compile_filter(bits[in_index + 1])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 597, in compile_filter
+    return FilterExpression(token, self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 698, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '{{action.items}}' from '{{action.items}}'
+2024-01-14 18:05:14,006 [ERROR] django.request: Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\main\views.py", line 243, in get
+    return render(req,'main/dashboard/index.html',context=context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    return parser.parse()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\defaulttags.py", line 860, in do_for
+    nodelist_loop = parser.parse(
+                    ^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\defaulttags.py", line 846, in do_for
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: 'for' statements should use the format 'for x in y': for key,values in {% action.items
+2024-01-14 18:06:38,398 [ERROR] django.request: Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 502, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endfor'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\main\views.py", line 243, in get
+    return render(req,'main/dashboard/index.html',context=context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    return parser.parse()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 504, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 555, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 155: 'endfor', expected 'endblock'. Did you forget to register or load this tag?
+2024-01-14 18:48:16,024 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:48:16,517 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:48:21,038 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:48:21,586 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:48:24,035 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:48:24,558 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:48:25,952 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:48:26,532 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:48:31,005 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:48:31,552 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:48:41,151 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:48:41,667 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:48:47,988 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:48:48,478 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:48:54,978 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:48:55,502 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:49:06,141 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:49:06,634 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:49:11,946 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:49:12,468 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:49:17,984 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:49:18,568 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:49:19,956 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:49:20,501 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:49:33,184 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:49:33,693 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:49:45,330 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:49:45,870 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:50:00,784 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:50:01,339 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:50:21,236 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:50:21,721 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:50:25,161 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:50:25,654 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:50:27,034 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:50:27,561 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:50:33,056 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:50:33,556 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:50:39,061 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:50:39,643 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:50:44,953 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:50:45,487 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:50:46,715 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:50:47,232 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:50:49,646 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:50:50,168 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:50:53,608 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:50:54,196 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:50:57,631 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:50:58,165 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:50:59,571 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:51:00,124 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:51:02,566 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:51:03,118 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:51:04,357 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:51:04,883 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:51:08,145 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:51:08,658 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:51:11,923 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:51:12,454 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:51:22,877 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:51:23,372 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:51:30,705 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:51:31,190 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:51:40,775 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:51:41,367 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:51:43,801 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:51:44,277 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:51:46,681 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:51:47,217 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:51:48,600 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:51:49,105 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:51:58,692 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:51:59,197 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:52:07,548 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:52:08,043 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:52:13,356 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:52:13,833 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:52:18,103 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:52:18,630 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:52:19,850 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:52:20,426 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:52:21,643 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:52:22,158 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:52:26,611 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:52:27,162 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:52:30,614 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:52:31,099 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:52:34,605 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:52:35,088 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:52:42,630 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:52:43,151 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:52:47,599 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:52:48,124 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:52:52,400 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:52:52,902 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:52:54,110 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:52:54,630 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:53:00,942 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:53:01,438 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:53:07,948 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:53:08,470 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:53:12,986 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:53:13,484 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:53:43,717 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:53:44,308 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:53:56,112 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-14 18:53:56,695 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 18:58:56,160 [ERROR] django.request: Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\main\views.py", line 39, in get
+    return render(req,'main/other/homepage.html',context=context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 1000, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader_tags.py", line 199, in render
+    template = context.template.engine.select_template(template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\engine.py", line 206, in select_template
+    return self.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    return parser.parse()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 515, in parse
+    self.unclosed_block_tag(parse_until)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 578, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 43: 'block'. Looking for one of: endblock.
+2024-01-14 19:08:26,791 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-14 19:19:39,830 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-14 19:20:07,779 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-14 19:20:35,221 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-14 19:21:56,161 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-14 19:22:18,157 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-14 19:24:04,016 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-14 19:26:01,452 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-14 19:26:03,508 [WARNING] django.request: Not Found: /favicon.ico

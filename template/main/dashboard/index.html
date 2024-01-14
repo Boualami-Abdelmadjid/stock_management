@@ -3,7 +3,7 @@
 <main class="max-w-[1400px] mx-auto py-8">
   <h1 class="text-primary-500 text-xl font-semibold my-4">Dashboard</h1>
 
-  <div class="flex justify-around w-full my-8">
+  <div class="flex justify-around w-full my-8 flex-wrap">
     <div class="w-5/12 h-full">
       <p class="text-primary-400 text-center font-medium mb-2 text-lg">
         Routers by category
@@ -17,12 +17,31 @@
       <canvas id="myLineChart"></canvas>
     </div>
   </div>
+  <div class="flex justify-around w-full my-8 flex-wrap">
+    <div class="w-5/12 h-full">
+      <p class="text-primary-400 text-center font-medium mb-2 text-lg">
+        Routers added per users
+      </p>
+      <canvas id="add"></canvas>
+    </div>
+    <div class="w-5/12 h-full">
+      <p class="text-primary-400 text-center font-medium mb-2 text-lg">
+        Routers edited per users
+      </p>
+      <canvas id="edit"></canvas>
+    </div>
+    <div class="w-5/12 h-full">
+      <p class="text-primary-400 text-center font-medium mb-2 text-lg">
+        Routers deleted per users
+      </p>
+      <canvas id="delete"></canvas>
+    </div>
+  </div>
 </main>
 <script>
   // Sample data for the bar chart
   {% for monitor in monitors %}
-  console.log('{{monitor.label}}')
-  console.log({{monitor.values|safe}})
+
   {% endfor %}
   let data = {
     labels: {{days|safe}},
@@ -61,7 +80,6 @@
   });
 </script>
 <script>
-  // Sample data for the line chart
   let LineData = {
     labels: {{days|safe}},
     datasets: [
@@ -88,12 +106,126 @@
 
   // Get the canvas element
   var ctx = document.getElementById("myLineChart").getContext("2d");
-  document.getElementById("myLineChart").width = "300";
 
   // Create the line chart
   var myLineChart = new Chart(ctx, {
     type: "line",
     data: LineData,
+    options: options,
+  });
+</script>
+<script>
+
+  let add = {
+    labels: {{days|safe}},
+    datasets: [
+    {% for key,values in add.items %}
+      {
+        label: "{{key}}",
+        data:  {{values.obj|safe}},
+        backgroundColor: "{{values.color}}",
+        borderColor: "{{values.border}}",
+        borderWidth: 1,
+      },
+      {% endfor %}
+    ],
+
+  };
+
+  // Configuration options for the chart
+  var options = {
+    scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+    }
+  };
+
+  // Get the canvas element
+  var ctx = document.getElementById("add").getContext("2d");
+
+  // Create the line chart
+  var myLineChart = new Chart(ctx, {
+    type: "bar",
+    data: add,
+    options: options,
+  });
+</script>
+<script>
+  let editedData = {
+    labels: {{days|safe}},
+    datasets: [
+    {% for key,values in edit.items %}
+      {
+        label: "{{key}}",
+        data:  {{values.obj|safe}},
+        backgroundColor: "{{values.color}}",
+        borderColor: "{{values.border}}",
+        borderWidth: 1,
+      },
+      {% endfor %}
+    ],
+
+  };
+
+  // Configuration options for the chart
+  var options = {
+    scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+    }
+  };
+
+  // Get the canvas element
+  var ctx = document.getElementById("edit").getContext("2d");
+
+  // Create the line chart
+  var myLineChart = new Chart(ctx, {
+    type: "bar",
+    data: editedData,
+    options: options,
+  });
+</script>
+<script>
+  let deletedData = {
+    labels: {{days|safe}},
+    datasets: [
+    {% for key,values in delete.items %}
+      {
+        label: "{{key}}",
+        data:  {{values.obj|safe}},
+        backgroundColor: "{{values.color}}",
+        borderColor: "{{values.border}}",
+        borderWidth: 1,
+      },
+      {% endfor %}
+    ],
+
+  };
+
+  // Configuration options for the chart
+  var options = {
+    scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+    }
+  };
+
+  // Get the canvas element
+  var ctx = document.getElementById("delete").getContext("2d");
+
+  // Create the line chart
+  var myLineChart = new Chart(ctx, {
+    type: "bar",
+    data: deletedData,
     options: options,
   });
 </script>
