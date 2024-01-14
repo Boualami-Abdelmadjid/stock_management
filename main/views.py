@@ -13,6 +13,7 @@ from django.http import JsonResponse
 from django.contrib.auth import authenticate, login
 from django.db.models import Q,Sum, F, Case, When, IntegerField
 from django.utils.timezone import get_current_timezone, make_aware, now
+from django.core.paginator import Paginator
 
 
 from main.models import *
@@ -170,9 +171,35 @@ class DashboardView(View):
     def get(self,req):
         user = req.user
         store = user.store
+        query = req.GET
         context = {}
         colors = ["#e58989","#edcb8d","#6868e5"]
         days = list(reversed([datetime.today() - timedelta(days=x) for x in range(5)]))
+        
+        #Routers part
+        page = query.get('router_page') if query.get('router_page') else 1
+        routers = Router.objects.filter(store=user.store,deleted=False).order_by('-id')
+        emei = query.get('router_emei')
+        serial = query.get('router_serial')
+        category = query.get('router_category')
+        if emei:
+            routers = routers.filter(emei__icontains=emei)
+        if serial:
+            routers = routers.filter(serial_number__icontains=serial)
+        if category:
+            category_instance = Category.objects.filter(id=category).first()
+            if category_instance:
+                routers = routers.filter(category=category_instance)
+        paginator = Paginator(routers,10)
+        routers = paginator.page(page)
+        context['routers_paginator'] = paginator.get_elided_page_range(number=page, 
+                                           on_each_side=1,
+                                           on_ends=1)
+        
+        
+
+        
+
         #Employees part
         employees = User.objects.filter(store=store)
         actions = ['add','edit','delete']
@@ -196,6 +223,7 @@ class DashboardView(View):
 
         #Routers per category section
         categories = Category.objects.filter(store=store,deleted=False)
+
         
         for index,category in enumerate(categories):
             obj = []
@@ -236,7 +264,8 @@ class DashboardView(View):
 
                 
             store_monitors.append(total)
-            # monitoring = Monitoring.objects.filter(store=store,day__gte=date_start,day__lt=date_end)
+        context['routers'] = routers
+        context['categories'] = categories
         context['action'] = actions
         context['store_monitors'] = store_monitors    
         context['days'] = [day.strftime("%A") for day in days]
@@ -389,14 +418,15 @@ class RoutersView(ListView):
     model = Router
     paginate_by = 10
     template_name = 'main/router/list.html'
+    context_object_name = 'routers'
 
     def get_queryset(self):
         user = self.request.user
         query = self.request.GET
         routers = Router.objects.filter(store=user.store,deleted=False).order_by('-id')
-        emei = query.get('emei')
-        serial = query.get('serial')
-        category = query.get('category')
+        emei = query.get('router_emei')
+        serial = query.get('router_serial')
+        category = query.get('router_category')
         if emei:
             routers = routers.filter(emei__icontains=emei)
         if serial:

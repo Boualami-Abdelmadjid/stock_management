@@ -1,17 +1,11 @@
-{% extends 'base/root.html' %} {% load paginator_tags %} {% block content %}
+{% load paginator_tags %}
 <main class="max-w-[1400px] mx-auto py-8">
   <div
     class="flex justify-between mt-8 mb-4 items-center text-primary-500 font-medium"
   >
     <h1 class="text-xl">Routers</h1>
-    {% if page_obj %}
+    {% if routers %}
     <div class="relative">
-      <!-- <input
-        type="text"
-        placeholder="Search.."
-        class="border-1 text-gray-900 border-gray-300 px-4 py-2 rounded-md mb-2 block"
-        oninput="routers_suggestions(event,this)"
-      /> -->
       <div
         class="suggestions hidden justify-items-center absolute top-12 w-full bg-white z-10 border-2 border-gray-300 rounded-md"
       ></div>
@@ -82,7 +76,7 @@
       Filter
     </button>
   </form>
-  {% if page_obj %}
+  {% if routers %}
 
   <table
     class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
@@ -101,7 +95,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for router in page_obj %}
+      {% for router in routers %}
       <tr
         data-id="{{router.id}}"
         data-sn="{{router.serial_number}}"
@@ -136,15 +130,9 @@
       {% endfor %}
     </tbody>
   </table>
-
-  {% else %}
-  <p>You have no routers</p>
-  {% endif %}
-
   <div class="flex gap-2 justify-center my-4">
-    {% get_proper_elided_page_range paginator page_obj.number as page_range %}
     <!-- here -->
-    {% for i in page_range %} {% if page_obj.number == i %}
+    {% for i in routers_paginator %} {% if routers.number == i %}
     <a
       class="px-3 py-1 rounded-md border-2 text-primary-500 border-primary-500"
     >
@@ -158,9 +146,13 @@
 
     {% endif %} {% endif %} {% endfor %}
   </div>
+  {% else %}
+  <p>You have no routers</p>
+  {% endif %}
+
+
   {% if user.role == 'store_manager' %}
   <!-- Edit form -->
   {% include 'main/router/edit-form.html' %} {% endif %}
 </main>
 
-{% endblock %}

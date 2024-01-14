@@ -1,7 +1,7 @@
-{% extends 'base/root.html' %} {% block content %}
+{% extends 'base/root.html' %} {% load paginator_tags %} {% block content %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <main class="max-w-[1400px] mx-auto py-8">
-  <h1 class="text-primary-500 text-xl font-semibold my-4">Dashboard</h1>
+  {% include 'main/router/list.html' %}
 
   <div class="flex justify-around w-full my-8 flex-wrap">
     <div class="w-5/12 h-full">
