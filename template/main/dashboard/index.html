@@ -1,44 +1,33 @@
 {% extends 'base/root.html' %} {% load paginator_tags %} {% block content %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <main class="max-w-[1400px] mx-auto py-8">
-  {% include 'main/router/list.html' %}
+  <!-- Switch views -->
+  <div class="flex items-center gap-8">
+    <h2 class="text-primary-500 font-semibold">Switch pages :</h2>
+    <div
+      class="page flex w-fit rounded-md border-2 border-primary-500 divide-x-2 divide-primary-300 text-gray-800"
+      onclick="switch_pages(event)"
+    >
+      <span name="routers" class="p-2 cursor-pointer page_active">Routers</span>
+      <span name="categories" class="p-2 cursor-pointer">Categories</span>
+      <span name="graphs" class="p-2 cursor-pointer">Graphs</span>
+    </div>
+  </div>
 
-  <div class="flex justify-around w-full my-8 flex-wrap">
-    <div class="w-5/12 h-full">
-      <p class="text-primary-400 text-center font-medium mb-2 text-lg">
-        Routers by category
-      </p>
-      <canvas id="myBarChart"></canvas>
-    </div>
-    <div class="w-5/12 h-full">
-      <p class="text-primary-400 text-center font-medium mb-2 text-lg">
-        Routers by store
-      </p>
-      <canvas id="myLineChart"></canvas>
-    </div>
-  </div>
-  <div class="flex justify-around w-full my-8 flex-wrap">
-    <div class="w-5/12 h-full">
-      <p class="text-primary-400 text-center font-medium mb-2 text-lg">
-        Routers added per users
-      </p>
-      <canvas id="add"></canvas>
-    </div>
-    <div class="w-5/12 h-full">
-      <p class="text-primary-400 text-center font-medium mb-2 text-lg">
-        Routers edited per users
-      </p>
-      <canvas id="edit"></canvas>
-    </div>
-    <div class="w-5/12 h-full">
-      <p class="text-primary-400 text-center font-medium mb-2 text-lg">
-        Routers deleted per users
-      </p>
-      <canvas id="delete"></canvas>
-    </div>
-  </div>
+  {% include 'main/router/list.html' %} {% include 'main/category/list.html' %}
+  {% include 'main/dashboard/graphs.html' %}
 </main>
 <script>
+    // Configuration options for the chart
+    let options = {
+    scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+    }
+  };
   // Sample data for the bar chart
   {% for monitor in monitors %}
 
@@ -58,16 +47,7 @@
     ],
   };
 
-  // Configuration options for the chart
-  var options = {
-    scales: {
-        yAxes: [{
-            ticks: {
-                beginAtZero: true
-            }
-        }]
-    }
-  };
+
 
   // Get the canvas element
   var ctx = document.getElementById("myBarChart").getContext("2d");
@@ -93,16 +73,6 @@
     ],
   };
 
-  // Configuration options for the chart
-  var options = {
-    scales: {
-        yAxes: [{
-            ticks: {
-                beginAtZero: true
-            }
-        }]
-    }
-  };
 
   // Get the canvas element
   var ctx = document.getElementById("myLineChart").getContext("2d");
@@ -132,16 +102,6 @@
 
   };
 
-  // Configuration options for the chart
-  var options = {
-    scales: {
-        yAxes: [{
-            ticks: {
-                beginAtZero: true
-            }
-        }]
-    }
-  };
 
   // Get the canvas element
   var ctx = document.getElementById("add").getContext("2d");
@@ -154,42 +114,32 @@
   });
 </script>
 <script>
-  let editedData = {
-    labels: {{days|safe}},
-    datasets: [
-    {% for key,values in edit.items %}
-      {
-        label: "{{key}}",
-        data:  {{values.obj|safe}},
-        backgroundColor: "{{values.color}}",
-        borderColor: "{{values.border}}",
-        borderWidth: 1,
-      },
-      {% endfor %}
-    ],
+    let editedData = {
+      labels: {{days|safe}},
+      datasets: [
+      {% for key,values in edit.items %}
+        {
+          label: "{{key}}",
+          data:  {{values.obj|safe}},
+          backgroundColor: "{{values.color}}",
+          borderColor: "{{values.border}}",
+          borderWidth: 1,
+        },
+        {% endfor %}
+      ],
 
-  };
+    };
+  ;
 
-  // Configuration options for the chart
-  var options = {
-    scales: {
-        yAxes: [{
-            ticks: {
-                beginAtZero: true
-            }
-        }]
-    }
-  };
+    // Get the canvas element
+    var ctx = document.getElementById("edit").getContext("2d");
 
-  // Get the canvas element
-  var ctx = document.getElementById("edit").getContext("2d");
-
-  // Create the line chart
-  var myLineChart = new Chart(ctx, {
-    type: "bar",
-    data: editedData,
-    options: options,
-  });
+    // Create the line chart
+    var myLineChart = new Chart(ctx, {
+      type: "bar",
+      data: editedData,
+      options: options,
+    });
 </script>
 <script>
   let deletedData = {
@@ -208,16 +158,6 @@
 
   };
 
-  // Configuration options for the chart
-  var options = {
-    scales: {
-        yAxes: [{
-            ticks: {
-                beginAtZero: true
-            }
-        }]
-    }
-  };
 
   // Get the canvas element
   var ctx = document.getElementById("delete").getContext("2d");

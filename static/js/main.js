@@ -117,7 +117,7 @@ const create_router = async (e, elem) => {
 
 const edit_router = async (e, elem) => {
   e.preventDefault();
-  const { id } = elem.closest(".edit_form").dataset;
+  const { id } = elem.closest(".edit_form.router").dataset;
   const category = elem.querySelector("select[name=category]")?.value;
   const serial_number = elem.querySelector("input[name=serial_number]")?.value;
   const emei = elem.querySelector("input[name=emei]")?.value;
@@ -335,7 +335,7 @@ const add_user_to_store = async (e, elem) => {
     },
   }).then((res) => res.json());
   if (res.status == 200) {
-    show_success("User added successfully", () => {
+    show_success(res.message, () => {
       window.location.reload();
     });
   } else {
@@ -360,4 +360,19 @@ const delete_user_from_group = async (elem) => {
   } else {
     show_error(res.message);
   }
+};
+
+const switch_pages = (e) => {
+  const { target } = e;
+  const name = target.getAttribute("name");
+  Array.from(target.parentElement.children).forEach((span) => {
+    span == target
+      ? span.classList.add("page_active")
+      : span.classList.remove("page_active");
+  });
+  Array.from(document.querySelectorAll("section")).forEach((section) => {
+    section.classList.contains(name)
+      ? section.classList.remove("hidden")
+      : section.classList.add("hidden");
+  });
 };

@@ -132,11 +132,17 @@ class ProfileView(View):
             
             added_user = User.objects.filter(Q(username=username) | Q(email=username)).first()
             if added_user:
-                added_user.store = store
-                added_user.role = role
+                if added_user.store == store :
+                    print('here')
+                    added_user.role = role
+                    message = 'edited'
+                else:
+                    added_user.store = store
+                    added_user.role = role
+                    message = 'added'
                 added_user.save()
                 res['status'] = 200
-                res['message'] = 'User added successfully'
+                res['message'] = f'User {message} successfully'
             else :
                 res['message'] = 'User not found'
         except Exception as e:
@@ -177,7 +183,7 @@ class DashboardView(View):
         days = list(reversed([datetime.today() - timedelta(days=x) for x in range(5)]))
         
         #Routers part
-        page = query.get('router_page') if query.get('router_page') else 1
+        router_page = query.get('router_page') if query.get('router_page') else 1
         routers = Router.objects.filter(store=user.store,deleted=False).order_by('-id')
         emei = query.get('router_emei')
         serial = query.get('router_serial')
@@ -190,9 +196,25 @@ class DashboardView(View):
             category_instance = Category.objects.filter(id=category).first()
             if category_instance:
                 routers = routers.filter(category=category_instance)
-        paginator = Paginator(routers,10)
-        routers = paginator.page(page)
-        context['routers_paginator'] = paginator.get_elided_page_range(number=page, 
+        router_paginator = Paginator(routers,10)
+        routers = router_paginator.page(router_page)
+        context['routers_paginator'] = router_paginator.get_elided_page_range(number=router_page, 
+                                           on_each_side=1,
+                                           on_ends=1)
+        
+        #Category page
+        categories_page = query.get('categories_page') if query.get('categories_page') else 1
+        categories = Category.objects.filter(store=user.store,deleted=False).order_by('-id')
+        category_name = query.get('category_name')
+        category_type = query.get('category_type')
+        if category_name:
+            categories = categories.filter(name__icontains=category_name)
+        if category_type:
+            categories = categories.filter(type=category_type)
+
+        category_paginator = Paginator(categories,10)
+        categories = category_paginator.page(categories_page)
+        context['categories_paginator'] = category_paginator.get_elided_page_range(number=categories_page, 
                                            on_each_side=1,
                                            on_ends=1)
         
@@ -222,10 +244,10 @@ class DashboardView(View):
         store_monitors = []
 
         #Routers per category section
-        categories = Category.objects.filter(store=store,deleted=False)
+        routers_categories = Category.objects.filter(store=store,deleted=False)
 
         
-        for index,category in enumerate(categories):
+        for index,category in enumerate(routers_categories):
             obj = []
             for day_index,day in enumerate(days):
                 date_start = day
@@ -264,8 +286,11 @@ class DashboardView(View):
 
                 
             store_monitors.append(total)
+
+
         context['routers'] = routers
-        context['categories'] = categories
+        context['categories_obj'] = categories
+        context['categories'] = routers_categories
         context['action'] = actions
         context['store_monitors'] = store_monitors    
         context['days'] = [day.strftime("%A") for day in days]
