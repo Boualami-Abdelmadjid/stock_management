@@ -4,7 +4,7 @@
 #Last import custom method written by you
 
 import json
-from datetime import datetime,timedelta
+from datetime import date, datetime, time,timedelta
 
 from django.shortcuts import render
 from django.views.generic import View
@@ -180,7 +180,7 @@ class DashboardView(View):
         query = req.GET
         context = {}
         colors = ["#e58989","#edcb8d","#6868e5"]
-        days = list(reversed([datetime.today() - timedelta(days=x) for x in range(5)]))
+        days = list(reversed([today_midnight() - timedelta(days=x) for x in range(5)]))
         
         #Routers part
         router_page = query.get('router_page') if query.get('router_page') else 1
@@ -232,7 +232,7 @@ class DashboardView(View):
                 for day_index,day in enumerate(days):
                     date_start = make_aware(day)
                     date_end = make_aware(day + timedelta(days=1))
-                    logs = Log.objects.filter(store=store,user=employee,action=action,created_at__gte=date_start,created_at__lt=date_end).count()
+                    logs = Log.objects.filter(store=store,user=employee,action=action,instance="router",created_at__gte=date_start,created_at__lt=date_end).count()
                     if logs:
                         obj.append(logs)
                     else:
@@ -375,6 +375,8 @@ class CreateRouterView(View):
             category = Category.objects.filter(id=category).first()
             router = Router.objects.create(store=store,category=category,emei=emei,serial_number=serial_number)
             router.save()
+            category.alerted = False
+            category.save()
             Log.objects.create(user = user,store = store,instance='router',instance_id=router.id,emei=router.emei,action='add')
 
             res['status'] = 200
@@ -383,15 +385,7 @@ class CreateRouterView(View):
             logger.exception(e)
         return JsonResponse(res,status=res['status'])
     
-class CategoriesView(ListView):
-    model = Category
-    paginate_by = 10
-    template_name = 'main/category/list.html'
 
-    def get_queryset(self):
-        user = self.request.user
-        return Category.objects.filter(store=user.store,deleted=False).order_by('-id')
-    
 class CategoryView(View):
     def put(self,req):
         res = {"status":500,"message":"Something wrong hapenned"}
@@ -439,36 +433,21 @@ class CategoryView(View):
         return JsonResponse(res,status=res['status'])
 
     
-class RoutersView(ListView):
-    model = Router
-    paginate_by = 10
-    template_name = 'main/router/list.html'
-    context_object_name = 'routers'
-
-    def get_queryset(self):
-        user = self.request.user
-        query = self.request.GET
-        routers = Router.objects.filter(store=user.store,deleted=False).order_by('-id')
-        emei = query.get('router_emei')
-        serial = query.get('router_serial')
-        category = query.get('router_category')
-        if emei:
-            routers = routers.filter(emei__icontains=emei)
-        if serial:
-            routers = routers.filter(serial_number__icontains=serial)
-        if category:
-            category_instance = Category.objects.filter(id=category).first()
-            if category_instance:
-                routers = routers.filter(category=category_instance)
-
-        return routers
-    
-    def get_context_data(self,**kwargs):
-        context = super(RoutersView,self).get_context_data(**kwargs)
-        context['categories'] =  Category.objects.filter(store=self.request.user.store,deleted=False)
-        return context
 
 class RouterView(View):
+    def get(self,req):
+        res = {"status":500,"message":"Something wrong hapenned"}
+        try:
+            user = req.user
+            store = user.store
+            routers = list(Router.objects.filter(store=store).order_by("-id").values('id','category__name','emei','serial_number','created_at'))
+            res['routers'] = routers
+            del res['message']
+            res['status'] = 200
+        except Exception as e:
+            logger.exception(e)
+        return JsonResponse(res,status=res['status'])
+
     def put(self,req):
         res = {"status":500,"message":"Something wrong hapenned"}
         try:

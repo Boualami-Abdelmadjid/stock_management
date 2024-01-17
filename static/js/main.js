@@ -92,7 +92,7 @@ const create_router = async (e, elem) => {
   e.preventDefault();
   const category = elem.querySelector("select[name=category]")?.value;
   const serial_number = elem.querySelector("input[name=serial_number]")?.value;
-  const emei = elem.querySelector("input[name=emei]")?.value;
+  const emei = elem.querySelector("input[name=emei]")?.value?.trim();
 
   const body = JSON.stringify({ category, serial_number, emei });
   const res = await fetch("/create-router/", {
@@ -120,7 +120,7 @@ const edit_router = async (e, elem) => {
   const { id } = elem.closest(".edit_form.router").dataset;
   const category = elem.querySelector("select[name=category]")?.value;
   const serial_number = elem.querySelector("input[name=serial_number]")?.value;
-  const emei = elem.querySelector("input[name=emei]")?.value;
+  const emei = elem.querySelector("input[name=emei]")?.value?.trim();
 
   const body = JSON.stringify({ id, category, serial_number, emei });
   const res = await fetch("/router/", {
@@ -246,7 +246,7 @@ const open_edit_router = (elem) => {
 
   form.dataset.id = id;
   const sn_container = form.querySelector("[name=serial_number]");
-  const emei_container = form.querySelector("[name=emei]");
+  const emei_container = form.querySelector("[name=emei]")?.trim();
   const category_container = form.querySelector("[name=category]");
   sn_container.value = sn;
   emei_container.value = emei;
@@ -362,9 +362,10 @@ const delete_user_from_group = async (elem) => {
   }
 };
 
-const switch_pages = (e) => {
+const switch_pages_handler = (e) => {
   const { target } = e;
   const name = target.getAttribute("name");
+
   Array.from(target.parentElement.children).forEach((span) => {
     span == target
       ? span.classList.add("page_active")
@@ -375,4 +376,35 @@ const switch_pages = (e) => {
       ? section.classList.remove("hidden")
       : section.classList.add("hidden");
   });
+};
+
+const export_routers = async (e) => {
+  e.preventDefault();
+  const res = await fetch("/router/").then((res) => res.json());
+  if (res.status == 200) {
+    const routers = res.routers;
+    let excel_data = ["id,category,emei,serial_number,created_at"];
+    routers.forEach((router) => {
+      excel_data.push(
+        `${router.id},${router.category__name},${router.emei},${
+          router.serial_number
+        },${new Date(router.created_at).getDate()}-${
+          new Date(router.created_at).getMonth() + 1
+        }`
+      );
+    });
+    const data = "sep=," + "\r\n\n" + excel_data.join("\n");
+    const blob = new Blob([data], { type: "text/csv" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.setAttribute("href", url);
+    const now = new Date();
+    a.setAttribute(
+      "download",
+      `Routers-${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()}`
+    );
+    a.click();
+  } else {
+    show_error(res.message);
+  }
 };

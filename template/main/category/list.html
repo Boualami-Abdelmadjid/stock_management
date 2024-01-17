@@ -28,6 +28,7 @@
   </div>
   <form class="my-2 flex gap-4 items-center p-2">
     <h2 class="text-lg text-primary-400">Filters</h2>
+    <input name="view" value="categories" hidden>
     <div class="flex items-center gap-4">
       <label
         for="category_name"
@@ -121,7 +122,10 @@
   </table>
 
   {% else %}
-  <p>You have no categories</p>
+  <p class="text-center text-lg font-semibold mt-8">You have no categories       
+  <a class="text-primary-500" href="{% url 'create-category' %}"
+    >Create one</a
+  ></p>
   {% endif %}
 
   <div class="flex gap-2 justify-center my-4">

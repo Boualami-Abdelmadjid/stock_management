@@ -2,7 +2,7 @@ from datetime import date, datetime, time
 import threading
 from main.models import Monitoring
 
-from main.common import create_monitoring
+from main.common import create_monitoring, create_alerts
 
 class MonitoringCreationMiddleware:
     def __init__(self, get_response):
@@ -19,6 +19,8 @@ class MonitoringCreationMiddleware:
         min_today_time = datetime.combine(today, time.min) 
         if path == '/' and not Monitoring.objects.filter(day__gte=min_today_time).exists():
             threading.Thread(target=create_monitoring).start()
+            threading.Thread(target=create_alerts).start()
+
             
 
     def process_response(self, req, res):

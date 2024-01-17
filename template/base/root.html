@@ -9,7 +9,7 @@
     {% tailwind_css %}
     <script src="{% static 'js/main.js' %}"></script>
     <script
-      defer
+      async
       src="https://kit.fontawesome.com/f192566f0e.js"
       crossorigin="anonymous"
     ></script>
@@ -28,4 +28,13 @@
   <body id="root">
     {% include 'shared/navbar.html' %} {% csrf_token %} {% block content %} {% endblock %}
   </body>
+  <script defer>
+    document.addEventListener('DOMContentLoaded',()=>{
+      document.querySelector('input[name=emei]')?.addEventListener('keypress',(e) => {
+        if (event.which == '10' || event.which == '13') {
+        event.preventDefault();
+    }
+      })
+    })
+  </script>
 </html>

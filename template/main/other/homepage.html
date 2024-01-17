@@ -8,15 +8,13 @@
       class="flex justify-between mt-8 mb-4 items-center text-primary-500 font-medium"
     >
       <h2 class="text-xl">Categories</h2>
-      {% if categories %}
-      {% if user.role == 'store_manager' %}
+      {% if categories %} {% if user.role == 'store_manager' %}
       <a
         class="inline-block rounded-md bg-primary-600 text-white px-4 py-2"
         href="{% url 'create-category' %}"
         >Create one</a
       >
-      {% endif %}
-      {% endif %}
+      {% endif %} {% endif %}
     </div>
     {% if categories %}
     <table
@@ -73,7 +71,7 @@
     {% if more_categories %}
     <a
       class="block text-center text-primary-400 mt-8 font-semibold underline"
-      href="{% url 'categories' %}"
+      href="{% url 'dashboard' %}?view=categories"
       >Show all categories</a
     >
     {% endif %} {% else %}
@@ -91,15 +89,13 @@
       class="flex justify-between mt-8 mb-4 items-center text-primary-500 font-medium"
     >
       <h2 class="text-xl">Routers</h2>
-      {% if routers %}
-      {% if user.role == 'store_manager' %}
+      {% if routers %} {% if user.role == 'store_manager' %}
       <a
         class="inline-block rounded-md bg-primary-600 text-white px-4 py-2"
         href="{% url 'create-router' %}"
         >Create one</a
       >
-      {% endif %}
-      {% endif %}
+      {% endif %} {% endif %}
     </div>
     {% if routers %}
     <table
@@ -157,7 +153,7 @@
     {% if more_routers %}
     <a
       class="block text-center text-primary-400 mt-8 font-semibold underline"
-      href="{% url 'routers' %}"
+      href="{% url 'dashboard' %}?view=routers"
       >Show all routers</a
     >
     {% endif %} {% else %}
@@ -174,9 +170,7 @@
   <a class="block text-xl text-primary-500" href="{% url 'create-store' %}"
     >Create a store</a
   >
-  {% endif %} 
-  {% if user.role == 'store_manager' %}
-  {% include 'main/router/edit-form.html' %} {% include 'main/category/edit-form.html' %}
+  {% endif %} {% if user.role == 'store_manager' %} {% include 'main/router/edit-form.html' %} {% include 'main/category/edit-form.html' %}
   {% endif %}
 </main>
 {% endblock %}

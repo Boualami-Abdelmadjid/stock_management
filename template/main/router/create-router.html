@@ -47,6 +47,7 @@
                 required
               />
             </div>
+            {% if categories %}
             <div>
               <label
                 for="type"
@@ -60,9 +61,18 @@
               >
                 {% for category in categories %}
                 <option value="{{category.id}}">{{category.name}}</option>
+
                 {% endfor %}
               </select>
             </div>
+            {% else %}
+            <p>
+              You have no categories,
+              <a class="text-primary-500" href="{% url 'create-category' %}"
+                >Create one</a
+              >
+            </p>
+            {% endif %}
 
             <button
               type="submit"

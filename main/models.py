@@ -34,6 +34,7 @@ class Category(models.Model):
     type = models.CharField(choices = Types, max_length=150)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     deleted = models.BooleanField(default=False)
+    alerted = models.BooleanField(default=False)
 
 
     def __str__(self):

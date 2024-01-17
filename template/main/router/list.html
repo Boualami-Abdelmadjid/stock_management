@@ -10,18 +10,31 @@
         class="suggestions hidden justify-items-center absolute top-12 w-full bg-white z-10 border-2 border-gray-300 rounded-md"
       ></div>
     </div>
-    {% if user.role == 'store_manager' %}
-    <a
-      class="inline-block rounded-md bg-primary-600 text-white px-4 py-2"
-      href="{% url 'create-router' %}"
-      >Create one</a
-    >
+    <div class="flex gap-2">
+      <button
+        class="rounded-md bg-red-600 text-white px-4 py-2"
+        onclick="export_routers(event)"
+      >
+        Export
+      </button>
+      {% if user.role == 'store_manager' %}
+      <button class="rounded-md bg-green-500 text-white px-4 py-2">
+        Import
+      </button>
+
+      <a
+        class="inline-block rounded-md bg-primary-600 text-white px-4 py-2"
+        href="{% url 'create-router' %}"
+        >Create one</a
+      >
+    </div>
     {% else %}
     <span></span>
     {% endif %} {% endif %}
   </div>
   <form class="my-2 flex gap-4 items-center p-2">
     <h2 class="text-lg text-primary-400">Filters</h2>
+    <input name="view" value="routers" hidden />
     <div class="flex items-center gap-4">
       <label
         for="emei"
@@ -148,7 +161,10 @@
     {% endif %} {% endif %} {% endfor %}
   </div>
   {% else %}
-  <p>You have no routers</p>
+  <p class="text-center text-lg font-semibold mt-8">
+    You have no routers
+    <a class="text-primary-500" href="{% url 'create-router' %}">Create one</a>
+  </p>
   {% endif %} {% if user.role == 'store_manager' %}
   <!-- Edit form -->
   {% include 'main/router/edit-form.html' %} {% endif %}

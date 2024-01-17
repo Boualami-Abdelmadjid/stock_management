@@ -32,3 +32,15 @@ def create_monitoring():
                 logger.exception(e)
     except Exception as e:
         logger.exception(e)
+
+def create_alerts() :
+    categories = Category.objects.filter(alerted=False)
+    for category in categories:
+        count = category.count_routers()
+        if count < 10:
+            print('low stock')
+            category.alerted = True
+            category.save()
+
+def today_midnight():
+    return datetime.combine(date.today(), time.min) 

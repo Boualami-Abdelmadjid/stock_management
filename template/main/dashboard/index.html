@@ -2,11 +2,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <main class="max-w-[1400px] mx-auto py-8">
   <!-- Switch views -->
-  <div class="flex items-center gap-8">
-    <h2 class="text-primary-500 font-semibold">Switch pages :</h2>
+  <div class="flex justify-center items-center gap-8">
+    <!-- <h2 class="text-primary-500 font-semibold">Switch pages :</h2> -->
     <div
-      class="page flex w-fit rounded-md border-2 border-primary-500 divide-x-2 divide-primary-300 text-gray-800"
-      onclick="switch_pages(event)"
+      class="page flex w-fit rounded-md border-2 border-primary-500 divide-x-2 divide-primary-500 text-gray-800"
+      onclick="switch_pages_handler(event)"
     >
       <span name="routers" class="p-2 cursor-pointer page_active">Routers</span>
       <span name="categories" class="p-2 cursor-pointer">Categories</span>
@@ -17,6 +17,13 @@
   {% include 'main/router/list.html' %} {% include 'main/category/list.html' %}
   {% include 'main/dashboard/graphs.html' %}
 </main>
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const view = urlParams.get("view");
+  if (view) {
+    document.querySelector(`.page>span[name=${view}]`).click();
+  }
+</script>
 <script>
     // Configuration options for the chart
     let options = {

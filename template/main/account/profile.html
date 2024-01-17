@@ -25,6 +25,7 @@
       </div>
     </div>
   </div>
+  {% if user.role == 'store_manager' %}
   <div class="w-1/2">
     <h2 class="font-medium text-primary-500 text-2xl">Store management</h2>
     <div
@@ -85,8 +86,7 @@
       {% endfor %}
     </div>
   </div>
-
-  {% if user.role == 'store_manager' %}
+  {% endif %} {% if user.role == 'store_manager' %}
   <div
     class="edit_form user absolute hidden inset-0 w-full h-full backdrop-blur-md py-8"
   >
