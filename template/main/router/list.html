@@ -15,13 +15,22 @@
         class="rounded-md bg-red-600 text-white px-4 py-2"
         onclick="export_routers(event)"
       >
-        Export
+        Export All
       </button>
       {% if user.role == 'store_manager' %}
-      <button class="rounded-md bg-green-500 text-white px-4 py-2">
+      <button
+        onclick="this.nextElementSibling.click()"
+        class="rounded-md bg-green-500 text-white px-4 py-2"
+      >
         Import
       </button>
-
+      <input
+        type="file"
+        onchange="file_import(event)"
+        accept=".xlsx,.csv"
+        name="file"
+        hidden
+      />
       <a
         class="inline-block rounded-md bg-primary-600 text-white px-4 py-2"
         href="{% url 'create-router' %}"
@@ -65,13 +74,13 @@
     </div>
     <div class="flex items-center gap-4">
       <label
-        for="type"
+        for="router_category"
         class="block pl-2 text-sm font-medium text-gray-900 dark:text-white"
         >Category</label
       >
       <select
-        id="type"
-        name="type"
+        id="router_category"
+        name="router_category"
         class="grow pr-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       >
         <option></option>

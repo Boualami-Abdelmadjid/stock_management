@@ -133,7 +133,6 @@ class ProfileView(View):
             added_user = User.objects.filter(Q(username=username) | Q(email=username)).first()
             if added_user:
                 if added_user.store == store :
-                    print('here')
                     added_user.role = role
                     message = 'edited'
                 else:
@@ -447,6 +446,41 @@ class RouterView(View):
         except Exception as e:
             logger.exception(e)
         return JsonResponse(res,status=res['status'])
+    
+    def post(self,req):
+        res = {"status":500,"message":"Something wrong hapenned"}
+        try:
+            user = req.user
+            body = json.loads(req.body)
+            routers = body.get('routers')
+            imported = 0
+            for new_router in routers:
+                try:
+                    category = Category.objects.filter(name=new_router.get('category')).first()
+                    if category:
+                        if not Router.objects.filter(id=new_router.get('id')).exists():
+                            if category:
+                                router = Router.objects.create(store = user.store,category=category,emei=new_router.get('emei'),serial_number=new_router.get('serial_number'))
+                                router.save()
+                                Log.objects.create(user = user,store = user.store,instance='router',instance_id=router.id,emei=router.emei,action='add')
+                                imported += 1
+                        elif Router.objects.filter(id=new_router.get('id'),deleted=True).exists():
+                                router = Router.objects.get(id=new_router.get('id'))
+                                router.category = category
+                                router.emei=new_router.get('emei')
+                                router.serial_number=new_router.get('serial_number')
+                                router.deleted = False
+                                router.save()
+                                Log.objects.create(user = user,store = user.store,instance='router',instance_id=router.id,emei=router.emei,action='add')
+                                imported += 1
+
+                except Exception as e:
+                    logger.exception(e)
+            res['status'] = 200
+            res['message'] = f'{imported} routers imported'
+        except Exception as e:
+            logger.exception(e)
+        return JsonResponse(res,status=res['status'])
 
     def put(self,req):
         res = {"status":500,"message":"Something wrong hapenned"}
@@ -562,6 +596,15 @@ class LogsView(ListView):
         store = user.store
         context['users'] = User.objects.filter(Q(store = store) | Q(is_superuser = True))
         return context
-
-
-
+    
+class LogsOpsView(View):
+    def get(self,req):
+        res = {"status":500,"message":"Something wrong hapenned"}
+        try :
+            logs = list(Log.objects.filter(store = req.user.store).order_by('-id').values('user__username','action','instance','emei','category_name','instance_id','created_at'))
+            res['logs'] = logs
+            res['status'] = 200
+            del res['message']
+        except Exception as e:
+            logger.exception(e)
+        return JsonResponse(res,status=res['status'])

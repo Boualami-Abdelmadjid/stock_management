@@ -47,3 +47,14 @@ const show_error = (text, cb) => {
     }
   }
 };
+
+const export_file = (data, name) => {
+  const output = "sep=," + "\r\n\n" + data.join("\n");
+  const blob = new Blob([output], { type: "text/csv" });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.setAttribute("href", url);
+
+  a.setAttribute("download", name);
+  a.click();
+};

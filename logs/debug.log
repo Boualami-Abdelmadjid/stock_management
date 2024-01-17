@@ -780,3 +780,550 @@ django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 28: 'block'
 2024-01-17 19:09:02,273 [WARNING] django.request: Not Found: /favicon.ico
 2024-01-17 19:12:36,162 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2024-01-17 19:12:54,464 [INFO] main.views: root deleted router with sn: dsq41-cx1-eza - emei : e15sqeza-dsqeza
+2024-01-17 19:15:11,746 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:18:00,553 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\common.py changed, reloading.
+2024-01-17 19:18:01,220 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:18:03,643 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\common.py changed, reloading.
+2024-01-17 19:18:04,227 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:19:18,353 [INFO] main.views: root deleted router with sn: cxw-dsq1eza- - emei : dq1eza
+2024-01-17 19:20:27,378 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\common.py changed, reloading.
+2024-01-17 19:20:27,887 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:23:58,648 [ERROR] django.request: Internal Server Error: /logs/
+Traceback (most recent call last):
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 502, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endfor'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader.py", line 42, in select_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    return parser.parse()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\defaulttags.py", line 960, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\defaulttags.py", line 860, in do_for
+    nodelist_loop = parser.parse(
+                    ^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\defaulttags.py", line 974, in do_if
+    nodelist = parser.parse(("endif",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 504, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\template\base.py", line 555, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 122: 'endfor', expected 'endif'. Did you forget to register or load this tag?
+2024-01-17 19:25:30,007 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\urls.py changed, reloading.
+2024-01-17 19:25:30,507 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:25:33,759 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\urls.py changed, reloading.
+2024-01-17 19:25:34,240 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:25:36,456 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\urls.py changed, reloading.
+2024-01-17 19:25:36,960 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:25:39,178 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\urls.py changed, reloading.
+2024-01-17 19:25:39,679 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:25:40,876 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\urls.py changed, reloading.
+2024-01-17 19:25:41,431 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:25:42,633 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\urls.py changed, reloading.
+2024-01-17 19:25:43,115 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:25:48,395 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\urls.py changed, reloading.
+2024-01-17 19:25:48,882 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:25:55,197 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\urls.py changed, reloading.
+2024-01-17 19:25:55,688 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:26:00,967 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\urls.py changed, reloading.
+2024-01-17 19:26:01,447 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:26:06,728 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\urls.py changed, reloading.
+2024-01-17 19:26:07,246 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:26:08,437 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\urls.py changed, reloading.
+2024-01-17 19:26:08,941 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:26:10,134 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\urls.py changed, reloading.
+2024-01-17 19:26:10,618 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:26:11,826 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\urls.py changed, reloading.
+2024-01-17 19:26:12,394 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:26:19,748 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:26:20,292 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:26:27,641 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:26:28,128 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:26:36,490 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:26:37,002 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:26:46,376 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:26:46,861 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:26:50,286 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:26:50,759 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:26:54,177 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:26:54,684 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:27:05,095 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:27:05,577 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:27:08,848 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:27:09,334 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:27:18,722 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:27:19,252 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:27:21,669 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:27:22,170 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:27:25,616 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:27:26,148 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:27:59,297 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:27:59,790 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:28:02,024 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:28:02,496 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:28:04,738 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:28:05,271 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:28:06,682 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:28:07,232 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:28:13,772 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:28:14,295 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:28:22,851 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:28:23,395 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:28:27,906 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:28:28,450 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:28:42,125 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:28:42,630 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:28:48,119 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:28:48,673 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:28:55,205 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:28:55,716 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:29:00,206 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:29:00,737 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:29:04,160 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:29:04,655 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:29:06,870 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:29:07,397 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:29:11,855 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:29:12,464 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:29:25,130 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:29:25,612 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:29:37,259 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\urls.py changed, reloading.
+2024-01-17 19:29:37,764 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:29:41,196 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\urls.py changed, reloading.
+2024-01-17 19:29:41,692 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:33:00,042 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-17 19:33:29,820 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-17 19:33:31,984 [ERROR] main.views: 'Manager' object has no attribute 'filer'
+Traceback (most recent call last):
+  File "C:\Users\majid\Desktop\stock\main\views.py", line 570, in get
+    logs = list(Log.objects.filer(store = req.user.store).order_by('-id').values('user__username','action','instance','emei','category_name','instance_id','created_at'))
+                ^^^^^^^^^^^^^^^^^
+AttributeError: 'Manager' object has no attribute 'filer'
+2024-01-17 19:33:31,985 [ERROR] django.request: Internal Server Error: /logs-operations/
+2024-01-17 19:33:47,269 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 19:33:47,788 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 19:33:48,482 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-17 22:29:56,565 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:37:20,652 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-17 22:38:05,214 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-17 22:38:37,616 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-17 22:42:10,790 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-17 22:43:06,479 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-17 22:43:28,341 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-17 22:43:59,529 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-17 22:44:45,454 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-17 22:45:16,799 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-17 22:45:26,017 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-17 22:48:39,506 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-17 22:49:08,171 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-17 22:52:30,127 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:52:30,649 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:52:34,931 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:52:35,466 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:52:36,688 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:52:37,231 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:52:41,489 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:52:42,001 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:52:49,550 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:52:50,056 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:52:51,431 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:52:51,925 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:55:53,686 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:55:54,163 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:56:08,641 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:56:09,118 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:56:12,360 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:56:12,854 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:56:17,128 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:56:17,597 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:56:23,934 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:56:24,432 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:56:26,657 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:56:27,121 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:56:29,359 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:56:29,825 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:56:35,119 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:56:35,609 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:56:40,889 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:56:41,423 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:56:43,658 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:56:44,171 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:56:48,443 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:56:48,944 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:56:50,156 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:56:50,660 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:56:51,866 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:56:52,340 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:57:11,959 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:57:12,441 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:57:14,670 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:57:15,135 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:57:20,423 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:57:20,896 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:57:24,150 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:57:24,621 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:57:30,086 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:57:30,569 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:57:31,969 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:57:32,442 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:57:38,954 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:57:39,504 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:57:42,954 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:57:43,485 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:57:45,954 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:57:46,447 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:57:47,655 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:57:48,145 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:57:49,507 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:57:49,974 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:57:53,409 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:57:53,884 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:57:58,155 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:57:58,692 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:58:03,149 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:58:03,691 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:58:06,105 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:58:06,638 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:58:10,092 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:58:10,556 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:58:12,802 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:58:13,278 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:58:15,519 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:58:16,030 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:58:18,449 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:58:18,936 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:58:20,313 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:58:20,837 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:58:31,425 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:58:31,922 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:58:35,357 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:58:35,829 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:58:40,121 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:58:40,607 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:58:52,219 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:58:52,715 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:58:54,108 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:58:54,580 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:59:11,365 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:59:11,839 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:59:21,241 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:59:21,738 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:59:24,126 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:59:24,621 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:59:38,279 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:59:38,815 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:59:43,096 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:59:43,590 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:59:48,878 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:59:49,379 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:59:52,635 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:59:53,116 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 22:59:56,526 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 22:59:56,992 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:00:19,898 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:00:20,446 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:01:01,190 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-17 23:01:04,792 [INFO] main.views: root deleted router with sn: ezadsq-eza-dsq - emei : ezadsqeza
+2024-01-17 23:01:07,515 [INFO] main.views: root deleted router with sn: cwx-4eza1 - emei : sq1d-eza
+2024-01-17 23:01:08,526 [INFO] main.views: root deleted router with sn: ezadsq-41cwe - emei : e1zad-dsq-cxw1dsq-eza
+2024-01-17 23:01:13,754 [ERROR] main.views: 'list' object has no attribute 'get'
+Traceback (most recent call last):
+  File "C:\Users\majid\Desktop\stock\main\views.py", line 456, in post
+    routers = body.get('routers')
+              ^^^^^^^^
+AttributeError: 'list' object has no attribute 'get'
+2024-01-17 23:01:13,756 [ERROR] django.request: Internal Server Error: /router/
+2024-01-17 23:01:32,703 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:01:33,204 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:01:47,607 [ERROR] main.views: 'list' object has no attribute 'get'
+Traceback (most recent call last):
+  File "C:\Users\majid\Desktop\stock\main\views.py", line 456, in post
+    routers = body.get('routers')
+              ^^^^^^^^
+AttributeError: 'list' object has no attribute 'get'
+2024-01-17 23:01:47,608 [ERROR] django.request: Internal Server Error: /router/
+2024-01-17 23:01:56,238 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:01:56,775 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:02:04,314 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:02:05,017 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:02:05,707 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-17 23:02:07,486 [ERROR] main.views: 'list' object has no attribute 'get'
+Traceback (most recent call last):
+  File "C:\Users\majid\Desktop\stock\main\views.py", line 457, in post
+    routers = body.get('routers')
+              ^^^^^^^^
+AttributeError: 'list' object has no attribute 'get'
+2024-01-17 23:02:07,487 [ERROR] django.request: Internal Server Error: /router/
+2024-01-17 23:02:37,173 [WARNING] django.request: Not Found: /favicon.ico
+2024-01-17 23:02:59,426 [INFO] main.views: root deleted router with sn: ezadsq-1eza - emei : ezad-dsqeza-1dsq
+2024-01-17 23:03:00,649 [INFO] main.views: root deleted router with sn: dsqc-xw1eza - emei : 1dsq-eza
+2024-01-17 23:03:01,134 [INFO] main.views: root deleted router with sn: dsq-1dsq - emei : ezadsqeza
+2024-01-17 23:03:01,514 [INFO] main.views: root deleted router with sn: dsqcxw41d-1dsq - emei : 1dsq-1eza
+2024-01-17 23:03:02,545 [INFO] main.views: root deleted router with sn: dsq-1eza-1d - emei : d1sqeza
+2024-01-17 23:03:03,114 [INFO] main.views: root deleted router with sn: dsqcxw41d-1dsq - emei : 1dsq-1eza
+2024-01-17 23:03:03,697 [INFO] main.views: root deleted router with sn: dsq1-d1c1-ez1d - emei : eza1d-1-eza1dsq
+2024-01-17 23:03:04,070 [INFO] main.views: root deleted router with sn: dsq1-eza1dsq-eza1-dsqez - emei : d560-za0d-eza
+2024-01-17 23:03:05,812 [INFO] main.views: root deleted router with sn: eza-dsq1-eza1dsq-ez - emei : e1za-dsq
+2024-01-17 23:03:06,288 [INFO] main.views: root deleted router with sn: eza-ds1q-eza1dsq-dsq - emei : eza1dsq-eza
+2024-01-17 23:03:06,622 [INFO] main.views: root deleted router with sn: dsq1-eza1dsq-eza1 - emei : d560-za0d-eza
+2024-01-17 23:03:07,185 [INFO] main.views: root deleted router with sn: eza-dsq1e-za1dsq-1 - emei : e1za-ds1q
+2024-01-17 23:03:09,309 [INFO] main.views: root deleted router with sn: eza1-s1ez1 - emei : e1zadsq
+2024-01-17 23:03:09,712 [INFO] main.views: root deleted router with sn: dsq15za-dsq21eza-ds1q-eza1d - emei : ezadsq4eza
+2024-01-17 23:03:10,145 [INFO] main.views: root deleted router with sn: ezad-151eza-d1sqe - emei : eza51d61deza
+2024-01-17 23:03:10,507 [INFO] main.views: root deleted router with sn: ezadsqezad - emei : ezadsq-dsq-eza4ds-azdsq
+2024-01-17 23:03:12,529 [INFO] main.views: root deleted router with sn: dsq151-zea1dsq-e1za-d - emei : 1eza561ds
+2024-01-17 23:03:12,981 [INFO] main.views: root deleted router with sn: ezad-e151ezad - emei : ezadsqeza
+2024-01-17 23:03:42,003 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:03:42,530 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:03:45,945 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:03:46,534 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:03:47,945 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:03:48,418 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:03:50,825 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:03:51,296 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:03:53,685 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:03:54,182 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:03:57,603 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:03:58,129 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:04:26,272 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:04:26,814 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:04:49,733 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:04:50,255 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:04:52,686 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:04:53,179 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:05:00,526 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:05:01,050 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:05:02,265 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:05:02,734 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:05:08,024 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:05:08,524 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:05:10,759 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:05:11,218 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:05:14,467 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:05:14,939 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:05:23,279 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:05:23,808 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:05:25,023 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:05:25,498 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:05:34,874 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:05:35,345 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:05:54,166 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:05:54,700 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:05:58,975 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:05:59,450 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:06:12,090 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:06:12,574 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:06:18,068 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:06:18,574 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:06:27,176 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:06:27,674 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:06:29,041 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:06:29,512 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:06:33,798 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:06:34,334 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:06:35,721 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:06:36,191 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:06:37,563 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:06:38,067 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:06:45,400 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:06:45,907 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:06:47,293 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:06:47,934 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:06:56,514 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:06:57,004 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:06:59,463 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:06:59,947 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:07:03,364 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:07:03,890 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:07:19,757 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:07:20,321 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:07:21,700 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:07:22,230 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:07:49,410 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:07:49,898 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:08:12,969 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:08:13,467 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:08:16,227 [INFO] main.views: root deleted router with sn: ezadsq-eza-dsq - emei : ezadsqeza
+2024-01-17 23:08:16,440 [INFO] main.views: root deleted router with sn: ezadsq-41cwe - emei : e1zad-dsq-cxw1dsq-eza
+2024-01-17 23:08:16,899 [INFO] main.views: root deleted router with sn: cwx-4eza1 - emei : sq1d-eza
+2024-01-17 23:08:17,917 [INFO] main.views: root deleted router with sn: ezadsq-1eza - emei : ezad-dsqeza-1dsq
+2024-01-17 23:08:19,120 [INFO] main.views: root deleted router with sn: dsq-1eza-1d - emei : d1sqeza
+2024-01-17 23:08:19,448 [INFO] main.views: root deleted router with sn: dsq1-d1c1-ez1d - emei : eza1d-1-eza1dsq
+2024-01-17 23:08:20,008 [INFO] main.views: root deleted router with sn: dsqcxw41d-1dsq - emei : 1dsq-1eza
+2024-01-17 23:08:20,344 [INFO] main.views: root deleted router with sn: dsq-1dsq - emei : ezadsqeza
+2024-01-17 23:08:20,683 [INFO] main.views: root deleted router with sn: cxw-dsq1eza- - emei : dq1eza
+2024-01-17 23:08:22,124 [INFO] main.views: root deleted router with sn: dsqc-xw1eza - emei : 1dsq-eza
+2024-01-17 23:08:22,700 [INFO] main.views: root deleted router with sn: dsq1-eza1dsq-eza1-dsqez - emei : d560-za0d-eza
+2024-01-17 23:08:23,116 [INFO] main.views: root deleted router with sn: dsq1-eza1dsq-eza1 - emei : d560-za0d-eza
+2024-01-17 23:08:23,612 [INFO] main.views: root deleted router with sn: eza-ds1q-eza1dsq-dsq - emei : eza1dsq-eza
+2024-01-17 23:08:25,289 [INFO] main.views: root deleted router with sn: dsq15za-dsq21eza-ds1q-eza1d - emei : ezadsq4eza
+2024-01-17 23:08:25,792 [INFO] main.views: root deleted router with sn: ezad-151eza-d1sqe - emei : eza51d61deza
+2024-01-17 23:08:26,229 [INFO] main.views: root deleted router with sn: ezadsqezad - emei : ezadsq-dsq-eza4ds-azdsq
+2024-01-17 23:08:28,576 [INFO] main.views: root deleted router with sn: eza1-s1ez1 - emei : e1zadsq
+2024-01-17 23:08:28,986 [INFO] main.views: root deleted router with sn: eza-dsq1e-za1dsq-1 - emei : e1za-ds1q
+2024-01-17 23:08:29,390 [INFO] main.views: root deleted router with sn: eza-dsq1-eza1dsq-ez - emei : e1za-dsq
+2024-01-17 23:08:29,908 [INFO] main.views: root deleted router with sn: dsq41-cx1-eza - emei : e15sqeza-dsqeza
+2024-01-17 23:08:31,753 [INFO] main.views: root deleted router with sn: ezad-e151ezad - emei : ezadsqeza
+2024-01-17 23:08:32,325 [INFO] main.views: root deleted router with sn: dsq151-zea1dsq-e1za-d - emei : 1eza561ds
+2024-01-17 23:08:52,069 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:08:52,557 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:09:00,094 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:09:00,593 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:09:02,874 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:09:03,384 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:09:26,284 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:09:26,795 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:09:29,217 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:09:29,732 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:09:38,271 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:09:38,781 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:09:41,195 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:09:41,684 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:09:44,111 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:09:44,600 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:09:52,112 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:09:52,679 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:09:54,056 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:09:54,587 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:09:55,968 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:09:56,451 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:09:58,667 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:09:59,137 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:10:01,539 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:10:02,068 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:10:04,233 [INFO] main.views: root deleted router with sn: dsq151-zea1dsq-e1za-d - emei : 1eza561ds
+2024-01-17 23:10:04,337 [INFO] main.views: root deleted router with sn: ezad-e151ezad - emei : ezadsqeza
+2024-01-17 23:10:05,033 [INFO] main.views: root deleted router with sn: ezadsqezad - emei : ezadsq-dsq-eza4ds-azdsq
+2024-01-17 23:10:06,313 [ERROR] django.request: Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\main\views.py", line 200, in get
+    routers = router_paginator.page(router_page)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\paginator.py", line 89, in page
+    number = self.validate_number(number)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majid\Desktop\stock\venv\Lib\site-packages\django\core\paginator.py", line 71, in validate_number
+    raise EmptyPage(self.error_messages["no_results"])
+django.core.paginator.EmptyPage: That page contains no results
+2024-01-17 23:10:14,426 [INFO] main.views: root deleted router with sn: ezadsq-eza-dsq - emei : ezadsqeza
+2024-01-17 23:10:14,829 [INFO] main.views: root deleted router with sn: ezadsq-41cwe - emei : e1zad-dsq-cxw1dsq-eza
+2024-01-17 23:10:15,310 [INFO] main.views: root deleted router with sn: cwx-4eza1 - emei : sq1d-eza
+2024-01-17 23:10:15,628 [INFO] main.views: root deleted router with sn: dsq41-cx1-eza - emei : e15sqeza-dsqeza
+2024-01-17 23:10:15,954 [INFO] main.views: root deleted router with sn: ezadsq-1eza - emei : ezad-dsqeza-1dsq
+2024-01-17 23:10:16,484 [INFO] main.views: root deleted router with sn: dsqc-xw1eza - emei : 1dsq-eza
+2024-01-17 23:10:17,637 [INFO] main.views: root deleted router with sn: dsq1-d1c1-ez1d - emei : eza1d-1-eza1dsq
+2024-01-17 23:10:18,271 [INFO] main.views: root deleted router with sn: dsq1-eza1dsq-eza1-dsqez - emei : d560-za0d-eza
+2024-01-17 23:10:18,622 [INFO] main.views: root deleted router with sn: dsq1-eza1dsq-eza1 - emei : d560-za0d-eza
+2024-01-17 23:10:19,080 [INFO] main.views: root deleted router with sn: eza-ds1q-eza1dsq-dsq - emei : eza1dsq-eza
+2024-01-17 23:10:20,984 [INFO] main.views: root deleted router with sn: ezad-151eza-d1sqe - emei : eza51d61deza
+2024-01-17 23:10:21,451 [INFO] main.views: root deleted router with sn: dsq15za-dsq21eza-ds1q-eza1d - emei : ezadsq4eza
+2024-01-17 23:10:21,852 [INFO] main.views: root deleted router with sn: eza1-s1ez1 - emei : e1zadsq
+2024-01-17 23:10:22,250 [INFO] main.views: root deleted router with sn: eza-dsq1e-za1dsq-1 - emei : e1za-ds1q
+2024-01-17 23:10:22,586 [INFO] main.views: root deleted router with sn: eza-dsq1-eza1dsq-ez - emei : e1za-dsq
+2024-01-17 23:10:23,995 [INFO] main.views: root deleted router with sn: dsq-1eza-1d - emei : d1sqeza
+2024-01-17 23:10:24,267 [INFO] main.views: root deleted router with sn: dsqcxw41d-1dsq - emei : 1dsq-1eza
+2024-01-17 23:10:24,697 [INFO] main.views: root deleted router with sn: dsq-1dsq - emei : ezadsqeza
+2024-01-17 23:13:54,666 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:13:55,148 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:13:59,642 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:14:00,170 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:14:01,579 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:14:02,135 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:14:07,657 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:14:08,130 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:14:13,595 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:14:14,128 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:14:21,669 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:14:22,141 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-01-17 23:14:26,173 [INFO] main.views: root deleted router with sn: ezadsq-41cwe - emei : e1zad-dsq-cxw1dsq-eza
+2024-01-17 23:14:26,252 [INFO] main.views: root deleted router with sn: cwx-4eza1 - emei : sq1d-eza
+2024-01-17 23:14:26,856 [INFO] main.views: root deleted router with sn: ezadsq-eza-dsq - emei : ezadsqeza
+2024-01-17 23:14:27,570 [INFO] main.views: root deleted router with sn: ezadsq-1eza - emei : ezad-dsqeza-1dsq
+2024-01-17 23:14:28,088 [INFO] main.views: root deleted router with sn: dsq41-cx1-eza - emei : e15sqeza-dsqeza
+2024-01-17 23:17:39,583 [INFO] django.utils.autoreload: C:\Users\majid\Desktop\stock\main\views.py changed, reloading.
+2024-01-17 23:17:40,137 [INFO] django.utils.autoreload: Watching for file changes with StatReloader

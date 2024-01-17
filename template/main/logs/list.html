@@ -1,6 +1,17 @@
 {% extends 'base/root.html' %} {% load paginator_tags %} {% block content %}
 <main class="max-w-[1400px] mx-auto py-8">
-    <h1 class="text-xl text-primary-500 font-semibold mt-8 mb-4">Logs</h1>
+  <div class="flex justify-between mt-8 mb-4">
+    <h1 class="text-xl text-primary-500 font-semibold ">Logs</h1>
+    {% if page_obj %}
+    <button
+    class="rounded-md bg-red-600 text-white px-4 py-2"
+    onclick="export_logs(event)"
+  >
+    Export All
+  </button>
+    {% endif %}
+  </div>
+
     <form class="my-2 flex gap-4 items-center py-2">
         <h2 class="text-lg text-primary-400">Filters</h2>
         <div class="flex items-center gap-4 ">

@@ -393,18 +393,76 @@ const export_routers = async (e) => {
         }`
       );
     });
-    const data = "sep=," + "\r\n\n" + excel_data.join("\n");
-    const blob = new Blob([data], { type: "text/csv" });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.setAttribute("href", url);
     const now = new Date();
-    a.setAttribute(
-      "download",
-      `Routers-${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()}`
-    );
-    a.click();
+    const name = `Routers-${now.getDate()}-${
+      now.getMonth() + 1
+    }-${now.getFullYear()}`;
+    export_file(excel_data, name);
   } else {
     show_error(res.message);
   }
+};
+
+const export_logs = async (e) => {
+  e.preventDefault();
+
+  const res = await fetch("/logs-operations").then((res) => res.json());
+  if (res.status == 200) {
+    const logs = res.logs;
+    let excel_data = [
+      "username,action,instance,emei,category_name,instance_id,created_at",
+    ];
+    logs.forEach((log) => {
+      excel_data.push(
+        `${log.user__username},${log.action},${log.instance},${
+          log.emei ? log.emei : ""
+        },${log.category_name ? log.category_name : ""},${
+          log.instance_id
+        },${new Date(log.created_at).getDate()}-${
+          new Date(log.created_at).getMonth() + 1
+        }`
+      );
+    });
+    const now = new Date();
+    const name = `logs-${now.getDate()}-${
+      now.getMonth() + 1
+    }-${now.getFullYear()}`;
+    export_file(excel_data, name);
+  } else {
+    show_error(res.message);
+  }
+};
+
+const file_import = async (e) => {
+  const file = e.target.files[0];
+
+  file.text().then(async (data) => {
+    const routers = data
+      .split("\n")
+      .slice(3)
+      .map((row) => {
+        const [id, category, emei, serial_number] = row.split(",");
+        return {
+          id,
+          category,
+          emei,
+          serial_number,
+        };
+      });
+    const res = await fetch("/router/", {
+      method: "POST",
+      body: JSON.stringify({ routers }),
+      headers: {
+        "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]")
+          .value,
+      },
+    }).then((res) => res.json());
+    if (res.status == 200) {
+      show_success(res.message, () => {
+        window.location.reload();
+      });
+    } else {
+      show_error(res.message);
+    }
+  });
 };
