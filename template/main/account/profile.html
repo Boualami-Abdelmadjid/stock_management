@@ -1,4 +1,4 @@
-{% extends 'base/root.html' %}{% block content %}
+{% extends 'base/root.html' %}{% load role_tags %}{% block content %}
 <main
   class="max-w-[1000px] mx-auto py-16 relative flex flex-col justify-center"
 >
@@ -59,7 +59,7 @@
         class="user_container grid grid-cols-3 bg-gray-200 rounded-md py-2 px-4 justify-items-center"
       >
         <p>{{store_user.username }}</p>
-        <p>{{store_user.role }}</p>
+        <p>{% get_correct_role store_user.role %}</p>
         {% if user.role == 'store_manager' %}
         <p class="flex gap-4">
           <i
