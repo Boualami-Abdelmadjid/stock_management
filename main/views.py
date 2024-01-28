@@ -184,9 +184,10 @@ class DashboardView(View):
         #Routers part
         router_page = query.get('router_page') if query.get('router_page') else 1
         routers = Router.objects.filter(store=user.store,deleted=False).order_by('-id')
-        emei = query.get('router_emei')
-        serial = query.get('router_serial')
+        emei = query.get('emei')
+        serial = query.get('serial')
         category = query.get('router_category')
+        status = query.get('status')
         if emei:
             routers = routers.filter(emei__icontains=emei)
         if serial:
@@ -195,6 +196,8 @@ class DashboardView(View):
             category_instance = Category.objects.filter(id=category).first()
             if category_instance:
                 routers = routers.filter(category=category_instance)
+        if status:
+            routers = routers.filter(status=status)
         router_paginator = Paginator(routers,10)
         routers = router_paginator.page(router_page)
         context['routers_paginator'] = router_paginator.get_elided_page_range(number=router_page, 
@@ -464,6 +467,7 @@ class RouterView(View):
                                 router.save()
                                 Log.objects.create(user = user,store = user.store,instance='router',instance_id=router.id,emei=router.emei,action='add')
                                 imported += 1
+
                         elif Router.objects.filter(id=new_router.get('id'),deleted=True).exists():
                                 router = Router.objects.get(id=new_router.get('id'))
                                 router.category = category
@@ -473,6 +477,9 @@ class RouterView(View):
                                 router.save()
                                 Log.objects.create(user = user,store = user.store,instance='router',instance_id=router.id,emei=router.emei,action='add')
                                 imported += 1
+                    else:
+                        logger.error(f"{new_router.get('category')} not found")
+                                
 
                 except Exception as e:
                     logger.exception(e)
@@ -560,16 +567,20 @@ class CategorySuggestions(View):
             logger.exception(e)
         return JsonResponse(res,status=res['status'])
     
-class LogsView(ListView):
+class LogsView(View):
     model = Log
     paginate_by = 20
     template_name = "main/logs/list.html"
 
-    def get_queryset(self):
-        user = self.request.user
+    def get(self,request):
+        user = request.user
         logs = Log.objects.filter(store=user.store).order_by('-id')
+        actions = Action.objects.filter(store=user.store).order_by('-id')
+        context = {}
+        query = self.request.GET
+        context['users'] = User.objects.filter(Q(store = request.user.store) | Q(is_superuser = True))
         try:
-            query = self.request.GET
+            logs_page = query.get('logs_page') if query.get('logs_page') else 1
             emei = query.get('emei')
             searched_user = query.get('user')
             action = query.get('action')
@@ -586,16 +597,51 @@ class LogsView(ListView):
                 logs = logs.filter(action=action)
             if instance:
                 logs = logs.filter(instance=instance)
+            logs_paginator = Paginator(logs,10)
+            logs = logs_paginator.page(logs_page)
+            context['logs'] = logs
+            context['logs_obj'] = logs_paginator.get_elided_page_range(number=logs_page, 
+                                            on_each_side=1,
+                                            on_ends=1)
+            
         except Exception as e:
             logger.exception(e)
-        return logs
-    
-    def get_context_data(self,**kwargs):
-        context = super(LogsView,self).get_context_data(**kwargs)
-        user = self.request.user
-        store = user.store
-        context['users'] = User.objects.filter(Q(store = store) | Q(is_superuser = True))
-        return context
+
+        try:
+            actions_page = query.get('actions_page') if query.get('actions_page') else 1
+            router1 = query.get('action_router1')
+            action = query.get('action_action')
+            action_reason =  query.get('action_reason')
+            searched_user = query.get('action_user')
+
+
+            if router1:
+                actions = actions.filter(router1=Router.objects.filter(emei=router1).first())
+            
+            if searched_user:
+                searched_user_instance = User.objects.filter(store=user.store, id=searched_user).first()
+                if searched_user:
+                    actions = actions.filter(user = searched_user_instance)
+                else:
+                    actions = actions.none()
+            
+            if action:
+                actions = actions.filter(action=action)
+            
+            if action_reason:
+                actions = actions.filter(reason=action_reason)
+
+            actions_paginator = Paginator(actions,10)
+            actions = actions_paginator.page(actions_page)
+            context['actions'] = actions
+            context['actions_obj'] = actions_paginator.get_elided_page_range(number=actions_page, 
+                                            on_each_side=1,
+                                            on_ends=1)
+            
+        except Exception as e:
+            logger.exception(e)
+
+        return render(request,'main/logs/list.html',context=context)
     
 class LogsOpsView(View):
     def get(self,req):
@@ -608,3 +654,54 @@ class LogsOpsView(View):
         except Exception as e:
             logger.exception(e)
         return JsonResponse(res,status=res['status'])
+    
+class ActionsView(View):
+    def get(self,req):
+        return render(req,'main/actions/main.html')
+    
+    def post(self,req):
+        res = {"status":500,"message":"Something wrong hapenned"}
+        try :
+            body = json.loads(req.body)
+            action_type = body.get('action')
+            imei = body.get('imei')
+            imei2 = body.get('imei2')
+            router1 = Router.objects.filter(store=req.user.store,emei = imei).first()
+            router2 = None
+
+            if not router1:
+                res['message'] = "We can't find a router with this EMEI"
+                return JsonResponse(res,status=res['status'])
+            if imei2:
+                router2 = Router.objects.filter(store=req.user.store,emei = imei2).first()
+                if not router2:
+                    res['message'] = "We can't find a router with the second IMEI"
+                    return JsonResponse(res,status=res['status'])
+            
+            if router1:
+                action = Action.objects.create(user = req.user,router=router1,action=action_type,comment=body.get('comment'))
+                if action_type == 'return':
+                    action.reason = body.get('return_reason')
+                    router1.status = Router.STATUSES[3][0]#return
+                    router1.reason = body.get('return_reason')
+                elif action_type == 'swap':
+                    action.reason = body.get('swap_reason')
+                    action.router2 = router2
+                    router1.status = Router.STATUSES[4][0] #swap
+                    router1.reason = body.get('return_reason')
+                    router2.status = Router.STATUSES[3][0] #return
+                elif action_type == 'collect':
+                    router1.status = Router.STATUSES[2][0]
+                elif action_type == 'sale':
+                    router1.status = Router.STATUSES[1][0]
+
+                action.save()
+                router1.save()
+                if router2:router2.save()
+
+                res['status'] = 200
+                del res['message']
+        except Exception as e:
+            logger.exception(e)
+        return JsonResponse(res,status=res['status'])
+

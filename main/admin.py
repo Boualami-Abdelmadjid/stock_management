@@ -13,7 +13,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_editable = ('deleted',)
 
 class RouterAdmin(admin.ModelAdmin):
-    list_display=('store','category','emei','serial_number','deleted','created_at')
+    list_display=('store','category','status','emei','serial_number','deleted','created_at')
     search_fields = ('store__name','email','serial_number')
     list_editable = ('deleted',)
 
@@ -24,6 +24,8 @@ class LogAdmin(admin.ModelAdmin):
 class MonitoringAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Monitoring._meta.get_fields()]
 
+class ActionAdmin(admin.ModelAdmin):
+   list_display = [field.name for field in Action._meta.get_fields()] 
 
 admin.site.register(User,UserAdmin)
 admin.site.register(Store,StoreAdmin)
@@ -31,3 +33,4 @@ admin.site.register(Category,CategoryAdmin)
 admin.site.register(Router,RouterAdmin)
 admin.site.register(Log,LogAdmin)
 admin.site.register(Monitoring,MonitoringAdmin)
+admin.site.register(Action,ActionAdmin)

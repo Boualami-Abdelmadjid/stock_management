@@ -12,7 +12,7 @@
       <a
         class="inline-block rounded-md bg-primary-600 text-white px-4 py-2"
         href="{% url 'create-category' %}"
-        >Create one</a
+        >Add</a
       >
       {% endif %} {% endif %}
     </div>
@@ -78,7 +78,7 @@
     <p class="text-center text-lg font-semibold">
       You have no categories,
       <a class="text-primary-500" href="{% url 'create-category' %}"
-        >Create one</a
+        >Add</a
       >
     </p>
     {% endif %}
@@ -93,7 +93,7 @@
       <a
         class="inline-block rounded-md bg-primary-600 text-white px-4 py-2"
         href="{% url 'create-router' %}"
-        >Create one</a
+        >Add</a
       >
       {% endif %} {% endif %}
     </div>
@@ -106,7 +106,7 @@
       >
         <tr>
           <th scope="col" class="px-6 py-3">category</th>
-          <th scope="col" class="px-6 py-3">EMEI</th>
+          <th scope="col" class="px-6 py-3">IMEI</th>
           <th scope="col" class="px-6 py-3">Serial number</th>
           <th scope="col" class="px-6 py-3">Created at</th>
           {% if user.role == 'store_manager' %}
@@ -160,7 +160,7 @@
     <p class="text-center text-lg font-semibold">
       You have no routers,
       <a class="text-primary-500" href="{% url 'create-router' %}"
-        >Create one</a
+        >Add</a
       >
     </p>
     {% endif %}

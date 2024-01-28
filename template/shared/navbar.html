@@ -4,6 +4,7 @@
   <div class="flex gap-8 items-center">
     <a href="/" class="cursor-pointer">Home</a>
     <a class="cursor-pointer" href="{% url 'dashboard' %}">Dashboard</a>
+    <a class="cursor-pointer" href="{% url 'actions' %}">Actions</a>
     <a class="cursor-pointer" href="{% url 'logs' %}">Logs</a>
     <a class="cursor-pointer" href="{% url 'profile' %}">Profile</a>
     {% if user.is_superuser %}
@@ -19,7 +20,7 @@
     >
     <form method="post" action="{% url 'logout' %}">
       {% csrf_token %}
-      <button type="submit">logout</button>
+      <button type="submit">Logout</button>
     </form>
     {% else %}
     <a class="cursor-pointer" href="{% url 'login' %}">login</a>

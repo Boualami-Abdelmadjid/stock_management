@@ -41,7 +41,7 @@ class Category(models.Model):
         return self.name
     
     def count_routers(self):
-        results = self.router_set.filter(deleted=False).count()
+        results = self.router_set.filter(deleted=False,status="in_stock").count()
         return results
     
     class Meta:
@@ -49,12 +49,23 @@ class Category(models.Model):
 
 
 class Router(models.Model):
+    STATUSES = (
+        ('in_stock','In stock'),
+        ('new_sale','New sale'),
+        ('collected','Collected'),
+        ('return','Return'),
+        ('swap','Device swap')
+    )
     store = models.ForeignKey(Store,on_delete=models.SET_NULL,null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,null=True)
     serial_number = models.CharField(max_length = 150, blank=True, null=True)
     emei =  models.CharField(max_length = 150, blank=True, null=True)
+    status = models.CharField(max_length=50,default=STATUSES[0][0], choices=STATUSES)
+    reason = models.CharField(max_length=150, null=True,blank=True)
+    shipped = models.BooleanField(default=False)
     deleted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
+
 
     def __str__(self):
         return self.emei
@@ -91,6 +102,22 @@ class Monitoring(models.Model):
 
     def __str__(self):
         return str(self.day)+' '+self.category.name
+    
+class Action(models.Model):
+    ACTIONS = (
+        ('collect','Collect'),
+        ('sale','Sale'),
+        ('return','Return'),
+        ('swap','Device swap')
+    )
+    store = models.ForeignKey(Store,on_delete=models.SET_NULL,null=True)
+    user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
+    action = models.CharField(max_length=50,choices = ACTIONS)
+    router = models.ForeignKey(Router,on_delete=models.SET_NULL,null=True)
+    router2 = models.ForeignKey(Router,on_delete=models.SET_NULL,null=True,related_name='imei2')
+    reason = models.CharField(max_length=50,null=True,blank=True)
+    comment = models.TextField(null=True,blank=True)
+    created_at = models.DateTimeField(auto_now_add=True,null=True)
     
 #This to receive a signal when the super user changes something from the admin console
 @receiver(models.signals.post_save, sender = LogEntry)

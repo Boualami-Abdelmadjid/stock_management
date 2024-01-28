@@ -1,4 +1,4 @@
-{% load paginator_tags %}
+{% load paginator_tags %} {% load role_tags %}
 <section class="routers">
   <div
     class="flex justify-between mt-8 mb-4 items-center text-primary-500 font-medium"
@@ -22,7 +22,7 @@
         onclick="this.nextElementSibling.click()"
         class="rounded-md bg-green-500 text-white px-4 py-2"
       >
-        Import
+        Upload file
       </button>
       <input
         type="file"
@@ -89,6 +89,25 @@
         {% endfor %}
       </select>
     </div>
+    <div class="flex items-center gap-4">
+      <label
+        for="status"
+        class="block pl-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Status</label
+      >
+      <select
+        id="status"
+        name="status"
+        class="grow pr-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      >
+        <option value=""></option>
+        <option value="in_stock">In stock</option>
+        <option value="new_sale">New sale</option>
+        <option value="collected">Collected</option>
+        <option value="return">Return</option>
+        <option value="swap">Device swap</option>
+      </select>
+    </div>
 
     <button
       type="submit"
@@ -109,9 +128,10 @@
         <th scope="col" class="px-6 py-3">Category</th>
         <th scope="col" class="px-6 py-3">Serial number</th>
         <th scope="col" class="px-6 py-3">EMEI</th>
-        <th scope="col" class="px-6 py-3">Created at</th>
+        <th scope="col" class="px-6 py-3">Status</th>
+        <th scope="col" class="px-6 py-3">comment</th>
         {% if user.role == 'store_manager' %}
-        <th scope="col" class="px-6 py-3">Actions</th>
+        <th scope="col" class="w-8">Actions</th>
         {% endif %}
       </tr>
     </thead>
@@ -132,9 +152,12 @@
         </th>
         <td class="px-6 py-4">{{ router.serial_number }}</td>
         <td class="px-6 py-4">{{ router.emei }}</td>
-        <td class="px-6 py-4">{{ router.created_at|date:'Y-m-d H:i' }}</td>
+        <td class="px-6 py-4">{% get_correct_status router.status %}</td>
+        <td class="px-6 py-4">
+          {% if router.reason %}{{router.reason}}{%else%}-{%endif%}
+        </td>
         {% if user.role == 'store_manager' %}
-        <td class="px-6 py-4 flex gap-4">
+        <td class="py-4 flex gap-4">
           <i
             title="edit"
             class="fa-regular fa-pen-to-square text-lg text-primary-400 cursor-pointer"

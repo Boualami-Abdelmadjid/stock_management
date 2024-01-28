@@ -1,158 +1,333 @@
 {% extends 'base/root.html' %} {% load paginator_tags %} {% block content %}
 <main class="max-w-[1400px] mx-auto py-8">
-  <div class="flex justify-between mt-8 mb-4">
-    <h1 class="text-xl text-primary-500 font-semibold ">Logs</h1>
-    {% if page_obj %}
-    <button
-    class="rounded-md bg-red-600 text-white px-4 py-2"
-    onclick="export_logs(event)"
+  <div
+    class="page flex w-fit mx-auto rounded-md border-2 border-primary-500 divide-x-2 divide-primary-500 text-gray-800"
+    onclick="switch_pages_handler(event)"
   >
-    Export All
-  </button>
-    {% endif %}
+    <span name="routers" class="p-2 cursor-pointer page_active">Routers</span>
+    <span name="actions" class="p-2 cursor-pointer">Actions</span>
   </div>
+  <section class="routers">
+    <div class="flex justify-between mt-8 mb-4">
+      <h1 class="text-xl text-primary-500 font-semibold">Logs</h1>
+      <div class="flex justify-center items-center gap-8">
+      </div>
+      {% if logs_obj %}
+      <button
+        class="rounded-md bg-red-600 text-white px-4 py-2"
+        onclick="export_logs(event)"
+      >
+        Export All
+      </button>
+      {% endif %}
+    </div>
 
     <form class="my-2 flex gap-4 items-center py-2">
-        <h2 class="text-lg text-primary-400">Filters</h2>
-        <div class="flex items-center gap-4 ">
-            <label
-              for="emei"
-              class="block text-sm font-medium text-gray-900 dark:text-white"
-              >Emei/Name</label
-            >
-            <input
-              type="text"
-              name="emei"
-              id="emei"
-              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Emei / Name"
-            />
-          </div>
-        <div class="flex items-center gap-4 ">
-            
-            <label
-            for="action"
-            class="block pl-2 text-sm font-medium text-gray-900 dark:text-white "
-            >Action</label
-            >
-            <select
-            id="action"
-            name="action"
-            class="grow pr-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            >
-                <option></option>
-                <option value="add">
-                    Add
-                </option>
-                <option value="edit">Edit</option>
-                <option value="delete">Delete</option>
-            </select>
-        </div>
-        <div class="flex items-center gap-4 ">
-            <label
-            for="user"
-            class="block pl-2 text-sm font-medium text-gray-900 dark:text-white "
-            >User</label
-            >
-            <select
-            id="user"
-            name="user"
-            class="grow pr-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            >
-            <option></option>
-                {% for user in users %}
-                <option value="{{user.id}}">
-                    {{user.username}}
-                </option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="flex items-center gap-4 ">
-            <label
-            for="instance"
-            class="block pl-2 text-sm font-medium text-gray-900 dark:text-white "
-            >Instance</label
-            >
-            <select
-            id="instance"
-            name="instance"
-            class="grow pr-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            >
-            <option></option>
+      <input name="view" value="routers" hidden />
+      <h2 class="text-lg text-primary-400">Filters</h2>
+      <div class="flex items-center gap-4">
+        <label
+          for="emei"
+          class="block text-sm font-medium text-gray-900 dark:text-white"
+          >Imei/Name</label
+        >
+        <input
+          type="text"
+          name="emei"
+          id="Imei"
+          class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Imei / Name"
+        />
+      </div>
+      <div class="flex items-center gap-4">
+        <label
+          for="action"
+          class="block pl-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Action</label
+        >
+        <select
+          id="action"
+          name="action"
+          class="grow pr-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          <option></option>
+          <option value="add">Add</option>
+          <option value="edit">Edit</option>
+          <option value="delete">Delete</option>
+        </select>
+      </div>
+      <div class="flex items-center gap-4">
+        <label
+          for="user"
+          class="block pl-2 text-sm font-medium text-gray-900 dark:text-white"
+          >User</label
+        >
+        <select
+          id="user"
+          name="user"
+          class="grow pr-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          <option></option>
+          {% for user in users %}
+          <option value="{{user.id}}">{{user.username}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="flex items-center gap-4">
+        <label
+          for="instance"
+          class="block pl-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Instance</label
+        >
+        <select
+          id="instance"
+          name="instance"
+          class="grow pr-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          <option></option>
 
-                <option value="category" >
-                    category
-                </option>
-                <option value="router">Router</option>
-            </select>
-        </div>
-        <button
+          <option value="category">category</option>
+          <option value="router">Router</option>
+        </select>
+      </div>
+      <button
         type="submit"
         class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
       >
         Filter
       </button>
     </form>
-  {% if page_obj %}
+    {% if logs_obj %}
 
-  <table
-    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-  >
-    <thead
-      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+    <table
+      class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
     >
-      <tr>
-        <th scope="col" class="px-6 py-3">User</th>
-        <th scope="col" class="px-6 py-3">Action</th>
-        <th scope="col" class="px-6 py-3">Instance</th>
-        <th scope="col" class="px-6 py-3">Name/EMEI</th>
-        <th scope="col" class="px-6 py-3">Created at</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for log in page_obj %}
-      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-        <th
-          scope="row"
-          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-        >
-        {{ log.user.username }}
-        </th>
-        <td class="px-6 py-4">{{ log.action }}</td>
-        <td class="px-6 py-4">{{ log.instance }}</td>
-        <td class="px-6 py-4">
-          {% if log.emei %} {{ log.emei}} {% else %} {{ log.category_name }} {% endif %}
-        </td>
-        <td class="px-6 py-4">{{ log.created_at|date:'Y-m-d H:i' }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3">User</th>
+          <th scope="col" class="px-6 py-3">Action</th>
+          <th scope="col" class="px-6 py-3">Instance</th>
+          <th scope="col" class="px-6 py-3">Name/IMEI</th>
+          <th scope="col" class="px-6 py-3">Created at</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for log in logs %}
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {{ log.user.username }}
+          </th>
+          <td class="px-6 py-4">{{ log.action }}</td>
+          <td class="px-6 py-4">{{ log.instance }}</td>
+          <td class="px-6 py-4">
+            {% if log.emei %} {{ log.emei}} {% else %} {{ log.category_name }}
+            {% endif %}
+          </td>
+          <td class="px-6 py-4">{{ log.created_at|date:'Y-m-d H:i' }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
 
-  {% else %}
-  <p class="my-8 text-xl font-semibold text-center ">There are no logs</p>
-  {% endif %}
-
-  <div class="flex gap-2 justify-center my-4">
-    {% get_proper_elided_page_range paginator page_obj.number as page_range %}
-    <!-- here -->
-    {% for i in page_range %} {% if page_obj.number == i %}
-    <a
-      class="px-3 py-1 rounded-md border-2 text-primary-500 border-primary-500"
-    >
-      {{ i }}
-    </a>
-    {% else %} {% if i == paginator.ELLIPSIS %}
-    <a class="px-3 py-1 rounded-md border-2"> {{ paginator.ELLIPSIS }} </a>
     {% else %}
+    <p class="my-8 text-xl font-semibold text-center">There are no logs</p>
+    {% endif %}
 
-    <a class="px-3 py-1 rounded-md border-2" href="?page={{ i }}">{{ i }}</a>
+    <div class="flex gap-2 justify-center my-4">
+      <!-- here -->
+      {% for i in logs_obj %} {% if logs.number == i %}
+      <a
+        class="px-3 py-1 rounded-md border-2 text-primary-500 border-primary-500"
+      >
+        {{ i }}
+      </a>
+      {% else %} {% if i == paginator.ELLIPSIS %}
+      <a class="px-3 py-1 rounded-md border-2"> {{ paginator.ELLIPSIS }} </a>
+      {% else %}
 
-    {% endif %} {% endif %} {% endfor %}
-  </div>
+      <a
+        class="px-3 py-1 rounded-md border-2"
+        href="?view=logs&logs_page={{ i }}"
+        >{{ i }}</a
+      >
+
+      {% endif %} {% endif %} {% endfor %}
+    </div>
+  </section>
+  <section class="hidden actions">
+    <div class="flex justify-between mt-8 mb-4">
+      <h1 class="text-xl text-primary-500 font-semibold">Actions</h1>
+      <!-- {% if logs_obj %}
+      <button
+        class="rounded-md bg-red-600 text-white px-4 py-2"
+        onclick="export_logs(event)"
+      >
+        Export All
+      </button>
+      {% endif %} -->
+    </div>
+
+    <form class="my-2 flex gap-4 items-center py-2">
+      <input name="view" value="actions" hidden />
+      <h2 class="text-lg text-primary-400">Filters</h2>
+      <div class="flex items-center gap-4">
+        <label
+          for="action_router1"
+          class="block text-sm font-medium text-gray-900 dark:text-white"
+          >Imei</label
+        >
+        <input
+          type="text"
+          name="action_router1"
+          id="Imei"
+          class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Imei / Name"
+        />
+      </div>
+      <div class="flex items-center gap-4">
+        <label
+          for="action_action"
+          class="block pl-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Action</label
+        >
+        <select
+          id="action_action"
+          name="action_action"
+          class="grow pr-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          <option></option>
+          <option value="collect">Collect</option>
+          <option value="sale">New sale</option>
+          <option value="return">Return</option>
+          <option value="swap">Swap device</option>
+        </select>
+      </div>
+      <div class="flex items-center gap-4">
+        <label
+          for="action_user"
+          class="block pl-2 text-sm font-medium text-gray-900 dark:text-white"
+          >User</label
+        >
+        <select
+          id="action_user"
+          name="action_user"
+          class="grow pr-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          <option></option>
+          {% for user in users %}
+          <option value="{{user.id}}">{{user.username}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="flex items-center gap-4">
+        <label
+          for="action_reason"
+          class="block pl-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Reason</label
+        >
+        <select
+          id="action_reason"
+          name="action_reason"
+          class="grow pr-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          <option></option>
+          <option value="new">New service</option>
+          <option value="cancellation">Cancellation</option>
+          <option value="failty">Faulty</option>
+          <option value="coverage">Coverage/Connectivity</option>
+        </select>
+      </div>
+      <button
+        type="submit"
+        class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+      >
+        Filter
+      </button>
+    </form>
+    {% if actions_obj %}
+
+    <table
+      class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+    >
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3">User</th>
+          <th scope="col" class="px-6 py-3">Action</th>
+          <th scope="col" class="px-6 py-3">Rout. 1 IMEI</th>
+          <th scope="col" class="px-6 py-3">Rout. 1 SN</th>
+          <th scope="col" class="px-6 py-3">Rout. 1 type</th>
+          <th scope="col" class="px-6 py-3">Rout. 2 IMEI</th>
+          <th scope="col" class="px-6 py-3">Rout. 2 SN</th>
+          <th scope="col" class="px-6 py-3">Rout. 2 type</th>
+          <th scope="col" class="px-6 py-3">Reason</th>
+          <th scope="col" class="px-6 py-3">Comment</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for action in actions %}
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {{ action.user.username }}
+          </th>
+          <td class="px-6 py-4">{{ action.action }}</td>
+          <td class="px-6 py-4">{{ action.router.emei }}</td>
+          <td class="px-6 py-4">{{ action.router.serial_number }}</td>
+          <td class="px-6 py-4">{{ action.router.category.type }}</td>
+          <td class="px-6 py-4">{% if action.router2 %} {{ action.router2.emei }} {% else %} - {% endif %} </td>
+          <td class="px-6 py-4">{% if action.router2 %} {{ action.router2.serial_number }} {% else %} - {% endif %} </td>
+          <td class="px-6 py-4">{% if action.router2 %} {{ action.router2.category.type }} {% else %} - {% endif %} </td>
+          <td class="px-6 py-4">{% if action.reason %} {{ action.reason }} {% else %} - {% endif %} </td>
+          <td class="px-6 py-4">{% if action.comment %} {{ action.comment }} {% else %} - {% endif %} </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% else %}
+    <p class="my-8 text-xl font-semibold text-center">There are no actions</p>
+    {% endif %}
+
+    <div class="flex gap-2 justify-center my-4">
+      <!-- here -->
+      {% for i in actions_obj %} {% if actions.number == i %}
+      <a
+        class="px-3 py-1 rounded-md border-2 text-primary-500 border-primary-500"
+      >
+        {{ i }}
+      </a>
+      {% else %} {% if i == paginator.ELLIPSIS %}
+      <a class="px-3 py-1 rounded-md border-2"> {{ paginator.ELLIPSIS }} </a>
+      {% else %}
+
+      <a
+        class="px-3 py-1 rounded-md border-2"
+        href="?view=actions&actions_page={{ i }}"
+        >{{ i }}</a
+      >
+
+      {% endif %} {% endif %} {% endfor %}
+    </div>
+  </section>
+
   {% if user.role == 'store_manager' %}
   <!-- Edit form -->
   {% include 'main/router/edit-form.html' %} {% endif %}
 </main>
+<script>
+  const view = new URLSearchParams(window.location.search).get('view')
+  if (view) {
+    document.querySelector(`span[name=${view}]`)?.click()
+  }
+</script>
 
 {% endblock %}

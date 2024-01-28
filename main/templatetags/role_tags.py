@@ -1,5 +1,5 @@
 from django import template
-from main.models import User
+from main.models import User, Router
 register = template.Library()
 
 
@@ -12,4 +12,14 @@ def get_correct_role(value):
             correct_role = role[1]
             break
     return correct_role
+
+@register.simple_tag
+def get_correct_status(value):
+    statuses = Router.STATUSES
+    correct_status = value
+    for status in statuses:
+        if status[0] == correct_status:
+            correct_status = status[1]
+            break
+    return correct_status
     

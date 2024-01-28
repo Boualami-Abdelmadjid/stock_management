@@ -1,0 +1,128 @@
+{% include 'base/root.html' %} {% block content %}
+<main>
+  <section class="bg-gray-50 dark:bg-gray-900">
+    <div
+      class="flex flex-col items-center px-6 py-8 mx-auto md:h-screen lg:py-24"
+    >
+      <div
+        class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
+      >
+        <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+          <h1
+            class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+          >
+            Perform an action
+          </h1>
+          <form
+            class="space-y-4 md:space-y-6"
+            onsubmit="submit_action(event,this)"
+          >
+            <div>
+              <label
+                for="imei"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Imei</label
+              >
+              <input
+                type="text"
+                name="imei"
+                id="imei"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Router's Imei"
+                required
+              />
+            </div>
+            <div>
+              <label
+                for="action"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Select an action</label
+              >
+              <select
+                id="action"
+                name="action"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                onchange="action_change(this)"
+              >
+                <option value="collect" selected>Collect</option>
+                <option value="sale">Sale</option>
+                <option value="return">Return</option>
+                <option value="swap">Device swap</option>
+              </select>
+            </div>
+
+            <div class="swap hidden optional">
+              <label
+                for="imei2"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >New router Imei</label
+              >
+              <input
+                type="text"
+                name="imei2"
+                id="imei2"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="New router imei"
+              />
+            </div>
+            <div class="hidden return optional">
+              <label
+                for="return_reason"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Select a reason</label
+              >
+              <select
+                id="return_reason"
+                name="return_reason"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option disabled selected hidden></option>
+                <option value="cancellation ">Cancellation</option>
+                <option value="new_service">New service taken</option>
+              </select>
+            </div>
+            <div class="hidden swap optional">
+              <label
+                for="swap_reason"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Select a reason</label
+              >
+              <select
+                id="swap_reason"
+                name="swap_reason"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option disabled selected hidden></option>
+                <option value="faulty">Faulty device</option>
+                <option value="coverage">Coverage/Connectivity</option>
+              </select>
+            </div>
+            <div class="return swap hidden optional">
+              <label
+                for="reason"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Comment</label
+              >
+              <textarea
+                type="text"
+                name="comment"
+                id="comment"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Comment"
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+            >
+              Create
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+{% endblock %}

@@ -466,3 +466,43 @@ const file_import = async (e) => {
     }
   });
 };
+
+const action_change = (elem) => {
+  event.preventDefault();
+  const action = elem.value;
+  Array.from(document.querySelectorAll(".optional")).forEach((elem) => {
+    elem.classList.add("hidden");
+  });
+  Array.from(document.querySelectorAll("." + action)).forEach((elem) => {
+    elem.classList.remove("hidden");
+  });
+};
+
+const submit_action = async (event, elem) => {
+  event.preventDefault();
+  const [imei, action, imei2, return_reason, swap_reason, comment] = Array.from(
+    elem.querySelectorAll("input, textarea, select")
+  ).map((elem) => elem.value);
+  const body = JSON.stringify({
+    imei,
+    action,
+    imei2,
+    return_reason,
+    swap_reason,
+    comment,
+  });
+  const res = await fetch("/actions/", {
+    method: "POST",
+    body,
+    headers: {
+      "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+    },
+  }).then((res) => res.json());
+  if (res.status === 200) {
+    show_success("Action performed succesfully", () => {
+      location.reload();
+    });
+  } else {
+    show_error(res.message);
+  }
+};
