@@ -3,10 +3,12 @@
 >
   <div class="flex gap-8 items-center">
     <a href="/" class="cursor-pointer">Home</a>
-    <a class="cursor-pointer" href="{% url 'dashboard' %}">Dashboard</a>
     <a class="cursor-pointer" href="{% url 'actions' %}">Actions</a>
-    <a class="cursor-pointer" href="{% url 'logs' %}">Logs</a>
     <a class="cursor-pointer" href="{% url 'profile' %}">Profile</a>
+    {% if user.role == "store_manager" %}
+    <a class="cursor-pointer" href="{% url 'dashboard' %}">Dashboard</a>
+    <a class="cursor-pointer" href="{% url 'logs' %}">Logs</a>
+    {% endif %}
     {% if user.is_superuser %}
     <a class="cursor-pointer" target="_blank" href="/admin">Admin</a>
     {% endif %}

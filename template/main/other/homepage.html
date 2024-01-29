@@ -68,18 +68,16 @@
         {% endfor %}
       </tbody>
     </table>
-    {% if more_categories %}
+    {% if more_categories %} {% if user.role == "store_manager" %}
     <a
       class="block text-center text-primary-400 mt-8 font-semibold underline"
       href="{% url 'dashboard' %}?view=categories"
       >Show all categories</a
     >
-    {% endif %} {% else %}
+    {% endif %} {% endif %} {% else %}
     <p class="text-center text-lg font-semibold">
       You have no categories,
-      <a class="text-primary-500" href="{% url 'create-category' %}"
-        >Add</a
-      >
+      <a class="text-primary-500" href="{% url 'create-category' %}">Add</a>
     </p>
     {% endif %}
   </div>
@@ -150,18 +148,16 @@
         {% endfor %}
       </tbody>
     </table>
-    {% if more_routers %}
+    {% if more_routers %} {% if user.role == "store_manager" %}
     <a
       class="block text-center text-primary-400 mt-8 font-semibold underline"
       href="{% url 'dashboard' %}?view=routers"
       >Show all routers</a
     >
-    {% endif %} {% else %}
+    {% endif %} {% endif %} {% else %}
     <p class="text-center text-lg font-semibold">
       You have no routers,
-      <a class="text-primary-500" href="{% url 'create-router' %}"
-        >Add</a
-      >
+      <a class="text-primary-500" href="{% url 'create-router' %}">Add</a>
     </p>
     {% endif %}
   </div>

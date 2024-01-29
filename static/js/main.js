@@ -243,10 +243,11 @@ const open_edit_router = (elem) => {
   const form = document.querySelector(".edit_form.router");
   const container = elem.closest("tr");
   const { id, sn, emei, category } = container.dataset;
+  console.log(container.dataset);
 
   form.dataset.id = id;
   const sn_container = form.querySelector("[name=serial_number]");
-  const emei_container = form.querySelector("[name=emei]")?.trim();
+  const emei_container = form.querySelector("[name=emei]");
   const category_container = form.querySelector("[name=category]");
   sn_container.value = sn;
   emei_container.value = emei;

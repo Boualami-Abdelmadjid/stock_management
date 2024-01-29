@@ -252,16 +252,19 @@ class DashboardView(View):
         for index,category in enumerate(routers_categories):
             obj = []
             for day_index,day in enumerate(days):
-                date_start = day
-                date_end = day + timedelta(days=1)
-                monitoring = Monitoring.objects.filter(store=store,category=category,day__gte=date_start,day__lt=date_end).first()
-                if monitoring:
-                    obj.append(monitoring.routers)
+                if day_index == 4:
+                    obj.append(category.count_routers())
                 else:
-                    default = 0
-                    if day_index > 0:
-                        default = obj[day_index - 1]
-                    obj.append(default)
+                    date_start = day
+                    date_end = day + timedelta(days=1)
+                    monitoring = Monitoring.objects.filter(store=store,category=category,day__gte=date_start,day__lt=date_end).first()
+                    if monitoring:
+                        obj.append(monitoring.routers)
+                    else:
+                        default = 0
+                        if day_index > 0:
+                            default = obj[day_index - 1]
+                        obj.append(default)
             color = colors[index % len(colors)]
             monitor_obj = {'label':category.name,'values':obj,'color':color+'33','border':color}
             
@@ -269,25 +272,29 @@ class DashboardView(View):
         
         #Routers by store section
         for day_index,day in enumerate(days):
-            date_start = day
-            date_end = day + timedelta(days=1)
-            condition1 = Q(store=store)
-            condition2 = Q(day__gte=date_start)
-            condition3 = Q(day__lt=date_end)
+            if day_index == 4:
+                store_monitors.append(store.count_routers())
+                print(store.count_routers())
+            else:
+                date_start = day
+                date_end = day + timedelta(days=1)
+                condition1 = Q(store=store)
+                condition2 = Q(day__gte=date_start)
+                condition3 = Q(day__lt=date_end)
 
-            condition = Case(
-                When(condition1 & condition2 & condition3, then=F('routers')),
-                default=0,
-                output_field=IntegerField()
-            )
-            result = Monitoring.objects.aggregate(total=Sum(condition))
-            total = result.get('total')
-            #When there is no entry for this date, and index > 1, keep the same amount of routers of yesterday for today
-            if not total and day_index > 0 and not Monitoring.objects.filter(store=store,day__gte=date_start,day__lt=date_end):
-                total = store_monitors[day_index - 1]
+                condition = Case(
+                    When(condition1 & condition2 & condition3, then=F('routers')),
+                    default=0,
+                    output_field=IntegerField()
+                )
+                result = Monitoring.objects.aggregate(total=Sum(condition))
+                total = result.get('total')
+                #When there is no entry for this date, and index > 1, keep the same amount of routers of yesterday for today
+                if not total and day_index > 0 and not Monitoring.objects.filter(store=store,day__gte=date_start,day__lt=date_end):
+                    total = store_monitors[day_index - 1]
 
-                
-            store_monitors.append(total)
+                    
+                store_monitors.append(total)
 
 
         context['routers'] = routers
@@ -662,18 +669,19 @@ class ActionsView(View):
     def post(self,req):
         res = {"status":500,"message":"Something wrong hapenned"}
         try :
+            store = req.user.store
             body = json.loads(req.body)
             action_type = body.get('action')
             imei = body.get('imei')
             imei2 = body.get('imei2')
-            router1 = Router.objects.filter(store=req.user.store,emei = imei).first()
+            router1 = Router.objects.filter(store=store,emei = imei).first()
             router2 = None
 
             if not router1:
                 res['message'] = "We can't find a router with this EMEI"
                 return JsonResponse(res,status=res['status'])
             if imei2:
-                router2 = Router.objects.filter(store=req.user.store,emei = imei2).first()
+                router2 = Router.objects.filter(store=store,emei = imei2).first()
                 if not router2:
                     res['message'] = "We can't find a router with the second IMEI"
                     return JsonResponse(res,status=res['status'])
@@ -684,6 +692,12 @@ class ActionsView(View):
                     action.reason = body.get('return_reason')
                     router1.status = Router.STATUSES[3][0]#return
                     router1.reason = body.get('return_reason')
+                    emails = list(store.user_set.all().values_list('email',flat=True))
+                    text = f"""Router with IMEI {router1.emei} was returned
+reason: {router1.reason}
+comment: {body.get('comment')}
+                            """
+                    send_email(emails,'Router Returned',text)
                 elif action_type == 'swap':
                     action.reason = body.get('swap_reason')
                     action.router2 = router2
@@ -694,6 +708,9 @@ class ActionsView(View):
                     router1.status = Router.STATUSES[2][0]
                 elif action_type == 'sale':
                     router1.status = Router.STATUSES[1][0]
+                    emails = list(store.user_set.all().values_list('email',flat=True))
+                    text = f"Router with IMEI {router1.emei} was sold"
+                    send_email(emails,'New sale',text)
 
                 action.save()
                 router1.save()

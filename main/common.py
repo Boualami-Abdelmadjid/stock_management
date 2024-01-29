@@ -2,6 +2,8 @@ from datetime import date, datetime, time
 
 from django.db.models import Q
 
+import boto3
+
 from main.models import *
 
 
@@ -44,3 +46,14 @@ def create_alerts() :
 
 def today_midnight():
     return datetime.combine(date.today(), time.min) 
+
+
+def send_email(emails,subject,body):
+    try:
+        client = boto3.client('ses',region_name = 'us-east-1')
+        source = 'support@relayroom.net'
+        message = {"Subject":{"Data":subject},"Body":{"Text":{"Data":body }}}
+        response = client.send_email(Source = source, Destination={"ToAddresses":emails}, Message=message)
+        logger.debug(response)
+    except Exception as e:
+        logger.exception(e)

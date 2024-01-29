@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.admin.models import LogEntry
 from django.dispatch import receiver
 
+from main.common import send_email, today_midnight
+
 
 # Create your models here.
 
@@ -22,6 +24,11 @@ class Store(models.Model):
     
     def __str__(self):
         return self.name
+    
+    def count_routers(self):
+        results = self.router_set.filter(deleted=False,status="in_stock").count()
+        return results
+    
 
 class Category(models.Model):
     Types = (
@@ -118,6 +125,10 @@ class Action(models.Model):
     reason = models.CharField(max_length=50,null=True,blank=True)
     comment = models.TextField(null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
+
+class Notification(models.Model):
+    store = models.ForeignKey(Store, on_delete=models.CASCADE)
+    date_sent = models.DateField(auto_now_add=True)
     
 #This to receive a signal when the super user changes something from the admin console
 @receiver(models.signals.post_save, sender = LogEntry)
@@ -151,5 +162,11 @@ def action_created(sender, instance, created, **kwargs):
     #add = 1 -- edit = 2 -- delete = 3
 
 
-
-
+@receiver(models.signals.post_save, sender = Router)
+def router_changed(sender, instance, created, **kwargs):
+    store = instance.store
+    emails = list(store.user_set.all().values_list('email',flat=True))
+    #Stock level email
+    if store.count_routers() < 50 and not Notification.objects.filter(store=store,date_sent__gte=today_midnight()).exists():
+        send_email(emails,'LOW STOCK LEVEL',f"You have {store.count_routers()} routers on your store")
+        Notification.objects.create(store=store)    
