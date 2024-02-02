@@ -187,11 +187,14 @@ class DashboardView(View):
         emei = query.get('emei')
         serial = query.get('serial')
         category = query.get('router_category')
+        router_type = query.get('router_type')
         status = query.get('status')
         if emei:
             routers = routers.filter(emei__icontains=emei)
         if serial:
             routers = routers.filter(serial_number__icontains=serial)
+        if router_type:
+            routers = routers.filter(category__type=router_type)
         if category:
             category_instance = Category.objects.filter(id=category).first()
             if category_instance:
@@ -200,6 +203,7 @@ class DashboardView(View):
             routers = routers.filter(status=status)
         router_paginator = Paginator(routers,10)
         routers = router_paginator.page(router_page)
+        context['routers_count'] = router_paginator.count
         context['routers_paginator'] = router_paginator.get_elided_page_range(number=router_page, 
                                            on_each_side=1,
                                            on_ends=1)
@@ -673,21 +677,26 @@ class ActionsView(View):
             body = json.loads(req.body)
             action_type = body.get('action')
             imei = body.get('imei')
+            sn1 = body.get('sn1')
+            type1 = body.get('type1')
             imei2 = body.get('imei2')
-            router1 = Router.objects.filter(store=store,emei = imei).first()
+            sn2 = body.get('sn2')
+            type2 = body.get('type2')
+            order_number = body.get('order_number')
+            router1 = Router.objects.filter(store=store,emei = imei,serial_number=sn1,category__type=type1).first()
             router2 = None
 
             if not router1:
-                res['message'] = "We can't find a router with this EMEI"
+                res['message'] = "We can't find the router router with the provided details"
                 return JsonResponse(res,status=res['status'])
             if imei2:
-                router2 = Router.objects.filter(store=store,emei = imei2).first()
+                router2 = Router.objects.filter(store=store,emei = imei2,serial_number=sn2,category__type=type2).first()
                 if not router2:
-                    res['message'] = "We can't find a router with the second IMEI"
+                    res['message'] = "We can't find the second router with the provied details"
                     return JsonResponse(res,status=res['status'])
             
             if router1:
-                action = Action.objects.create(user = req.user,router=router1,action=action_type,comment=body.get('comment'))
+                action = Action.objects.create(user = req.user,store=req.user.store,router=router1,action=action_type,comment=body.get('comment'))
                 if action_type == 'return':
                     action.reason = body.get('return_reason')
                     router1.status = Router.STATUSES[3][0]#return
@@ -706,8 +715,10 @@ comment: {body.get('comment')}
                     router2.status = Router.STATUSES[3][0] #return
                 elif action_type == 'collect':
                     router1.status = Router.STATUSES[2][0]
+                    action.order_number = order_number
                 elif action_type == 'sale':
                     router1.status = Router.STATUSES[1][0]
+                    action.order_number = order_number
                     emails = list(store.user_set.all().values_list('email',flat=True))
                     text = f"Router with IMEI {router1.emei} was sold"
                     send_email(emails,'New sale',text)
@@ -718,6 +729,26 @@ comment: {body.get('comment')}
 
                 res['status'] = 200
                 del res['message']
+        except Exception as e:
+            logger.exception(e)
+        return JsonResponse(res,status=res['status'])
+    
+    def put(self,req):
+        res = {"status":500,"message":"Something wrong hapenned"}
+        try:
+            if not req.user.role == "store_manager":
+                res['message'] = "You don't have enough permissions"
+                return JsonResponse(res,status=res['status'])
+            body = json.loads(req.body)
+            action_id = body.get('id')
+            action =  Action.objects.filter(id=action_id,store = req.user.store).first()
+            if action:
+                action.shipped = False if action.shipped else True
+                action.save()
+                res['status'] = 200
+                res['message'] = 'Action edited successfully'
+            else:
+                res['message'] = 'Action not found'
         except Exception as e:
             logger.exception(e)
         return JsonResponse(res,status=res['status'])

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  box-sizing: border-box;
+}
+
 .page_active {
   @apply bg-primary-500 text-white;
 }

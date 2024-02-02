@@ -10,8 +10,7 @@
   <section class="routers">
     <div class="flex justify-between mt-8 mb-4">
       <h1 class="text-xl text-primary-500 font-semibold">Logs</h1>
-      <div class="flex justify-center items-center gap-8">
-      </div>
+      <div class="flex justify-center items-center gap-8"></div>
       {% if logs_obj %}
       <button
         class="rounded-md bg-red-600 text-white px-4 py-2"
@@ -260,6 +259,7 @@
         <tr>
           <th scope="col" class="px-6 py-3">User</th>
           <th scope="col" class="px-6 py-3">Action</th>
+          <th scope="col" class="px-6 py-3">Order N.</th>
           <th scope="col" class="px-6 py-3">Rout. 1 IMEI</th>
           <th scope="col" class="px-6 py-3">Rout. 1 SN</th>
           <th scope="col" class="px-6 py-3">Rout. 1 type</th>
@@ -267,6 +267,9 @@
           <th scope="col" class="px-6 py-3">Rout. 2 SN</th>
           <th scope="col" class="px-6 py-3">Rout. 2 type</th>
           <th scope="col" class="px-6 py-3">Reason</th>
+          {% if user.role == "store_manager" %}
+          <th scope="col" class="w-4">shipped</th>
+          {% endif %}
           <th scope="col" class="px-6 py-3">Comment</th>
         </tr>
       </thead>
@@ -280,14 +283,35 @@
             {{ action.user.username }}
           </th>
           <td class="px-6 py-4">{{ action.action }}</td>
+          <td class="px-6 py-4">
+            {% if action.order_number %} {{ action.order_number }} {% else %} -
+            {% endif %}
+          </td>
           <td class="px-6 py-4">{{ action.router.emei }}</td>
           <td class="px-6 py-4">{{ action.router.serial_number }}</td>
           <td class="px-6 py-4">{{ action.router.category.type }}</td>
-          <td class="px-6 py-4">{% if action.router2 %} {{ action.router2.emei }} {% else %} - {% endif %} </td>
-          <td class="px-6 py-4">{% if action.router2 %} {{ action.router2.serial_number }} {% else %} - {% endif %} </td>
-          <td class="px-6 py-4">{% if action.router2 %} {{ action.router2.category.type }} {% else %} - {% endif %} </td>
-          <td class="px-6 py-4">{% if action.reason %} {{ action.reason }} {% else %} - {% endif %} </td>
-          <td class="px-6 py-4">{% if action.comment %} {{ action.comment }} {% else %} - {% endif %} </td>
+          <td class="px-6 py-4">
+            {% if action.router2 %} {{ action.router2.emei }} {% else %} - {% endif %}
+          </td>
+          <td class="px-6 py-4">
+            {% if action.router2 %} {{ action.router2.serial_number }} {% else %} - {% endif %}
+          </td>
+          <td class="px-6 py-4">
+            {% if action.router2 %} {{ action.router2.category.type }} {% else  %} - {% endif %}
+          </td>
+          <td class="px-6 py-4">
+            {% if action.reason %} {{ action.reason }} {% else %} - {% endif %}
+          </td>
+          {% if user.role == "store_manager" %}
+          <td class="w-4">
+            {% if action.action == "return" %}
+            <input type="checkbox" class="rounded-sm" {% if action.shipped %}checked {%endif%} name="shiped" data-id="{{action.id}}" onchange="shipped_change({{action.id}})" >
+            {% else %} - {% endif %}
+          </td>
+          {% endif %}
+          <td class="px-6 py-4">
+            {% if action.comment %} {{ action.comment }} {% else %} - {% endif %}
+          </td>
         </tr>
         {% endfor %}
       </tbody>
@@ -324,9 +348,9 @@
   {% include 'main/router/edit-form.html' %} {% endif %}
 </main>
 <script>
-  const view = new URLSearchParams(window.location.search).get('view')
+  const view = new URLSearchParams(window.location.search).get("view");
   if (view) {
-    document.querySelector(`span[name=${view}]`)?.click()
+    document.querySelector(`span[name=${view}]`)?.click();
   }
 </script>
 

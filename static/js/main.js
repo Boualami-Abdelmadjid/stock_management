@@ -481,13 +481,30 @@ const action_change = (elem) => {
 
 const submit_action = async (event, elem) => {
   event.preventDefault();
-  const [imei, action, imei2, return_reason, swap_reason, comment] = Array.from(
-    elem.querySelectorAll("input, textarea, select")
-  ).map((elem) => elem.value);
+  const [
+    imei,
+    sn1,
+    type1,
+    action,
+    order_number,
+    imei2,
+    sn2,
+    type2,
+    return_reason,
+    swap_reason,
+    comment,
+  ] = Array.from(elem.querySelectorAll("input, textarea, select")).map(
+    (elem) => elem.value
+  );
   const body = JSON.stringify({
     imei,
+    sn1,
+    type1,
     action,
+    order_number,
     imei2,
+    sn2,
+    type2,
     return_reason,
     swap_reason,
     comment,
@@ -503,6 +520,22 @@ const submit_action = async (event, elem) => {
     show_success("Action performed succesfully", () => {
       location.reload();
     });
+  } else {
+    show_error(res.message);
+  }
+};
+
+const shipped_change = async(id) => {
+  const body = JSON.stringify({id})
+  const res = await fetch("/actions/", {
+    method: "PUT",
+    body,
+    headers: {
+      "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+    },
+  }).then((res) => res.json());
+  if (res.status === 200) {
+    show_success("Action performed succesfully");
   } else {
     show_error(res.message);
   }

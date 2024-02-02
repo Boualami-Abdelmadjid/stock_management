@@ -3,8 +3,10 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.admin.models import LogEntry
 from django.dispatch import receiver
 
-from main.common import send_email, today_midnight
+import boto3, logging
+from datetime import date, datetime, time
 
+logger = logging.getLogger(__file__)
 
 # Create your models here.
 
@@ -120,6 +122,8 @@ class Action(models.Model):
     store = models.ForeignKey(Store,on_delete=models.SET_NULL,null=True)
     user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
     action = models.CharField(max_length=50,choices = ACTIONS)
+    order_number = models.CharField(max_length=50,null=True,blank=True)
+    shipped = models.BooleanField(default=False)
     router = models.ForeignKey(Router,on_delete=models.SET_NULL,null=True)
     router2 = models.ForeignKey(Router,on_delete=models.SET_NULL,null=True,related_name='imei2')
     reason = models.CharField(max_length=50,null=True,blank=True)
@@ -161,6 +165,19 @@ def action_created(sender, instance, created, **kwargs):
     #action_flags:
     #add = 1 -- edit = 2 -- delete = 3
 
+
+def send_email(emails,subject,body):
+    try:
+        client = boto3.client('ses',region_name = 'us-east-1')
+        source = 'support@relayroom.net'
+        message = {"Subject":{"Data":subject},"Body":{"Text":{"Data":body }}}
+        response = client.send_email(Source = source, Destination={"ToAddresses":emails}, Message=message)
+        logger.debug(response)
+    except Exception as e:
+        logger.exception(e)
+
+def today_midnight():
+    return datetime.combine(date.today(), time.min) 
 
 @receiver(models.signals.post_save, sender = Router)
 def router_changed(sender, instance, created, **kwargs):

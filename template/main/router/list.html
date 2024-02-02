@@ -3,7 +3,7 @@
   <div
     class="flex justify-between mt-8 mb-4 items-center text-primary-500 font-medium"
   >
-    <h1 class="text-xl">Routers</h1>
+    <h1 class="text-xl">Routers ({{routers_count}})</h1>
     {% if routers %}
     <div class="relative">
       <div
@@ -36,10 +36,10 @@
         href="{% url 'create-router' %}"
         >Create one</a
       >
-    </div>
-    {% else %}
-    <span></span>
-    {% endif %} {% endif %}
+      {% else %}
+      <span></span>
+    
+    {% endif %}</div> {% endif %}
   </div>
   <form class="my-2 flex gap-4 items-center p-2">
     <h2 class="text-lg text-primary-400">Filters</h2>
@@ -71,6 +71,22 @@
         class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="Serial number"
       />
+    </div>
+    <div class="flex items-center gap-4">
+      <label
+        for="router_type"
+        class="block pl-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Type</label
+      >
+      <select
+        id="router_type"
+        name="router_type"
+        class="grow pr-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      >
+        <option></option>
+        <option value="indoor">Indoor</option>
+        <option value="outdoor">Outdoor</option>
+      </select>
     </div>
     <div class="flex items-center gap-4">
       <label

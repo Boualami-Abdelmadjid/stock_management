@@ -6,7 +6,6 @@ import boto3
 
 from main.models import *
 
-
 import logging
 logger = logging.getLogger(__name__)
 

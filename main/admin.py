@@ -29,6 +29,7 @@ class MonitoringAdmin(admin.ModelAdmin):
 
 class ActionAdmin(admin.ModelAdmin):
    list_display = [field.name for field in Action._meta.get_fields()] 
+   list_editable = ['shipped']
 
 admin.site.register(User,UserAdmin)
 admin.site.register(Store,StoreAdmin)
