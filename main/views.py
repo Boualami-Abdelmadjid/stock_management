@@ -547,6 +547,22 @@ class RouterView(View):
         except Exception as e:
             logger.exception(e)
         return JsonResponse(res,status=res['status'])
+    
+    def patch(self,req):
+        res = {"status":500,"message":"Something wrong hapenned"}
+        try:
+            body = json.loads(req.body)
+            router_id = body.get('id')
+            if router_id:
+                router = Router.objects.filter(store=req.user.store,id=router_id).first()
+                if router:
+                    router.shipped = not router.shipped
+                    router.save()
+                    res['message'] = 'Router updated successfully'
+                    res['status'] = 200
+        except Exception as e:
+            logger.exception(e)
+        return JsonResponse(res,status=res['status'])
 
 
 
@@ -753,3 +769,22 @@ comment: {body.get('comment')}
             logger.exception(e)
         return JsonResponse(res,status=res['status'])
 
+class ReturnView(View):
+    def get(self,req):
+        res = {"status":500,"message":"Something wrong hapenned"}
+        context = {}
+        try:
+            routers_page = req.GET.get('router_page') if req.GET.get('router_page') else 1 
+            routers  = Router.objects.filter(store=req.user.store,status="return")
+            context['categories'] = Category.objects.filter(store=req.user.store,deleted=False)
+            context['routers_count'] = routers.count()
+            routers_paginator = Paginator(routers,10)
+            routers = routers_paginator.page(routers_page)
+            context['routers_paginator'] = routers_paginator
+            context['routers'] = routers
+            context['routers_obj'] = routers_paginator.get_elided_page_range(number=routers_page, 
+                                            on_each_side=1,
+                                            on_ends=1)
+        except Exception as e:
+            logger.exception(e)
+        return render(req,'main/return/index.html',context=context)

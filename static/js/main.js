@@ -527,15 +527,15 @@ const submit_action = async (event, elem) => {
 
 const shipped_change = async(id) => {
   const body = JSON.stringify({id})
-  const res = await fetch("/actions/", {
-    method: "PUT",
+  const res = await fetch("/router/", {
+    method: "PATCH",
     body,
     headers: {
       "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
     },
   }).then((res) => res.json());
   if (res.status === 200) {
-    show_success("Action performed succesfully");
+    show_success(res.message);
   } else {
     show_error(res.message);
   }

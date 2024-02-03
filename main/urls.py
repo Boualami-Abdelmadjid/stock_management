@@ -15,6 +15,7 @@ urlpatterns = [
     path('dashboard/',DashboardView.as_view(), name="dashboard"),
     path('category/',CategoryView.as_view(), name="category"),
     path('router/',RouterView.as_view(), name="router"),
+    path('return/',ReturnView.as_view(), name="return"),
     path('routers-suggestions/',RouterSuggestions.as_view(), name="categories-suggestions"),
     path('categories-suggestions/',CategorySuggestions.as_view(), name="categories-suggestions"),
     path('create-store/',login_required(CreateStoreView.as_view()), name="create-store"),

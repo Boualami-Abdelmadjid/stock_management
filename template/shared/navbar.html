@@ -4,6 +4,7 @@
   <div class="flex gap-8 items-center">
     <a href="/" class="cursor-pointer">Home</a>
     <a class="cursor-pointer" href="{% url 'actions' %}">Actions</a>
+    <a class="cursor-pointer" href="{% url 'return' %}">Return</a>
     <a class="cursor-pointer" href="{% url 'profile' %}">Profile</a>
     {% if user.role == "store_manager" %}
     <a class="cursor-pointer" href="{% url 'dashboard' %}">Dashboard</a>

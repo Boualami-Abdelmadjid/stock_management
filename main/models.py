@@ -71,9 +71,9 @@ class Router(models.Model):
     emei =  models.CharField(max_length = 150, blank=True, null=True)
     status = models.CharField(max_length=50,default=STATUSES[0][0], choices=STATUSES)
     reason = models.CharField(max_length=150, null=True,blank=True)
-    shipped = models.BooleanField(default=False)
     deleted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
+    shipped = models.BooleanField(default=False)
 
 
     def __str__(self):
