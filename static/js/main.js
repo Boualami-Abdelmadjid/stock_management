@@ -540,3 +540,25 @@ const shipped_change = async(id) => {
     show_error(res.message);
   }
 };
+
+const toggle_edit_threshold = (elem) => {
+  Array.from(elem.parentElement.querySelectorAll('.switch')).forEach(
+    elem => elem.classList.toggle('hidden')
+  )
+}
+const change_threshold = async (e) => {
+  const {value} = e.target
+  const body = JSON.stringify({value})
+  const res = await fetch("/profile/", {
+    method: "PUT",
+    body,
+    headers: {
+      "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+    },
+  }).then((res) => res.json());
+  if (res.status === 200) {
+    show_success(res.message,()=> {location.reload()});
+  } else {
+    show_error(res.message);
+  }
+}

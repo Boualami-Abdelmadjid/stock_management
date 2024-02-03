@@ -85,7 +85,37 @@
       </div>
       {% endfor %}
     </div>
+    <div
+    class=" mt-2 mb-4 font-medium"
+  >
+    <h3 class="text-xl text-primary-400">Store Settings</h3>
+    <div class="flex flex-col gap-2 my-2">
+      <div
+        class="grid grid-cols-3 bg-gray-300 rounded-md py-2 px-4 justify-items-center font-semibold"
+      >
+      <p>Subject</p>
+      <p>Threshold</p>
+      {% if user.role == 'store_manager' %}
+      <p>Actions</p>
+      {% endif %}
+    </div>
+    <div class="grid grid-cols-3 bg-gray-200 rounded-md py-2 px-4 justify-items-center">
+      <p class="font-normal">Stock Level</p>
+      <p class="switch  font-normal">{{ user.store.alert_on }}</p>
+      <input class="switch hidden w-16 py-0 px-2 font-normal rounded-md" type="number" onchange='change_threshold(event)' value="{{ user.store.alert_on }}">
+      <p class="flex gap-4" onclick="toggle_edit_threshold(this)">
+        <i
+          title="edit"
+          class="fa-regular fa-pen-to-square text-lg text-primary-400 cursor-pointer"
+          
+        ></i>
+        
+      </p>
+    </div>
+    </div>
+    </div>  
   </div>
+  
   {% endif %} {% if user.role == 'store_manager' %}
   <div
     class="edit_form user absolute hidden inset-0 w-full h-full backdrop-blur-md py-8"

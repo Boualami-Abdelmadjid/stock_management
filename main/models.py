@@ -23,6 +23,7 @@ class User(AbstractUser):
 class Store(models.Model):
     name = models.CharField(max_length=150)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
+    alert_on = models.IntegerField(default=50)
     
     def __str__(self):
         return self.name
@@ -44,6 +45,7 @@ class Category(models.Model):
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     deleted = models.BooleanField(default=False)
     alerted = models.BooleanField(default=False)
+    alert_on = models.IntegerField(default=50)
 
 
     def __str__(self):
@@ -184,6 +186,6 @@ def router_changed(sender, instance, created, **kwargs):
     store = instance.store
     emails = list(store.user_set.all().values_list('email',flat=True))
     #Stock level email
-    if store.count_routers() < 50 and not Notification.objects.filter(store=store,date_sent__gte=today_midnight()).exists():
+    if store.count_routers() < store.alert_on and not Notification.objects.filter(store=store,date_sent__gte=today_midnight()).exists():
         send_email(emails,'LOW STOCK LEVEL',f"You have {store.count_routers()} routers on your store")
         Notification.objects.create(store=store)    

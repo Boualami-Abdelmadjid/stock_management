@@ -38,7 +38,7 @@ def create_alerts() :
     categories = Category.objects.filter(alerted=False)
     for category in categories:
         count = category.count_routers()
-        if count < 10:
+        if count < category.alert_on:
             print('low stock')
             category.alerted = True
             category.save()

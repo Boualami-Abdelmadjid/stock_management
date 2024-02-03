@@ -147,6 +147,21 @@ class ProfileView(View):
         except Exception as e:
             logger.exception(e)
         return JsonResponse(res,status=res['status'])
+
+    def put(self,req):
+        res = {"status":500,"message":"Something wrong hapenned"}
+        try:
+            body = json.loads(req.body)
+            value = body.get('value')
+            if value:
+                store = req.user.store
+                store.alert_on = value
+                store.save()
+                res['status'] = 200
+                res['message'] = 'Alert threshold edited successfully'
+        except Exception as e:
+            logger.exception(e)
+        return JsonResponse(res,status=res['status'])
     
     def delete(self,req):
         res = {"status":500,"message":"Something wrong hapenned"}
