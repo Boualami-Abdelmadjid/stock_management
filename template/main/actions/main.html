@@ -21,7 +21,7 @@
               <label
                 for="imei"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Imei</label
+                >IMEI</label
               >
               <input
                 type="text"
@@ -36,14 +36,14 @@
               <label
                 for="sn1"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Serial number</label
+                >Serial Number</label
               >
               <input
                 type="text"
                 name="sn1"
                 id="sn1"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Router's Serial Number"
+                placeholder="Serial Number"
                 required
               />
             </div>
@@ -51,7 +51,7 @@
               <label
                 for="type1"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Select a type</label
+                >Router Type</label
               >
               <select
                 id="type1"
@@ -66,7 +66,7 @@
               <label
                 for="action"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Select an action</label
+                >Select an Action</label
               >
               <select
                 id="action"
@@ -74,8 +74,8 @@
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 onchange="action_change(this)"
               >
-                <option value="collect" selected>Collect</option>
-                <option value="sale">Sale</option>
+                <option value="collect" selected>Collection</option>
+                <option value="sale"> New Sale</option>
                 <option value="return">Return</option>
                 <option value="swap">Device swap</option>
               </select>
@@ -84,14 +84,14 @@
               <label
                 for="order_number"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Order number</label
+                >Order Number</label
               >
               <input
                 type="text"
                 name="order_number"
                 id="order_number"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Order number"
+                placeholder="Order Number"
               />
             </div>
 
@@ -99,28 +99,28 @@
               <label
                 for="imei2"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >New router Imei</label
+                >Old router Imei</label
               >
               <input
                 type="text"
                 name="imei2"
                 id="imei2"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="New router imei"
+                placeholder="Old router imei"
               />
             </div>
             <div class="swap hidden optional">
               <label
                 for="sn2"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >New router S/N</label
+                >Old router S/N</label
               >
               <input
                 type="text"
                 name="sn2"
                 id="sn2"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="New router S/N"
+                placeholder="Old router S/N"
               />
             </div>
             <div class="swap hidden optional">
@@ -189,7 +189,7 @@
               type="submit"
               class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
             >
-              Create
+              Submit
             </button>
           </form>
         </div>
