@@ -537,7 +537,7 @@ class CreateRouterView(View):
             category.alerted = False
             category.save()
             # Log the router addition
-            Log.objects.create(user = user,store = store,instance='router',instance_id=router.id,emei=router.emei,action='add')
+            Log.objects.create(user = user,store = store,instance='router',instance_id=router.id,serial_number=router.serial_number,action='add')
 
             res['status'] = 200
             del res['message']
@@ -545,6 +545,60 @@ class CreateRouterView(View):
             logger.exception(e)
         return JsonResponse(res,status=res['status'])
     
+
+class CreateRoutersView(View):
+    """
+    View for creating multiple routers routers within a store.
+    """
+    def get(self,req):
+        """
+        Handle GET requests: Renders the routers creation form with available categories.
+
+        :param request: HttpRequest object
+        :return: HttpResponse object with the rendered router creation form template
+        """
+        context = {}
+        store = req.user.store
+        # Fetch categories that are not marked as deleted and belong to the user's store
+        categories = list(Category.objects.filter(store=store,deleted=False).values())
+        context['categories'] = categories
+        return render(req,'main/router/bulk-create.html',context=context)
+    
+    def post(self,req):
+        res = {"status":500,"message":"Something wrong hapenned"}
+        try:
+            if req.user.role != "store_manager":
+                res['status'] = 403
+                res['message'] = "You don't have permissions"
+                return JsonResponse(res,status=res['status'])
+            
+
+            user = req.user
+            store = user.store
+            #We format the body of the request to a python object
+            body = json.loads(req.body)
+            #We retrieve the name from the body of the request
+            serial_numbers = body.get('serial_numbers')
+            category = body.get('category')
+
+            # Validate and fetch the category
+            category = Category.objects.filter(id=category).first()
+            for sn in serial_numbers:
+                router = Router.objects.create(store=store,category=category,serial_number=sn)
+                router.save()
+                Log.objects.create(user = user,store = store,instance='router',instance_id=router.id,serial_number=router.serial_number,action='add')
+
+            # Reset the alerted flag for the category as a new router is adde
+            category.alerted = False
+            category.save()
+            # Log the router addition
+
+            res['status'] = 200
+            del res['message']
+        except Exception as e:
+            logger.exception(e)
+        return JsonResponse(res,status=res['status'])
+
 
 class CategoryView(View):
     """
@@ -661,7 +715,7 @@ class RouterView(View):
                             if category:
                                 router = Router.objects.create(store = user.store,category=category,emei=new_router.get('emei'),serial_number=new_router.get('serial_number'))
                                 router.save()
-                                Log.objects.create(user = user,store = user.store,instance='router',instance_id=router.id,emei=router.emei,action='add')
+                                Log.objects.create(user = user,store = user.store,instance='router',instance_id=router.id,serial_number=router.serial_number,action='add')
                                 imported += 1
 
                         elif Router.objects.filter(id=new_router.get('id'),deleted=True).exists():
@@ -671,7 +725,7 @@ class RouterView(View):
                                 router.serial_number=new_router.get('serial_number')
                                 router.deleted = False
                                 router.save()
-                                Log.objects.create(user = user,store = user.store,instance='router',instance_id=router.id,emei=router.emei,action='add')
+                                Log.objects.create(user = user,store = user.store,instance='router',instance_id=router.id,serial_number=router.serial_number,action='add')
                                 imported += 1
                     else:
                         logger.error(f"{new_router.get('category')} not found")
@@ -710,7 +764,7 @@ class RouterView(View):
             router.serial_number = serial_number
             router.emei = emei
             router.save()
-            Log.objects.create(user = req.user,store = req.user.store,instance='router',instance_id=router.id,emei=router.emei,action='edit')
+            Log.objects.create(user = req.user,store = req.user.store,instance='router',instance_id=router.id,serial_number=router.serial_number,action='edit')
             res['status'] = 200
             res['message'] = 'Router edited successfully'
 
@@ -737,7 +791,7 @@ class RouterView(View):
             if router:
                 router.deleted = True
                 router.save()
-                Log.objects.create(user = req.user,store = req.user.store,instance='router',instance_id=router.id,emei=router.emei,action='delete')
+                Log.objects.create(user = req.user,store = req.user.store,instance='router',instance_id=router.id,serial_number=router.serial_number,action='delete')
                 logger.info(f'{req.user.username} deleted router with sn: {router.serial_number} - emei : {router.emei}')
                 res['message'] = 'Router deleted successfully'
                 res['status'] = 200
@@ -933,21 +987,21 @@ class ActionsView(View):
             store = req.user.store
             body = json.loads(req.body)
             action_type = body.get('action')
-            imei = body.get('imei')
             sn1 = body.get('sn1')
-            type1 = body.get('type1')
-            imei2 = body.get('imei2')
             sn2 = body.get('sn2')
-            type2 = body.get('type2')
             order_number = body.get('order_number')
-            router1 = Router.objects.filter(store=store,emei = imei,serial_number=sn1,category__type=type1).first()
+            router1 = Router.objects.filter(store=store,serial_number=sn1).first()
             router2 = None
 
             if not router1:
+                if action_type == 'return':
+                    router1 = Router.objects.filter(serial_number=sn1).first()
+                    #Implement functionality to let the store manager know
+            if not router1:
                 res['message'] = "We can't find the router with the provided details"
                 return JsonResponse(res,status=res['status'])
-            if imei2:
-                router2 = Router.objects.filter(store=store,emei = imei2,serial_number=sn2,category__type=type2).first()
+            if sn2:
+                router2 = Router.objects.filter(store=store,serial_number=sn2).first()
                 if not router2:
                     res['message'] = "We can't find the second router with the provied details"
                     return JsonResponse(res,status=res['status'])

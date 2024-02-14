@@ -16,21 +16,32 @@
           <form
             class="space-y-4 md:space-y-6"
             onsubmit="submit_action(event,this)"
-          >
+            >
+            
             <div>
               <label
-                for="imei"
+                for="action"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >IMEI</label
+                >Select an Action</label
               >
-              <input
-                type="text"
-                name="imei"
-                id="imei"
-                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Router's Imei"
-                required
-              />
+                <div class="flex flex-wrap gap-4">
+                  <div class="flex gap-2 items-center">
+                    <input onchange="action_change(this)" checked name="action" type="radio" value="collect" id="collect" /> 
+                    <label for="collect">Collection</label>  
+                  </div>
+                  <div class="flex gap-2 items-center">
+                    <input onchange="action_change(this)" name="action" type="radio" value="sale"id="sale" />
+                    <label for="sale">New Sale</label> 
+                  </div>
+                  <div class="flex gap-2 items-center">
+                    <input onchange="action_change(this)" name="action" type="radio" value="return" id="return"/>
+                    <label for="return">Return</label>
+                  </div>
+                  <div class="flex gap-2 items-center">
+                    <input onchange="action_change(this)" name="action" type="radio" value="swap" id="swap"/>
+                    <label for="swap">Device swap</label>
+                  </div>
+                </div>
             </div>
             <div>
               <label
@@ -47,7 +58,7 @@
                 required
               />
             </div>
-            <div>
+            <!-- <div>
               <label
                 for="type1"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -61,25 +72,7 @@
                 <option value="outdoor" selected>Outdoor</option>
                 <option value="indoor" selected>Indoor</option>
               </select>
-            </div>
-            <div>
-              <label
-                for="action"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Select an Action</label
-              >
-              <select
-                id="action"
-                name="action"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                onchange="action_change(this)"
-              >
-                <option value="collect" selected>Collection</option>
-                <option value="sale"> New Sale</option>
-                <option value="return">Return</option>
-                <option value="swap">Device swap</option>
-              </select>
-            </div>
+            </div> -->
             <div class="collect sale optional">
               <label
                 for="order_number"
@@ -97,30 +90,16 @@
 
             <div class="swap hidden optional">
               <label
-                for="imei2"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Old router Imei</label
-              >
-              <input
-                type="text"
-                name="imei2"
-                id="imei2"
-                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Old router imei"
-              />
-            </div>
-            <div class="swap hidden optional">
-              <label
                 for="sn2"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Old router S/N</label
+                >Old router Serial Number</label
               >
               <input
                 type="text"
                 name="sn2"
                 id="sn2"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Old router S/N"
+                placeholder="Old router Serial number"
               />
             </div>
             <div class="swap hidden optional">

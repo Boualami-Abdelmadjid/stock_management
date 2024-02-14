@@ -80,7 +80,7 @@ class Router(models.Model):
 
 
     def __str__(self):
-        return self.emei
+        return self.serial_number
     
 
 class Log(models.Model):
@@ -98,7 +98,7 @@ class Log(models.Model):
     user = models.ForeignKey(User,on_delete=models.SET_NULL, null=True)
     action = models.CharField(choices=ACTIONS_CHOICES, max_length=20)
     instance = models.CharField(choices=INSTANCES_CHOICES,max_length=20)
-    emei = models.CharField(max_length=150,null=True,blank=True)
+    serial_number = models.CharField(max_length=150,null=True,blank=True)
     category_name = models.CharField(max_length=150, null=True)
     instance_id = models.IntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -562,3 +562,46 @@ const change_threshold = async (e) => {
     show_error(res.message);
   }
 }
+
+const bulk_import = (event,elem) => {
+  event.preventDefault()
+  const {value} = elem
+  if (value && value.includes(' ') || value.includes('\n')) {
+    add_router_to_bulk(value.trim())
+    elem.value = ''
+  }
+}
+
+const create_bulk_routers = async(event,elem) => {
+  event.preventDefault()
+  const serial_numbers = Array.from(document.querySelectorAll('#routers span')).map(elem => elem.dataset.sn)
+  const category = elem.querySelector('[name=category]')?.value
+  const body = JSON.stringify({ serial_numbers, category });
+  const res = await fetch("/bulk-routers/", {
+    method: "POST",
+    body,
+    headers: {
+      "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+    },
+  }).then((res) => res.json());
+  if (res.status == 200) {
+    show_success(
+      "Routers created successfully",
+      () => {
+        window.location.reload();
+      }
+    );
+  } else {
+    show_error(res.message);
+  }
+}
+
+const add_router_to_bulk = (serial_number) => {
+  // <span class="p-2 rounded-sm bg-slate-300 text-gray-500 text-nowrap">dsq-ezad1sq-eza1</span>
+  const container = document.querySelector('#routers')
+  const span = document.createElement('span')
+  span.classList.add('p-2','rounded-sm','bg-slate-300','text-gray-500', 'text-nowrap');
+  span.innerText = serial_number;
+  span.dataset.sn = serial_number
+  container.appendChild(span)
+}
