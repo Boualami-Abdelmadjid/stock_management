@@ -527,6 +527,9 @@ class CreateRouterView(View):
             category = body.get('category')
             serial_number = body.get('serial_number')
             emei = body.get('emei')
+            if not serial_number or len(serial_number)<17 :
+                res['message'] = 'Serial number must be at lease 17 characters long.'
+                return JsonResponse(res,status=res['status'])
 
             # Validate and fetch the category
             category = Category.objects.filter(id=category).first()
@@ -646,6 +649,7 @@ class RouterView(View):
         :param request: HttpRequest object containing the list of routers to be imported
         :return: JsonResponse object with the import operation status and message
         """
+        """
         res = {"status":500,"message":"Something wrong hapenned"}
         try:
             user = req.user
@@ -684,6 +688,48 @@ class RouterView(View):
         except Exception as e:
             logger.exception(e)
         return JsonResponse(res,status=res['status'])
+        """
+        try:
+            user = req.user
+            body = json.loads(req.body)
+            routers = body.get('routers')
+            imported = 0  # Counter for successfully imported routers
+            for new_router in routers:
+                try:
+                    category = Category.objects.filter(name=new_router.get('category')).first()
+                    if category:
+                        serial_number = new_router.get('serial_number')
+                        # Check if the router with the same serial number does not already exist
+                        if not Router.objects.filter(serial_number=serial_number).exists():
+                            router = Router.objects.create(
+                                store=user.store,
+                                category=category,
+                                emei=new_router.get('emei'),  # Assuming you still want to include EMEI in your data
+                                serial_number=serial_number
+                            )
+                            Log.objects.create(
+                                user=user,
+                                store=user.store,
+                                instance='router',
+                                instance_id=router.id,
+                                emei=router.emei,  
+                                action='add'
+                            )
+                            imported += 1
+                        else:
+                            # If a router with the same serial number exists, you might want to log this or handle it differently.
+                            logger.info(f"Router with serial number {serial_number} already exists.")
+                    else:
+                        logger.error(f"Category {new_router.get('category')} not found.")
+                except Exception as e:
+                    logger.exception(e)
+            res = {'status': 200, 'message': f'{imported} routers imported'}
+        except Exception as e:
+            logger.exception(e)
+            res = {'status': 500, 'message': 'An error occurred during import'}
+
+        return JsonResponse(res, status=res['status'])
+
 
     def put(self,req):
         """
@@ -751,7 +797,7 @@ class RouterView(View):
 
         :param request: HttpRequest object containing the ID of the router to update its shipped status
         :return: JsonResponse object with the update operation status and message
-        """
+        """ 
         res = {"status":500,"message":"Something wrong hapenned"}
         try:
             body = json.loads(req.body)
@@ -940,7 +986,7 @@ class ActionsView(View):
             sn2 = body.get('sn2')
             type2 = body.get('type2')
             order_number = body.get('order_number')
-            router1 = Router.objects.filter(store=store,emei = imei,serial_number=sn1,category__type=type1).first()
+            router1 = Router.objects.filter(emei = imei,serial_number=sn1,category__type=type1).first()
             router2 = None
 
             if not router1:

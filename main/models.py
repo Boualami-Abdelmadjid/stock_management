@@ -14,7 +14,7 @@ class User(AbstractUser):
     Roles = (
         ('store_manager','Store manager'),
         ('senior_management','Senior management'),
-        ('stock_handler','Stock handler')
+        ('store_assistant','Store assistant')
     )
     email = models.CharField(max_length=50)
     role = models.CharField(choices=Roles,max_length=150,blank=True,null=True)
