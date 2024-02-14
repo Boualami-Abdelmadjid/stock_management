@@ -992,11 +992,16 @@ class ActionsView(View):
             order_number = body.get('order_number')
             router1 = Router.objects.filter(store=store,serial_number=sn1).first()
             router2 = None
-
             if not router1:
-                if action_type == 'return':
-                    router1 = Router.objects.filter(serial_number=sn1).first()
-                    #Implement functionality to let the store manager know
+                if action_type == 'return' or action_type == 'swap':
+                    #Check collected routers from other stores
+                    router1 = Router.objects.filter(serial_number=sn1,status=Router.STATUSES[2][0]).first()
+#                     if router1:
+#                         emails = list(store.user_set.filter(role=User.Roles[0][0]).values_list('email',flat=True))
+#                         old_store = router1.store
+#                         send_email(emails,subject='New Return',body=f"""Router with serial number {router1.serial_number} has been returned
+# It was collected from store: {old_store}""")
+#                         #Implement functionality to let the store manager know
             if not router1:
                 res['message'] = "We can't find the router with the provided details"
                 return JsonResponse(res,status=res['status'])
@@ -1012,11 +1017,13 @@ class ActionsView(View):
                     action.reason = body.get('return_reason')
                     router1.status = Router.STATUSES[3][0]#return
                     router1.reason = body.get('return_reason')
-                    emails = list(store.user_set.all().values_list('email',flat=True))
-                    text = f"""Router with IMEI {router1.emei} was returned
+                    emails = list(store.user_set.filter(role=User.Roles[0][0]).values_list('email',flat=True))
+                    text = f"""Router with Serial number {router1.serial_number} was returned
 reason: {router1.reason}
 comment: {body.get('comment')}
+{f"note: router was collected from {router1.store}" if router1.store == store else ""}
                             """
+                    router1.store = store
                     send_email(emails,'Router Returned',text)
                 elif action_type == 'swap':
                     action.reason = body.get('swap_reason')
@@ -1024,6 +1031,14 @@ comment: {body.get('comment')}
                     router1.status = Router.STATUSES[4][0] #swap
                     router1.reason = body.get('return_reason')
                     router2.status = Router.STATUSES[3][0] #return
+                    emails = list(store.user_set.filter(role=User.Roles[0][0]).values_list('email',flat=True))
+                    text = f"""Router with Serial number {router1.serial_number} was swapped with {router2.serial_number}
+reason: {router1.reason}
+comment: {body.get('comment')}
+{f"note: router was collected from {router1.store}" if router1.store == store else ""}
+"""
+                    router1.store = store
+                    send_email(emails,'Router Returned',text)
                 elif action_type == 'collect':
                     router1.status = Router.STATUSES[2][0]
                     action.order_number = order_number

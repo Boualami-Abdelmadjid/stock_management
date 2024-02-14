@@ -365,6 +365,9 @@ const delete_user_from_group = async (elem) => {
 
 const switch_pages_handler = (e) => {
   const { target } = e;
+  if (target.tagName.toLowerCase() != 'span') {
+    return
+  }
   const name = target.getAttribute("name");
 
   Array.from(target.parentElement.children).forEach((span) => {
@@ -481,30 +484,19 @@ const action_change = (elem) => {
 
 const submit_action = async (event, elem) => {
   event.preventDefault();
-  const [
-    imei,
-    sn1,
-    type1,
-    action,
-    order_number,
-    imei2,
-    sn2,
-    type2,
-    return_reason,
-    swap_reason,
-    comment,
-  ] = Array.from(elem.querySelectorAll("input, textarea, select")).map(
-    (elem) => elem.value
-  );
+  const sn1 = elem.querySelector('[name=sn1]').value
+  const action = elem.querySelector('[name=action]:checked').value
+  const order_number = elem.querySelector('[name=order_number]').value
+  const sn2 = elem.querySelector('[name=sn2]').value
+  const return_reason = elem.querySelector('[name=return_reason]').value
+  const swap_reason = elem.querySelector('[name=swap_reason]').value
+  const comment = elem.querySelector('[name=comment]').value
+
   const body = JSON.stringify({
-    imei,
     sn1,
-    type1,
     action,
     order_number,
-    imei2,
     sn2,
-    type2,
     return_reason,
     swap_reason,
     comment,
