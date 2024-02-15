@@ -3,9 +3,8 @@ const create_account = async (e, elem) => {
   const [email, username, password1, password2] = Array.from(
     elem.querySelectorAll("input")
   ).map((input) => input.value);
-  console.log(email, username, password1, password2);
   if (password1 !== password2) {
-    console.log("passwords do not match");
+    show_error("passwords do not match");
     return;
   }
   const body = JSON.stringify({ username, email, password1, password2 });
@@ -71,7 +70,6 @@ const create_category = async (e, elem) => {
   const type = elem.querySelector("select[name=type]")?.value;
 
   const body = JSON.stringify({ name, type });
-  console.log(name, type);
   const res = await fetch("/create-category/", {
     method: "POST",
     body,
@@ -120,9 +118,10 @@ const edit_router = async (e, elem) => {
   const { id } = elem.closest(".edit_form.router").dataset;
   const category = elem.querySelector("select[name=category]")?.value;
   const serial_number = elem.querySelector("input[name=serial_number]")?.value;
+  const status = elem.querySelector("select[name=status]")?.value;
   const emei = elem.querySelector("input[name=emei]")?.value?.trim();
 
-  const body = JSON.stringify({ id, category, serial_number, emei });
+  const body = JSON.stringify({ id, category, serial_number, emei,status });
   const res = await fetch("/router/", {
     method: "PUT",
     body,
@@ -222,7 +221,7 @@ const edit_category = async (e, elem) => {
       window.location.reload();
     });
   } else {
-    console.error(res.message);
+    show_error(res.message);
   }
 };
 
@@ -242,13 +241,12 @@ const hide_suggestion = (suggestions_container) => {
 const open_edit_router = (elem) => {
   const form = document.querySelector(".edit_form.router");
   const container = elem.closest("tr");
-  const { id, sn, emei, category } = container.dataset;
-  console.log(container.dataset);
-
+  const { id, sn, emei , status ,category } = container.dataset;
   form.dataset.id = id;
   const sn_container = form.querySelector("[name=serial_number]");
   const emei_container = form.querySelector("[name=emei]");
   const category_container = form.querySelector("[name=category]");
+  const status_container = form.querySelector("[name=status]");
   sn_container.value = sn;
   emei_container.value = emei;
   const selected_category = Array.from(category_container.options).find(
@@ -257,6 +255,13 @@ const open_edit_router = (elem) => {
 
   if (selected_category) {
     selected_category.selected = true;
+  }
+  const selected_status = Array.from(status_container.options).find(
+    (option) => option.value == status
+  );
+
+  if (selected_status) {
+    selected_status.selected = true;
   }
   form.classList.remove("hidden");
 };

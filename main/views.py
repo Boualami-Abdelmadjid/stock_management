@@ -278,6 +278,7 @@ class DashboardView(View):
         # Paginate routers listing
         router_paginator = Paginator(routers,10)
         routers = router_paginator.page(router_page)
+        context['statuses'] = Router.STATUSES
         context['routers_count'] = router_paginator.count
         context['routers_paginator'] = router_paginator.get_elided_page_range(number=router_page, 
                                            on_each_side=1,
@@ -756,12 +757,14 @@ class RouterView(View):
             category = body.get('category')
             serial_number = body.get('serial_number')
             emei = body.get('emei')
+            status = body.get('status')
             
             category_instance = Category.objects.filter(id=category).first()
             router = Router.objects.filter(store = req.user.store,id=router_id).first()
             router.category = category_instance
             router.serial_number = serial_number
             router.emei = emei
+            router.status = status
             router.save()
             Log.objects.create(user = req.user,store = req.user.store,instance='router',instance_id=router.id,serial_number=router.serial_number,action='edit')
             res['status'] = 200
@@ -1007,6 +1010,9 @@ class ActionsView(View):
             if router1:
                 action = Action.objects.create(user = req.user,store=req.user.store,router=router1,action=action_type,comment=body.get('comment'))
                 if action_type == 'return':
+                    if not router1.status == Router.STATUSES[2][0] and not router1.status == Router.STATUSES[4][0]: #collected or device swap
+                        res["message"]="This router is not collected."
+                        return JsonResponse(res,status=res['status'])
                     action.reason = body.get('return_reason')
                     router1.status = Router.STATUSES[3][0]#return
                     router1.reason = body.get('return_reason')
@@ -1019,11 +1025,17 @@ comment: {body.get('comment')}
                     router1.store = store
                     send_email(emails,'Router Returned',text)
                 elif action_type == 'swap':
+                    if not router1.status == Router.STATUSES[2][0]:  #collected
+                        res["message"]="The router returned is not collected."
+                        return JsonResponse(res,status=res['status'])
+                    if not router2.status == Router.STATUSES[0][0]: #in stock
+                        res["message"]="This new collected router is not in stock."
+                        return JsonResponse(res,status=res['status'])
                     action.reason = body.get('swap_reason')
                     action.router2 = router2
                     router1.status = Router.STATUSES[4][0] #swap
                     router1.reason = body.get('return_reason')
-                    router2.status = Router.STATUSES[3][0] #return
+                    router2.status = Router.STATUSES[2][0] #collected
                     emails = list(store.user_set.filter(role=User.Roles[0][0]).values_list('email',flat=True))
                     text = f"""Router with Serial number {router1.serial_number} was swapped with {router2.serial_number}
 reason: {router1.reason}
@@ -1033,9 +1045,15 @@ comment: {body.get('comment')}
                     router1.store = store
                     send_email(emails,'Router Returned',text)
                 elif action_type == 'collect':
+                    if not router1.status == Router.STATUSES[1][0] and not router1.status == Router.STATUSES[0][0]: #Sold or in stock
+                        res["message"]="This router is not sold."
+                        return JsonResponse(res,status=res['status'])
                     router1.status = Router.STATUSES[2][0]
                     action.order_number = order_number
                 elif action_type == 'sale':
+                    if not router1.status == Router.STATUSES[0][0]: #Sold
+                        res["message"]="This router is not in stock."
+                        return JsonResponse(res,status=res['status'])
                     router1.status = Router.STATUSES[1][0]
                     action.order_number = order_number
                     emails = list(store.user_set.all().values_list('email',flat=True))
