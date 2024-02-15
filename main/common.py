@@ -49,8 +49,8 @@ def today_midnight():
 
 def send_email(emails,subject,body):
     try:
-        client = boto3.client('ses',region_name = 'us-east-1')
-        source = 'support@relayroom.net'
+        client = boto3.client('ses',region_name = 'eu-north-1',aws_access_key_id=settings.AWS_SERVER_PUBLIC_KEY,  aws_secret_access_key=settings.AWS_SERVER_SECRET_KEY)
+        source = 'Nduduzo.khawula32@gmail.com'
         message = {"Subject":{"Data":subject},"Body":{"Text":{"Data":body }}}
         response = client.send_email(Source = source, Destination={"ToAddresses":emails}, Message=message)
         logger.debug(response)

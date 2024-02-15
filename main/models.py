@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.admin.models import LogEntry
 from django.dispatch import receiver
+from django.conf import settings
 
 import boto3, logging
 from datetime import date, datetime, time
@@ -79,7 +80,7 @@ class Router(models.Model):
 
 
     def __str__(self):
-        return self.emei
+        return self.serial_number
     
 
 class Log(models.Model):
@@ -97,7 +98,7 @@ class Log(models.Model):
     user = models.ForeignKey(User,on_delete=models.SET_NULL, null=True)
     action = models.CharField(choices=ACTIONS_CHOICES, max_length=20)
     instance = models.CharField(choices=INSTANCES_CHOICES,max_length=20)
-    emei = models.CharField(max_length=150,null=True,blank=True)
+    serial_number = models.CharField(max_length=150,null=True,blank=True)
     category_name = models.CharField(max_length=150, null=True)
     instance_id = models.IntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -148,7 +149,7 @@ def action_created(sender, instance, created, **kwargs):
     if 'router' in str(instance.content_type):
         instance_type = 'router'
         router = Router.objects.filter(id=instance_id).first()
-        emei = router.emei
+        serial_number = router.serial_number
         store = router.store
     elif 'category' in str(instance.content_type):
         instance_type = 'category'
@@ -162,7 +163,7 @@ def action_created(sender, instance, created, **kwargs):
     elif instance.action_flag == 3:
         action = 'delete'
     if instance_type:
-        Log.objects.create(store=store,user = instance.user,action=action,instance=instance_type,emei = emei,category_name=category_name,instance_id=instance_id)
+        Log.objects.create(store=store,user = instance.user,action=action,instance=instance_type,serial_number = serial_number,category_name=category_name,instance_id=instance_id)
 
     #action_flags:
     #add = 1 -- edit = 2 -- delete = 3
@@ -170,8 +171,9 @@ def action_created(sender, instance, created, **kwargs):
 
 def send_email(emails,subject,body):
     try:
-        client = boto3.client('ses',region_name = 'us-east-1')
-        source = 'support@relayroom.net'
+        #Change the region
+        client = boto3.client('ses',region_name = 'eu-north-1',aws_access_key_id=settings.AWS_SERVER_PUBLIC_KEY,  aws_secret_access_key=settings.AWS_SERVER_SECRET_KEY)
+        source = 'Nduduzo.khawula32@gmail.com' 
         message = {"Subject":{"Data":subject},"Body":{"Text":{"Data":body }}}
         response = client.send_email(Source = source, Destination={"ToAddresses":emails}, Message=message)
         logger.debug(response)
