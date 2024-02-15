@@ -362,7 +362,6 @@ class DashboardView(View):
         for day_index,day in enumerate(days):
             if day_index == 4:
                 store_monitors.append(store.count_routers())
-                print(store.count_routers())
             else:
                 date_start = day
                 date_end = day + timedelta(days=1)
@@ -996,12 +995,6 @@ class ActionsView(View):
                 if action_type == 'return' or action_type == 'swap':
                     #Check collected routers from other stores
                     router1 = Router.objects.filter(serial_number=sn1,status=Router.STATUSES[2][0]).first()
-#                     if router1:
-#                         emails = list(store.user_set.filter(role=User.Roles[0][0]).values_list('email',flat=True))
-#                         old_store = router1.store
-#                         send_email(emails,subject='New Return',body=f"""Router with serial number {router1.serial_number} has been returned
-# It was collected from store: {old_store}""")
-#                         #Implement functionality to let the store manager know
             if not router1:
                 res['message'] = "We can't find the router with the provided details"
                 return JsonResponse(res,status=res['status'])
@@ -1046,7 +1039,7 @@ comment: {body.get('comment')}
                     router1.status = Router.STATUSES[1][0]
                     action.order_number = order_number
                     emails = list(store.user_set.all().values_list('email',flat=True))
-                    text = f"Router with IMEI {router1.emei} was sold"
+                    text = f"Router with Serial number {router1.serial_number} was sold"
                     send_email(emails,'New sale',text)
 
                 action.save()
