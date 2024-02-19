@@ -579,6 +579,8 @@ class CreateRoutersView(View):
             body = json.loads(req.body)
             #We retrieve the name from the body of the request
             serial_numbers = body.get('serial_numbers')
+            logger.info(f'{len(serial_numbers)} serial numbers received')
+            print(len(serial_numbers))
             category = body.get('category')
 
             # Validate and fetch the category

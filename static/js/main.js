@@ -563,10 +563,16 @@ const change_threshold = async (e) => {
 const bulk_import = (event,elem) => {
   event.preventDefault()
   const {value} = elem
-  if (value && value.includes(' ') || value.includes('\n')) {
+  console.log(event.inputType)
+  if (event.inputType == "insertText") {
+    if (value && value.includes(' ') || value.includes('\n')) {
+      add_router_to_bulk(value.trim())
+      elem.value = ''
+    }
+  }else if(value && event.inputType != "deleteContentBackward") {
     add_router_to_bulk(value.trim())
-    elem.value = ''
   }
+
 }
 
 const create_bulk_routers = async(event,elem) => {
