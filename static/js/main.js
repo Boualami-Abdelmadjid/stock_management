@@ -90,9 +90,8 @@ const create_router = async (e, elem) => {
   e.preventDefault();
   const category = elem.querySelector("select[name=category]")?.value;
   const serial_number = elem.querySelector("input[name=serial_number]")?.value;
-  const emei = elem.querySelector("input[name=emei]")?.value?.trim();
 
-  const body = JSON.stringify({ category, serial_number, emei });
+  const body = JSON.stringify({ category, serial_number });
   const res = await fetch("/create-router/", {
     method: "POST",
     body,
@@ -563,7 +562,6 @@ const change_threshold = async (e) => {
 const bulk_import = (event,elem) => {
   event.preventDefault()
   const {value} = elem
-  console.log(event.inputType)
   if (event.inputType == "insertText") {
     if (value && value.includes(' ') || value.includes('\n')) {
       add_router_to_bulk(value.trim())
@@ -577,7 +575,7 @@ const bulk_import = (event,elem) => {
 
 const create_bulk_routers = async(event,elem) => {
   event.preventDefault()
-  const serial_numbers = Array.from(document.querySelectorAll('#routers span')).map(elem => elem.dataset.sn)
+  const serial_numbers = Array.from(document.querySelectorAll('#routers p')).map(elem => elem.dataset.sn)
   const category = elem.querySelector('[name=category]')?.value
   const body = JSON.stringify({ serial_numbers, category });
   const res = await fetch("/bulk-routers/", {
@@ -602,9 +600,20 @@ const create_bulk_routers = async(event,elem) => {
 const add_router_to_bulk = (serial_number) => {
   // <span class="p-2 rounded-sm bg-slate-300 text-gray-500 text-nowrap">dsq-ezad1sq-eza1</span>
   const container = document.querySelector('#routers')
+  const p = document.createElement('p')
   const span = document.createElement('span')
-  span.classList.add('p-2','rounded-sm','bg-slate-300','text-gray-500', 'text-nowrap');
+  const i = document.createElement('i')
+  p.classList.add('p-2','rounded-sm','bg-slate-100','border-2','border-gray-300','text-nowrap','flex','items-center');
   span.innerText = serial_number;
-  span.dataset.sn = serial_number
-  container.appendChild(span)
+  p.dataset.sn = serial_number
+  container.appendChild(p)
+  i.classList.add('fa-solid','fa-xmark','text-md','text-red-500','cursor-pointer','p-1','rounded-sm','hover:bg-gray-100','transition-colors')
+  i.onclick = () => remove_bulk_router(i)
+  p.appendChild(span)
+  p.appendChild(i)
+}
+
+const remove_bulk_router = (elem) => {
+  const parent = elem.closest('p')
+  parent.remove()
 }

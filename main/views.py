@@ -14,6 +14,7 @@ from django.contrib.auth import authenticate, login
 from django.db.models import Q,Sum, F, Case, When, IntegerField
 from django.utils.timezone import get_current_timezone, make_aware, now
 from django.core.paginator import Paginator
+from django.db import IntegrityError
 
 
 from main.models import *
@@ -526,12 +527,12 @@ class CreateRouterView(View):
             #We retrieve the name from the body of the request
             category = body.get('category')
             serial_number = body.get('serial_number')
-            emei = body.get('emei')
+            
 
             # Validate and fetch the category
             category = Category.objects.filter(id=category).first()
             # Create the router instance and save it to the database
-            router = Router.objects.create(store=store,category=category,emei=emei,serial_number=serial_number)
+            router = Router.objects.create(store=store,category=category,serial_number=serial_number)
             router.save()
             # Reset the alerted flag for the category as a new router is adde
             category.alerted = False
@@ -541,6 +542,9 @@ class CreateRouterView(View):
 
             res['status'] = 200
             del res['message']
+
+        except IntegrityError :
+            res['message'] = 'Router already exists in the database'
         except Exception as e:
             logger.exception(e)
         return JsonResponse(res,status=res['status'])
@@ -580,7 +584,6 @@ class CreateRoutersView(View):
             #We retrieve the name from the body of the request
             serial_numbers = body.get('serial_numbers')
             logger.info(f'{len(serial_numbers)} serial numbers received')
-            print(len(serial_numbers))
             category = body.get('category')
 
             # Validate and fetch the category
@@ -999,22 +1002,27 @@ class ActionsView(View):
             if not router1:
                 if action_type == 'return' or action_type == 'swap':
                     #Check collected routers from other stores
-                    router1 = Router.objects.filter(serial_number=sn1,status=Router.STATUSES[2][0]).first()
+                    router1, created = Router.objects.get_or_create(serial_number=sn1)
+                    if created:
+                        print('here')
+                        router1.store = store
+                    
+                     
             if not router1:
                 res['message'] = "We can't find the router with the provided details"
                 return JsonResponse(res,status=res['status'])
             if sn2:
-                router2 = Router.objects.filter(store=store,serial_number=sn2).first()
-                if not router2:
-                    res['message'] = "We can't find the second router with the provied details"
-                    return JsonResponse(res,status=res['status'])
+                router2, created = Router.objects.get_or_create(serial_number=sn2)
+                if created:
+                    router2.store=store
             
             if router1:
                 action = Action.objects.create(user = req.user,store=req.user.store,router=router1,action=action_type,comment=body.get('comment'))
                 if action_type == 'return':
-                    if not router1.status == Router.STATUSES[2][0] and not router1.status == Router.STATUSES[4][0]: #collected or device swap
-                        res["message"]="This router is not collected."
-                        return JsonResponse(res,status=res['status'])
+                    #Check if routers is collected or swapped
+                    # if not router1.status == Router.STATUSES[2][0] and not router1.status == Router.STATUSES[4][0]: #collected or device swap
+                    #     res["message"]="This router is not collected."
+                    #     return JsonResponse(res,status=res['status'])
                     action.reason = body.get('return_reason')
                     router1.status = Router.STATUSES[3][0]#return
                     router1.reason = body.get('return_reason')
@@ -1027,17 +1035,17 @@ comment: {body.get('comment')}
                     router1.store = store
                     send_email(emails,'Router Returned',text)
                 elif action_type == 'swap':
-                    if not router1.status == Router.STATUSES[2][0]:  #collected
-                        res["message"]="The router returned is not collected."
-                        return JsonResponse(res,status=res['status'])
-                    if not router2.status == Router.STATUSES[0][0]: #in stock
-                        res["message"]="This new collected router is not in stock."
-                        return JsonResponse(res,status=res['status'])
+                    # if not router1.status == Router.STATUSES[2][0]:  #collected
+                    #     res["message"]="The router returned is not collected."
+                    #     return JsonResponse(res,status=res['status'])
+                    # if not router2.status == Router.STATUSES[0][0]: #in stock
+                    #     res["message"]="This new collected router is not in stock."
+                    #     return JsonResponse(res,status=res['status'])
                     action.reason = body.get('swap_reason')
                     action.router2 = router2
-                    router1.status = Router.STATUSES[4][0] #swap
-                    router1.reason = body.get('return_reason')
-                    router2.status = Router.STATUSES[2][0] #collected
+                    router1.status = Router.STATUSES[2][0] #collected
+                    router2.status = Router.STATUSES[4][0] #swap
+                    router2.reason = body.get('return_reason')
                     emails = list(store.user_set.filter(role=User.Roles[0][0]).values_list('email',flat=True))
                     text = f"""Router with Serial number {router1.serial_number} was swapped with {router2.serial_number}
 reason: {router1.reason}

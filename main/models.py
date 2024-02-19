@@ -70,7 +70,7 @@ class Router(models.Model):
     )
     store = models.ForeignKey(Store,on_delete=models.SET_NULL,null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,null=True)
-    serial_number = models.CharField(max_length = 150, blank=True, null=True)
+    serial_number = models.CharField(max_length = 150, unique=True)
     emei =  models.CharField(max_length = 150, blank=True, null=True)
     status = models.CharField(max_length=50,default=STATUSES[0][0], choices=STATUSES)
     reason = models.CharField(max_length=150, null=True,blank=True)
@@ -186,8 +186,9 @@ def today_midnight():
 @receiver(models.signals.post_save, sender = Router)
 def router_changed(sender, instance, created, **kwargs):
     store = instance.store
-    emails = list(store.user_set.all().values_list('email',flat=True))
-    #Stock level email
-    if store.count_routers() < store.alert_on and not Notification.objects.filter(store=store,date_sent__gte=today_midnight()).exists():
-        send_email(emails,'LOW STOCK LEVEL',f"You have {store.count_routers()} routers on your store")
-        Notification.objects.create(store=store)    
+    if store:
+        emails = list(store.user_set.all().values_list('email',flat=True))
+        #Stock level email
+        if store.count_routers() < store.alert_on and not Notification.objects.filter(store=store,date_sent__gte=today_midnight()).exists():
+            send_email(emails,'LOW STOCK LEVEL',f"You have {store.count_routers()} routers on your store")
+            Notification.objects.create(store=store)    
