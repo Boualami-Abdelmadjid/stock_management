@@ -589,9 +589,12 @@ class CreateRoutersView(View):
             # Validate and fetch the category
             category = Category.objects.filter(id=category).first()
             for sn in serial_numbers:
-                router = Router.objects.create(store=store,category=category,serial_number=sn)
-                router.save()
-                Log.objects.create(user = user,store = store,instance='router',instance_id=router.id,serial_number=router.serial_number,action='add')
+                try:
+                    router = Router.objects.create(store=store,category=category,serial_number=sn)
+                    router.save()
+                    Log.objects.create(user = user,store = store,instance='router',instance_id=router.id,serial_number=router.serial_number,action='add')
+                except Exception as e:
+                    logger.exception(e)
 
             # Reset the alerted flag for the category as a new router is adde
             category.alerted = False
@@ -824,6 +827,10 @@ class RouterView(View):
                     router.save()
                     res['message'] = 'Router updated successfully'
                     res['status'] = 200
+                else:
+                    res['message'] = 'Router is not in the Database'
+                    res['status'] = 400
+
         except Exception as e:
             logger.exception(e)
         return JsonResponse(res,status=res['status'])
@@ -972,7 +979,7 @@ class LogsOpsView(View):
     def get(self,req):
         res = {"status":500,"message":"Something wrong hapenned"}
         try :
-            logs = list(Log.objects.filter(store = req.user.store).order_by('-id').values('user__username','action','instance','emei','category_name','instance_id','created_at'))
+            logs = list(Log.objects.filter(store = req.user.store).order_by('-id').values('user__username','action','instance','serial_number','category_name','instance_id','created_at'))
             res['logs'] = logs
             res['status'] = 200
             del res['message']
@@ -1056,13 +1063,21 @@ comment: {body.get('comment')}
                     send_email(emails,'Router Returned',text)
                 elif action_type == 'collect':
                     if not router1.status == Router.STATUSES[1][0] and not router1.status == Router.STATUSES[0][0]: #Sold or in stock
-                        res["message"]="This router is not sold."
+                        if router1.status == Router.STATUSES[2][0]:
+                            res["message"]="This router is already collected."
+                        else:
+                            res["message"]="This router is not sold."
                         return JsonResponse(res,status=res['status'])
                     router1.status = Router.STATUSES[2][0]
                     action.order_number = order_number
                 elif action_type == 'sale':
                     if not router1.status == Router.STATUSES[0][0]: #Sold
-                        res["message"]="This router is not in stock."
+                        if router1.status == Router.STATUSES[1][0]:
+                            res["message"]="This router is already sold."
+                        elif router1.status == Router.STATUSES[2][0]:
+                            res["message"]="This router is already collected."
+                        else:
+                            res["message"]="This router is not in stock."
                         return JsonResponse(res,status=res['status'])
                     router1.status = Router.STATUSES[1][0]
                     action.order_number = order_number
@@ -1087,6 +1102,7 @@ comment: {body.get('comment')}
                 res['message'] = "You don't have enough permissions"
                 return JsonResponse(res,status=res['status'])
             body = json.loads(req.body)
+            
             action_id = body.get('id')
             action =  Action.objects.filter(id=action_id,store = req.user.store).first()
             if action:

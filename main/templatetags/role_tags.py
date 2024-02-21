@@ -22,4 +22,3 @@ def get_correct_status(value):
             correct_status = status[1]
             break
     return correct_status
-    

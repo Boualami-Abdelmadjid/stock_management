@@ -58,3 +58,11 @@ const export_file = (data, name) => {
   a.setAttribute("download", name);
   a.click();
 };
+
+const isVisible = elem => {
+  return !elem?.parentElement?.classList?.contains('hidden')
+}
+
+const isValidSerialNumber = (value) => {
+  return value.length == 17
+}

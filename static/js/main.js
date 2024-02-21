@@ -88,9 +88,13 @@ const create_category = async (e, elem) => {
 
 const create_router = async (e, elem) => {
   e.preventDefault();
+  const snField = elem.querySelector("input[name=serial_number]")
   const category = elem.querySelector("select[name=category]")?.value;
-  const serial_number = elem.querySelector("input[name=serial_number]")?.value;
-
+  const serial_number = snField?.value?.trim();
+  if (serial_number && serial_number.trim().length != 17) {
+    show_error('The serial number is invalid')
+    return
+  }
   const body = JSON.stringify({ category, serial_number });
   const res = await fetch("/create-router/", {
     method: "POST",
@@ -418,12 +422,12 @@ const export_logs = async (e) => {
   if (res.status == 200) {
     const logs = res.logs;
     let excel_data = [
-      "username,action,instance,emei,category_name,instance_id,created_at",
+      "username,action,instance,Serial Number,Category Name,Instance Id, Created At",
     ];
     logs.forEach((log) => {
       excel_data.push(
         `${log.user__username},${log.action},${log.instance},${
-          log.emei ? log.emei : ""
+          log.serial_number ? log.serial_number : ""
         },${log.category_name ? log.category_name : ""},${
           log.instance_id
         },${new Date(log.created_at).getDate()}-${
@@ -488,14 +492,27 @@ const action_change = (elem) => {
 
 const submit_action = async (event, elem) => {
   event.preventDefault();
+  const orderNumberInput = elem.querySelector('[name=order_number]')
   const sn1 = elem.querySelector('[name=sn1]').value
   const action = elem.querySelector('[name=action]:checked').value
-  const order_number = elem.querySelector('[name=order_number]').value
+  const order_number = orderNumberInput?.value
   const sn2 = elem.querySelector('[name=sn2]').value
   const return_reason = elem.querySelector('[name=return_reason]').value
   const swap_reason = elem.querySelector('[name=swap_reason]').value
   const comment = elem.querySelector('[name=comment]').value
 
+  const isOrderNumberRequired = isVisible(orderNumberInput)
+  if (isOrderNumberRequired) {
+    if  (!order_number) {
+    show_error('Please type the order number')
+    orderNumberInput.focus()
+    return
+  } else if (order_number && order_number.trim().length != 7) {
+    show_error('Please type a valid order number')
+    orderNumberInput.focus()
+    return
+  }
+}
   const body = JSON.stringify({
     sn1,
     action,
@@ -564,11 +581,23 @@ const bulk_import = (event,elem) => {
   const {value} = elem
   if (event.inputType == "insertText") {
     if (value && value.includes(' ') || value.includes('\n')) {
-      add_router_to_bulk(value.trim())
-      elem.value = ''
+      if (isValidSerialNumber(value.trim())) {
+        add_router_to_bulk(value.trim())
+        elem.value = ''
+      }else {
+        show_error('Please scan a valid serial number')
+        elem.focus()
+        return
+      }
     }
   }else if(value && event.inputType != "deleteContentBackward") {
-    add_router_to_bulk(value.trim())
+    if (isValidSerialNumber(value.trim())) {
+      add_router_to_bulk(value.trim())
+    }else {
+      show_error('Please scan a valid serial number')
+      elem.focus()
+      return
+    }
   }
 
 }
