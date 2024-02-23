@@ -168,6 +168,8 @@ def action_created(sender, instance, created, **kwargs):
     #action_flags:
     #add = 1 -- edit = 2 -- delete = 3
 
+def today_midnight():
+    return datetime.combine(date.today(), time.min) 
 
 def send_email(emails,subject,body):
     try:
@@ -180,8 +182,6 @@ def send_email(emails,subject,body):
     except Exception as e:
         logger.exception(e)
 
-def today_midnight():
-    return datetime.combine(date.today(), time.min) 
 
 @receiver(models.signals.post_save, sender = Router)
 def router_changed(sender, instance, created, **kwargs):

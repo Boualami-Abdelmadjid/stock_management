@@ -1006,12 +1006,12 @@ class ActionsView(View):
             order_number = body.get('order_number')
             router1 = Router.objects.filter(store=store,serial_number=sn1).first()
             router2 = None
+            
             if not router1:
                 if action_type == 'return' or action_type == 'swap':
                     #Check collected routers from other stores
                     router1, created = Router.objects.get_or_create(serial_number=sn1)
                     if created:
-                        print('here')
                         router1.store = store
                     
                      
@@ -1024,13 +1024,15 @@ class ActionsView(View):
                     router2.store=store
             
             if router1:
-                action = Action.objects.create(user = req.user,store=req.user.store,router=router1,action=action_type,comment=body.get('comment'))
+                reason = None
+                action_router_2 = None
+                action_order_number = None
                 if action_type == 'return':
                     #Check if routers is collected or swapped
                     # if not router1.status == Router.STATUSES[2][0] and not router1.status == Router.STATUSES[4][0]: #collected or device swap
                     #     res["message"]="This router is not collected."
                     #     return JsonResponse(res,status=res['status'])
-                    action.reason = body.get('return_reason')
+                    reason = body.get('return_reason')
                     router1.status = Router.STATUSES[3][0]#return
                     router1.reason = body.get('return_reason')
                     emails = list(store.user_set.filter(role=User.Roles[0][0]).values_list('email',flat=True))
@@ -1048,8 +1050,8 @@ comment: {body.get('comment')}
                     # if not router2.status == Router.STATUSES[0][0]: #in stock
                     #     res["message"]="This new collected router is not in stock."
                     #     return JsonResponse(res,status=res['status'])
-                    action.reason = body.get('swap_reason')
-                    action.router2 = router2
+                    reason = body.get('swap_reason')
+                    action_router_2 = router2
                     router1.status = Router.STATUSES[2][0] #collected
                     router2.status = Router.STATUSES[4][0] #swap
                     router2.reason = body.get('return_reason')
@@ -1069,22 +1071,23 @@ comment: {body.get('comment')}
                             res["message"]="This router is not sold."
                         return JsonResponse(res,status=res['status'])
                     router1.status = Router.STATUSES[2][0]
-                    action.order_number = order_number
+                    action_order_number = order_number
                 elif action_type == 'sale':
-                    if not router1.status == Router.STATUSES[0][0]: #Sold
-                        if router1.status == Router.STATUSES[1][0]:
+                    if not router1.status == Router.STATUSES[0][0]: #In stock
+                        if router1.status == Router.STATUSES[1][0]: #Sold
                             res["message"]="This router is already sold."
-                        elif router1.status == Router.STATUSES[2][0]:
+                        elif router1.status == Router.STATUSES[2][0]:#collected
                             res["message"]="This router is already collected."
                         else:
                             res["message"]="This router is not in stock."
                         return JsonResponse(res,status=res['status'])
                     router1.status = Router.STATUSES[1][0]
-                    action.order_number = order_number
+                    action_order_number = order_number
                     emails = list(store.user_set.all().values_list('email',flat=True))
                     text = f"Router with Serial number {router1.serial_number} was sold"
                     send_email(emails,'New sale',text)
-
+                
+                action = Action.objects.create(user = req.user,store=req.user.store,router=router1,action=action_type,comment=body.get('comment'),router2=action_router_2,reason=reason,order_number=action_order_number)
                 action.save()
                 router1.save()
                 if router2:router2.save()
