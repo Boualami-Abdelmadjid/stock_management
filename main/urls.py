@@ -24,5 +24,6 @@ urlpatterns = [
     path('bulk-routers/',login_required(CreateRoutersView.as_view()), name="create-routers"),
     path('actions/',ActionsView.as_view(), name='actions'),
     path('logs/',LogsView.as_view(), name='logs'),
-    path('logs-operations/',LogsOpsView.as_view(), name='logs-operations')
+    path('logs-operations/',LogsOpsView.as_view(), name='logs-operations'),
+    path('switch-store/', SwitchStore.as_view(), name='switch-store')
 ]

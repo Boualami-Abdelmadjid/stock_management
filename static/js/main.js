@@ -241,6 +241,15 @@ const hide_suggestion = (suggestions_container) => {
   suggestions_container.classList.add("hidden");
 };
 
+const toggle_switch_router = (elem) => {
+  const form = document.querySelector('.switch_form')
+  form.classList.toggle('hidden')
+  const router_elem = elem.closest('tr')
+  if (router_elem) {
+    form.dataset.id = router_elem.dataset.id
+  }
+}
+
 const open_edit_router = (elem) => {
   const form = document.querySelector(".edit_form.router");
   const container = elem.closest("tr");
@@ -645,4 +654,25 @@ const add_router_to_bulk = (serial_number) => {
 const remove_bulk_router = (elem) => {
   const parent = elem.closest('p')
   parent.remove()
+}
+
+const switch_store = async(event,elem) => {
+  event.preventDefault()
+  const router_id = elem.closest('.switch_form').dataset.id
+  const new_store = elem.querySelector('[name=store]').value
+  const body = JSON.stringify({router_id,new_store})  
+  const res = await fetch("/switch-store/", {
+    method: "POST",
+    body,
+    headers: {
+      "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+    },
+  }).then((res) => res.json());
+  if (res.status == 200) {
+    show_success("Store switched successfully", () => {
+      window.location.href = "/";
+    });
+  } else {
+    show_error(res.message);
+  }
 }

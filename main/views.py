@@ -385,7 +385,7 @@ class DashboardView(View):
                     
                 store_monitors.append(total)
 
-
+        context['stores'] = Store.objects.all()
         context['routers'] = routers
         context['categories_obj'] = categories
         context['categories'] = routers_categories
@@ -1143,3 +1143,28 @@ class ReturnView(View):
         except Exception as e:
             logger.exception(e)
         return render(req,'main/return/index.html',context=context)
+
+
+class SwitchStore(View):
+    def post(self,req):
+        res = {"status":500,"message":"Something wrong hapenned"}
+        try:
+            body = json.loads(req.body)
+            router_id = body.get('router_id')
+            new_store = body.get('new_store')
+            router = Router.objects.filter(id=router_id).first()
+            store = Store.objects.filter(id=new_store).first()
+            if router and store:
+                router.store = store
+                router.save()
+                res['status'] = 200
+                res['message'] = "Store switched successfully"
+            elif router:
+                res['message'] = "Store not found"
+            else:
+                res['message'] = "Router not found"
+                
+        except Exception as e:
+            logger.exception(e)
+        return JsonResponse(res,status=res['status'])
+

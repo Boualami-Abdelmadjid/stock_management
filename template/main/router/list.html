@@ -139,8 +139,7 @@
   </form>
   {% if routers %}
 
-  <table
-    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+  <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
   >
     <thead
       class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
@@ -185,6 +184,7 @@
             class="fa-regular fa-pen-to-square text-lg text-primary-400 cursor-pointer"
             onclick="open_edit_router(this)"
           ></i>
+          <i title="switch stores" onclick="toggle_switch_router(this)" class="fa-solid fa-right-left text-lg text-orange-400 cursor-pointer"></i>
           <i
             title="delete"
             class="fa-solid fa-trash text-lg text-red-400 cursor-pointer"
@@ -222,4 +222,6 @@
   {% endif %} {% if user.role == 'store_manager' %}
   <!-- Edit form -->
   {% include 'main/router/edit-form.html' %} {% endif %}
+  <!-- Switch stores form -->
+  {% include 'main/router/switch-form.html' %}
 </section>
