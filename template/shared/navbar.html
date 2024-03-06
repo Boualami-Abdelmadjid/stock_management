@@ -15,6 +15,8 @@
     {% endif %}
   </div>
   <div class="flex gap-8 items-center">
+    <i class="fa-solid fa-sun !hidden dark:!inline-block " onclick="toggleDark('false')"></i>
+    <i class="fa-solid fa-moon !inline-block dark:!hidden" onclick="toggleDark('true')"></i>
     {% if user.is_authenticated %}
     <span>Welcome {{ user.username }}</span>
     {% if user.store %} {% endif %}

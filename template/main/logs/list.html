@@ -1,5 +1,7 @@
+<!-- Prettier ignore -->
+
 {% extends 'base/root.html' %} {% load paginator_tags %} {% block content %}
-<main class="max-w-[1600px] mx-auto py-8">
+<main class="max-w-[1600px] mx-auto py-8 px-4">
   <div
     class="page flex w-fit mx-auto rounded-md border-2 border-primary-500 divide-x-2 divide-primary-500 text-gray-800"
     onclick="switch_pages_handler(event)"
@@ -138,7 +140,6 @@
     {% endif %}
 
     <div class="flex gap-2 justify-center my-4">
-      <!-- here -->
       {% for i in logs_obj %} {% if logs.number == i %}
       <a
         class="px-3 py-1 rounded-md border-2 text-primary-500 border-primary-500"
@@ -161,14 +162,6 @@
   <section class="hidden actions">
     <div class="flex justify-between mt-8 mb-4">
       <h1 class="text-xl text-primary-500 font-semibold">Actions</h1>
-      <!-- {% if logs_obj %}
-      <button
-        class="rounded-md bg-red-600 text-white px-4 py-2"
-        onclick="export_logs(event)"
-      >
-        Export All
-      </button>
-      {% endif %} -->
     </div>
 
     <form class="my-2 flex gap-4 items-center py-2">
@@ -287,7 +280,9 @@
             {% if action.order_number %} {{ action.order_number }} {% else %} -
             {% endif %}
           </td>
-          <td class="px-6 py-4">{% if action.router.serial_number %} {{ action.router.serial_number }}{% else %} {% endif %}</td>
+          <td class="px-6 py-4">
+            {% if action.router.serial_number %} {{ action.router.serial_number  }}{% else %} {% endif %}
+          </td>
           <td class="px-6 py-4">{{ action.router.category.type }}</td>
 
           <td class="px-6 py-4">
@@ -302,7 +297,15 @@
           {% if user.role == "store_manager" %}
           <td class="w-4">
             {% if action.action == "return" %}
-            <input type="checkbox" class="rounded-sm" {% if action.shipped %}checked {%endif%} name="shiped" data-id="{{action.id}}" onchange="shipped_change({{action.id}})" >
+            <input
+              type="checkbox"
+              class="rounded-sm"
+              {%  if action.shipped %}
+              checked {% endif %}
+              name="shiped"
+              data-id="{{action.id}}"
+              onchange="shipped_change({{action.id}})"
+            />
             {% else %} - {% endif %}
           </td>
           {% endif %}
@@ -319,7 +322,6 @@
     {% endif %}
 
     <div class="flex gap-2 justify-center my-4">
-      <!-- here -->
       {% for i in actions_obj %} {% if actions.number == i %}
       <a
         class="px-3 py-1 rounded-md border-2 text-primary-500 border-primary-500"

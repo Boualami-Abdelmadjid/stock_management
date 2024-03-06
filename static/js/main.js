@@ -88,12 +88,12 @@ const create_category = async (e, elem) => {
 
 const create_router = async (e, elem) => {
   e.preventDefault();
-  const snField = elem.querySelector("input[name=serial_number]")
+  const snField = elem.querySelector("input[name=serial_number]");
   const category = elem.querySelector("select[name=category]")?.value;
   const serial_number = snField?.value?.trim();
   if (serial_number && serial_number.trim().length != 17) {
-    show_error('The serial number is invalid')
-    return
+    show_error("The serial number is invalid");
+    return;
   }
   const body = JSON.stringify({ category, serial_number });
   const res = await fetch("/create-router/", {
@@ -124,7 +124,7 @@ const edit_router = async (e, elem) => {
   const status = elem.querySelector("select[name=status]")?.value;
   const emei = elem.querySelector("input[name=emei]")?.value?.trim();
 
-  const body = JSON.stringify({ id, category, serial_number, emei,status });
+  const body = JSON.stringify({ id, category, serial_number, emei, status });
   const res = await fetch("/router/", {
     method: "PUT",
     body,
@@ -242,18 +242,18 @@ const hide_suggestion = (suggestions_container) => {
 };
 
 const toggle_switch_router = (elem) => {
-  const form = document.querySelector('.switch_form')
-  form.classList.toggle('hidden')
-  const router_elem = elem.closest('tr')
+  const form = document.querySelector(".switch_form");
+  form.classList.toggle("hidden");
+  const router_elem = elem.closest("tr");
   if (router_elem) {
-    form.dataset.id = router_elem.dataset.id
+    form.dataset.id = router_elem.dataset.id;
   }
-}
+};
 
 const open_edit_router = (elem) => {
   const form = document.querySelector(".edit_form.router");
   const container = elem.closest("tr");
-  const { id, sn, emei , status ,category } = container.dataset;
+  const { id, sn, emei, status, category } = container.dataset;
   form.dataset.id = id;
   const sn_container = form.querySelector("[name=serial_number]");
   const emei_container = form.querySelector("[name=emei]");
@@ -382,8 +382,8 @@ const delete_user_from_group = async (elem) => {
 
 const switch_pages_handler = (e) => {
   const { target } = e;
-  if (target.tagName.toLowerCase() != 'span') {
-    return
+  if (target.tagName.toLowerCase() != "span") {
+    return;
   }
   const name = target.getAttribute("name");
 
@@ -501,27 +501,27 @@ const action_change = (elem) => {
 
 const submit_action = async (event, elem) => {
   event.preventDefault();
-  const orderNumberInput = elem.querySelector('[name=order_number]')
-  const sn1 = elem.querySelector('[name=sn1]').value
-  const action = elem.querySelector('[name=action]:checked').value
-  const order_number = orderNumberInput?.value
-  const sn2 = elem.querySelector('[name=sn2]').value
-  const return_reason = elem.querySelector('[name=return_reason]').value
-  const swap_reason = elem.querySelector('[name=swap_reason]').value
-  const comment = elem.querySelector('[name=comment]').value
+  const orderNumberInput = elem.querySelector("[name=order_number]");
+  const sn1 = elem.querySelector("[name=sn1]").value;
+  const action = elem.querySelector("[name=action]:checked").value;
+  const order_number = orderNumberInput?.value;
+  const sn2 = elem.querySelector("[name=sn2]").value;
+  const return_reason = elem.querySelector("[name=return_reason]").value;
+  const swap_reason = elem.querySelector("[name=swap_reason]").value;
+  const comment = elem.querySelector("[name=comment]").value;
 
-  const isOrderNumberRequired = isVisible(orderNumberInput)
+  const isOrderNumberRequired = isVisible(orderNumberInput);
   if (isOrderNumberRequired) {
-    if  (!order_number) {
-    show_error('Please type the order number')
-    orderNumberInput.focus()
-    return
-  } else if (order_number && order_number.trim().length != 7) {
-    show_error('Please type a valid order number')
-    orderNumberInput.focus()
-    return
+    if (!order_number) {
+      show_error("Please type the order number");
+      orderNumberInput.focus();
+      return;
+    } else if (order_number && order_number.trim().length != 7) {
+      show_error("Please type a valid order number");
+      orderNumberInput.focus();
+      return;
+    }
   }
-}
   const body = JSON.stringify({
     sn1,
     action,
@@ -547,8 +547,8 @@ const submit_action = async (event, elem) => {
   }
 };
 
-const shipped_change = async(id) => {
-  const body = JSON.stringify({id})
+const shipped_change = async (id) => {
+  const body = JSON.stringify({ id });
   const res = await fetch("/router/", {
     method: "PATCH",
     body,
@@ -564,13 +564,13 @@ const shipped_change = async(id) => {
 };
 
 const toggle_edit_threshold = (elem) => {
-  Array.from(elem.parentElement.querySelectorAll('.switch')).forEach(
-    elem => elem.classList.toggle('hidden')
-  )
-}
+  Array.from(elem.parentElement.querySelectorAll(".switch")).forEach((elem) =>
+    elem.classList.toggle("hidden")
+  );
+};
 const change_threshold = async (e) => {
-  const {value} = e.target
-  const body = JSON.stringify({value})
+  const { value } = e.target;
+  const body = JSON.stringify({ value });
   const res = await fetch("/profile/", {
     method: "PUT",
     body,
@@ -579,42 +579,45 @@ const change_threshold = async (e) => {
     },
   }).then((res) => res.json());
   if (res.status === 200) {
-    show_success(res.message,()=> {location.reload()});
+    show_success(res.message, () => {
+      location.reload();
+    });
   } else {
     show_error(res.message);
   }
-}
+};
 
-const bulk_import = (event,elem) => {
-  event.preventDefault()
-  const {value} = elem
+const bulk_import = (event, elem) => {
+  event.preventDefault();
+  const { value } = elem;
   if (event.inputType == "insertText") {
-    if (value && value.includes(' ') || value.includes('\n')) {
+    if ((value && value.includes(" ")) || value.includes("\n")) {
       if (isValidSerialNumber(value.trim())) {
-        add_router_to_bulk(value.trim())
-        elem.value = ''
-      }else {
-        show_error('Please scan a valid serial number')
-        elem.focus()
-        return
+        add_router_to_bulk(value.trim());
+        elem.value = "";
+      } else {
+        show_error("Please scan a valid serial number");
+        elem.focus();
+        return;
       }
     }
-  }else if(value && event.inputType != "deleteContentBackward") {
+  } else if (value && event.inputType != "deleteContentBackward") {
     if (isValidSerialNumber(value.trim())) {
-      add_router_to_bulk(value.trim())
-    }else {
-      show_error('Please scan a valid serial number')
-      elem.focus()
-      return
+      add_router_to_bulk(value.trim());
+    } else {
+      show_error("Please scan a valid serial number");
+      elem.focus();
+      return;
     }
   }
+};
 
-}
-
-const create_bulk_routers = async(event,elem) => {
-  event.preventDefault()
-  const serial_numbers = Array.from(document.querySelectorAll('#routers p')).map(elem => elem.dataset.sn)
-  const category = elem.querySelector('[name=category]')?.value
+const create_bulk_routers = async (event, elem) => {
+  event.preventDefault();
+  const serial_numbers = Array.from(
+    document.querySelectorAll("#routers p")
+  ).map((elem) => elem.dataset.sn);
+  const category = elem.querySelector("[name=category]")?.value;
   const body = JSON.stringify({ serial_numbers, category });
   const res = await fetch("/bulk-routers/", {
     method: "POST",
@@ -624,43 +627,59 @@ const create_bulk_routers = async(event,elem) => {
     },
   }).then((res) => res.json());
   if (res.status == 200) {
-    show_success(
-      "Routers created successfully",
-      () => {
-        window.location.reload();
-      }
-    );
+    show_success("Routers created successfully", () => {
+      window.location.reload();
+    });
   } else {
     show_error(res.message);
   }
-}
+};
 
 const add_router_to_bulk = (serial_number) => {
   // <span class="p-2 rounded-sm bg-slate-300 text-gray-500 text-nowrap">dsq-ezad1sq-eza1</span>
-  const container = document.querySelector('#routers')
-  const p = document.createElement('p')
-  const span = document.createElement('span')
-  const i = document.createElement('i')
-  p.classList.add('p-2','rounded-sm','bg-slate-100','border-2','border-gray-300','text-nowrap','flex','items-center');
+  const container = document.querySelector("#routers");
+  const p = document.createElement("p");
+  const span = document.createElement("span");
+  const i = document.createElement("i");
+  p.classList.add(
+    "p-2",
+    "rounded-sm",
+    "bg-slate-100",
+    "border-2",
+    "border-gray-300",
+    "text-nowrap",
+    "flex",
+    "items-center"
+  );
   span.innerText = serial_number;
-  p.dataset.sn = serial_number
-  container.appendChild(p)
-  i.classList.add('fa-solid','fa-xmark','text-md','text-red-500','cursor-pointer','p-1','rounded-sm','hover:bg-gray-100','transition-colors')
-  i.onclick = () => remove_bulk_router(i)
-  p.appendChild(span)
-  p.appendChild(i)
-}
+  p.dataset.sn = serial_number;
+  container.appendChild(p);
+  i.classList.add(
+    "fa-solid",
+    "fa-xmark",
+    "text-md",
+    "text-red-500",
+    "cursor-pointer",
+    "p-1",
+    "rounded-sm",
+    "hover:bg-gray-100",
+    "transition-colors"
+  );
+  i.onclick = () => remove_bulk_router(i);
+  p.appendChild(span);
+  p.appendChild(i);
+};
 
 const remove_bulk_router = (elem) => {
-  const parent = elem.closest('p')
-  parent.remove()
-}
+  const parent = elem.closest("p");
+  parent.remove();
+};
 
-const switch_store = async(event,elem) => {
-  event.preventDefault()
-  const router_id = elem.closest('.switch_form').dataset.id
-  const new_store = elem.querySelector('[name=store]').value
-  const body = JSON.stringify({router_id,new_store})  
+const switch_store = async (event, elem) => {
+  event.preventDefault();
+  const router_id = elem.closest(".switch_form").dataset.id;
+  const new_store = elem.querySelector("[name=store]").value;
+  const body = JSON.stringify({ router_id, new_store });
   const res = await fetch("/switch-store/", {
     method: "POST",
     body,
@@ -675,4 +694,4 @@ const switch_store = async(event,elem) => {
   } else {
     show_error(res.message);
   }
-}
+};

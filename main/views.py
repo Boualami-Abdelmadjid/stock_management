@@ -1006,15 +1006,13 @@ class ActionsView(View):
             order_number = body.get('order_number')
             router1 = Router.objects.filter(store=store,serial_number=sn1).first()
             router2 = None
-            
             if not router1:
                 if action_type == 'return' or action_type == 'swap':
                     #Check collected routers from other stores
                     router1, created = Router.objects.get_or_create(serial_number=sn1)
                     if created:
                         router1.store = store
-                    
-                     
+
             if not router1:
                 res['message'] = "We can't find the router with the provided details"
                 return JsonResponse(res,status=res['status'])
@@ -1086,6 +1084,9 @@ comment: {body.get('comment')}
                     emails = list(store.user_set.all().values_list('email',flat=True))
                     text = f"Router with Serial number {router1.serial_number} was sold"
                     send_email(emails,'New sale',text)
+                elif action_type == 'out':
+                    router1.status = Router.STATUSES[5][0]
+                    router1.comment = body.get('comment')
                 
                 action = Action.objects.create(user = req.user,store=req.user.store,router=router1,action=action_type,comment=body.get('comment'),router2=action_router_2,reason=reason,order_number=action_order_number)
                 action.save()

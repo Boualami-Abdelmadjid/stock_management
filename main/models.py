@@ -66,7 +66,8 @@ class Router(models.Model):
         ('new_sale','New sale'),
         ('collected','Collected'),
         ('return','Return'),
-        ('swap','Device swap')
+        ('swap','Device swap'),
+        ('out','Out of stock (Internal use)')
     )
     store = models.ForeignKey(Store,on_delete=models.SET_NULL,null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,null=True)
@@ -143,7 +144,6 @@ def action_created(sender, instance, created, **kwargs):
     instance_type = None
     store = None
     action = None
-    emei = None
     category_name = None
     instance_id = instance.object_id
     if 'router' in str(instance.content_type):

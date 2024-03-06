@@ -1,6 +1,9 @@
 {% load static %} {% load static tailwind_tags %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
+  <script>
+    localStorage.getItem('dark') == 'false' && document.querySelector("html").classList.toggle("dark");  
+  </script>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,8 +28,9 @@
     <script src="{% static 'js/common.js' %}"></script>
 
   </head>
-  <body id="root">
-    {% include 'shared/navbar.html' %} {% csrf_token %} {% block content %} {% endblock %}
+  <body id="root" class="bg-gray-200 dark:bg-gray-600 dark:text-white ">
+    {% include 'shared/navbar.html' %} {% csrf_token %} 
+    {% block content %} {% endblock %}
   </body>
   <script defer>
     document.addEventListener('DOMContentLoaded',()=>{

@@ -23,6 +23,13 @@
   if (view) {
     document.querySelector(`.page>span[name=${view}]`).click();
   }
+  
+</script>
+<script>
+  let dark = false
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    dark = true
+  }
 </script>
 <script>
     // Configuration options for the chart
@@ -30,12 +37,22 @@
     scales: {
         yAxes: [{
             ticks: {
-                beginAtZero: true
+                beginAtZero: true,
+                fontColor: dark ? "white" : 'blue',
+            }
+        }],
+        xAxes: [{
+            ticks: {
+                fontColor: dark ? "white" : 'blue',
             }
         }]
-    }
+    },
+    legend: {
+                labels: {
+                    fontColor: dark ? "white" : 'blue',
+                }
+            }
   };
-  // Sample data for the bar chart
   {% for monitor in monitors %}
 
   {% endfor %}
@@ -49,6 +66,7 @@
         backgroundColor: "{{monitor.color}}",
         borderColor: "{{monitor.border}}",
         borderWidth: 1,
+        color:"#666"
       },
     {% endfor %}
     ],

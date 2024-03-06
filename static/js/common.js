@@ -59,10 +59,58 @@ const export_file = (data, name) => {
   a.click();
 };
 
-const isVisible = elem => {
-  return !elem?.parentElement?.classList?.contains('hidden')
-}
+const isVisible = (elem) => {
+  return !elem?.parentElement?.classList?.contains("hidden");
+};
 
 const isValidSerialNumber = (value) => {
-  return value.length == 17
-}
+  return value.length == 17;
+};
+
+const scan_change_event = (event, elem) => {
+  event.preventDefault();
+  const { value } = elem;
+  if (event.inputType == "insertText") {
+    if (value?.includes(" ") || value.includes("\n")) {
+      if (isValidSerialNumber(value.trim())) {
+        focusNextInputOrSubmit(elem);
+      } else {
+        show_error("Please scan a valid serial number");
+        elem.focus();
+        return;
+      }
+    }
+  } else if (value && event.inputType != "deleteContentBackward") {
+    if (isValidSerialNumber(value.trim())) {
+      focusNextInputOrSubmit(elem);
+    } else {
+      show_error("Please scan a valid serial number");
+      elem.focus();
+      return;
+    }
+  }
+};
+
+const focusNextInputOrSubmit = (elem) => {
+  const form = elem.closest("form");
+  const elemContainer = elem.parentElement;
+  const shownInputs = Array.from(
+    form.querySelectorAll(":scope>div:not(.hidden)")
+  ).splice(1);
+  const elemIndex = indexOfElement(elemContainer, shownInputs);
+  if (isValidSerialNumber(elem.value.trim())) {
+    elemIndex === shownInputs.length - 1
+      ? submit_action(event, form)
+      : shownInputs[elemIndex + 1]
+          .querySelector("input, select, textarea")
+          .focus();
+  }
+};
+const indexOfElement = (elem, shownInputs) => {
+  return shownInputs.indexOf(elem);
+};
+
+const toggleDark = (text) => {
+  document.querySelector("html").classList.toggle("dark");
+  localStorage.setItem("dark", text);
+};
