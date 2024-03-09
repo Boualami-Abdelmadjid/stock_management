@@ -1,16 +1,15 @@
 {% extends 'base/root.html' %} {% load paginator_tags %} {% block content %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-<main class="max-w-[1400px] mx-auto py-8">
+<main class="max-w-[1400px] mx-auto py-8 px-4">
   <!-- Switch views -->
   <div class="flex justify-center items-center gap-8">
-    <!-- <h2 class="text-primary-500 font-semibold">Switch pages :</h2> -->
     <div
       class="page flex w-fit rounded-md border-2 border-primary-500 divide-x-2 divide-primary-500 text-gray-800"
       onclick="switch_pages_handler(event)"
     >
-      <span name="routers" class="p-2 cursor-pointer page_active">Routers</span>
-      <span name="categories" class="p-2 cursor-pointer">Categories</span>
-      <span name="graphs" class="p-2 cursor-pointer">Graphs</span>
+      <span name="routers" class="p-2 cursor-pointer page_active dark:text-white">Routers</span>
+      <span name="categories" class="p-2 cursor-pointer dark:text-white">Categories</span>
+      <span name="graphs" class="p-2 cursor-pointer dark:text-white">Graphs</span>
     </div>
   </div>
 
@@ -27,7 +26,7 @@
 </script>
 <script>
   let dark = false
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  if (document.querySelector('html').classList.contains('dark')) {
     dark = true
   }
 </script>
@@ -38,18 +37,18 @@
         yAxes: [{
             ticks: {
                 beginAtZero: true,
-                fontColor: dark ? "white" : 'blue',
+                fontColor: dark ? "white" : '#60a5fa',
             }
         }],
         xAxes: [{
             ticks: {
-                fontColor: dark ? "white" : 'blue',
+                fontColor: dark ? "white" : '#60a5fa',
             }
         }]
     },
     legend: {
                 labels: {
-                    fontColor: dark ? "white" : 'blue',
+                    fontColor: dark ? "white" : '#60a5fa',
                 }
             }
   };

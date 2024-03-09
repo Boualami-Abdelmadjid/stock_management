@@ -695,3 +695,8 @@ const switch_store = async (event, elem) => {
     show_error(res.message);
   }
 };
+
+const toggle_navbar = () => {
+  const nav = document.getElementById("navbar-hamburger");
+  nav.classList.toggle("hidden");
+};

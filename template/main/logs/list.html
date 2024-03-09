@@ -6,8 +6,8 @@
     class="page flex w-fit mx-auto rounded-md border-2 border-primary-500 divide-x-2 divide-primary-500 text-gray-800"
     onclick="switch_pages_handler(event)"
   >
-    <span name="routers" class="p-2 cursor-pointer page_active">Routers</span>
-    <span name="actions" class="p-2 cursor-pointer">Actions</span>
+    <span name="routers" class="p-2 cursor-pointer page_active dark:text-white">Routers</span>
+    <span name="actions" class="p-2 cursor-pointer dark:text-white">Actions</span>
   </div>
   <section class="routers">
     <div class="flex justify-between mt-8 mb-4">
@@ -126,7 +126,7 @@
           <td class="px-6 py-4">{{ log.action }}</td>
           <td class="px-6 py-4">{{ log.instance }}</td>
           <td class="px-6 py-4">
-            {% if log.emei %} {{ log.emei}} {% else %} {{ log.category_name }}
+            {% if log.emei %} {{ log.emei}} {% else %} {% if log.category_name %}{{ log.category_name }} {% else %} - {% endif %}
             {% endif %}
           </td>
           <td class="px-6 py-4">{{ log.created_at|date:'Y-m-d H:i' }}</td>

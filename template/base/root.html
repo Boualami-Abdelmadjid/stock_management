@@ -1,8 +1,8 @@
 {% load static %} {% load static tailwind_tags %}
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="">
   <script>
-    localStorage.getItem('dark') == 'false' && document.querySelector("html").classList.toggle("dark");  
+    localStorage.getItem('dark') == 'false' ? document.querySelector("html").classList.remove("dark") : document.querySelector("html").classList.add("dark") ;  
   </script>
   <head>
     <meta charset="UTF-8" />
@@ -28,9 +28,9 @@
     <script src="{% static 'js/common.js' %}"></script>
 
   </head>
-  <body id="root" class="bg-gray-200 dark:bg-gray-600 dark:text-white ">
+  <body id="root" class="bg-gray-100 dark:bg-gray-600 dark:text-white ">
     {% include 'shared/navbar.html' %} {% csrf_token %} 
-    {% block content %} {% endblock %}
+      {% block content %} {% endblock %}
   </body>
   <script defer>
     document.addEventListener('DOMContentLoaded',()=>{

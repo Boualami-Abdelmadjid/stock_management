@@ -1,6 +1,6 @@
 {% include 'base/root.html' %}{% load paginator_tags %} {% load role_tags %}
 {% block content %}
-<main class="max-w-[1400px] mx-auto py-8">
+<main class="max-w-[1400px] mx-auto py-8 px-4">
     <section class="routers">
         <div
           class="flex justify-between mt-8 mb-4 items-center text-primary-500 font-medium"
@@ -8,10 +8,10 @@
           <h1 class="text-xl">Returns ({{routers_count}})</h1>
           
         </div>
-        <form class="my-2 flex gap-4 items-center p-2">
+        <form class="my-2 flex gap-4 items-center p-2 flex-wrap">
           <h2 class="text-lg text-primary-400">Filters</h2>
           <input name="view" value="routers" hidden />
-          <div class="flex items-center gap-4">
+          <div class="flex items-center gap-4 ">
             <label
               for="imei"
               class="block text-sm font-medium text-gray-900 dark:text-white"
@@ -21,7 +21,7 @@
               type="text"
               name="emei"
               id="emei"
-              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              class="bg-gray-50 border min-w-12 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Imei"
             />
           </div>
@@ -35,7 +35,7 @@
               type="text"
               name="serial"
               id="serial"
-              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              class="bg-gray-50 border min-w-12 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Serial number"
             />
           </div>
@@ -48,7 +48,7 @@
             <select
               id="router_type"
               name="router_type"
-              class="grow pr-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              class="grow pr-8 bg-gray-50 min-w-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               <option></option>
               <option value="indoor">Indoor</option>
@@ -64,7 +64,7 @@
             <select
               id="router_category"
               name="router_category"
-              class="grow pr-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              class="grow pr-8 bg-gray-50 min-w-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               <option></option>
               {% for category in categories %}
