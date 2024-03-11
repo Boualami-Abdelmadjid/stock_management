@@ -4,6 +4,7 @@ from main.models import *
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ('username', 'email','store','role')
+    search_fields = ('username', 'email', 'store__name')
 
 class StoreAdmin(admin.ModelAdmin):
     list_display=('name','created_at','count_routers')
@@ -11,10 +12,11 @@ class StoreAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     list_display=('name','type','store','count_routers','deleted','alerted','created_at')
     list_editable = ('deleted',)
+    search_fields = ('name','type')
 
 class RouterAdmin(admin.ModelAdmin):
     list_display=('store','category','status','emei','serial_number','deleted','created_at')
-    search_fields = ('store__name','email','serial_number')
+    search_fields = ('store__name','emei','serial_number','category__name')
     list_editable = ('deleted',)
 
 class NotificationAdmin(admin.ModelAdmin):
@@ -23,13 +25,17 @@ class NotificationAdmin(admin.ModelAdmin):
 
 class LogAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Log._meta.get_fields()]
+    list_filter = ('action','instance','store')
 
 class MonitoringAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Monitoring._meta.get_fields()]
+    list_filter = ('store',)
 
 class ActionAdmin(admin.ModelAdmin):
    list_display = [field.name for field in Action._meta.get_fields()] 
    list_editable = ['shipped']
+   list_filter = ('store','action')
+   search_fields = ('store__name','router__serial_number','router2__serial_number')
 
 admin.site.register(User,UserAdmin)
 admin.site.register(Store,StoreAdmin)
