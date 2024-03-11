@@ -591,7 +591,7 @@ const bulk_import = (event, elem) => {
   event.preventDefault();
   const { value } = elem;
   if (event.inputType == "insertText") {
-    if ((value && value.includes(" ")) || value.includes("\n")) {
+    if (value?.includes(" ") || value?.includes("\n")) {
       if (isValidSerialNumber(value.trim())) {
         add_router_to_bulk(value.trim());
         elem.value = "";
@@ -604,6 +604,32 @@ const bulk_import = (event, elem) => {
   } else if (value && event.inputType != "deleteContentBackward") {
     if (isValidSerialNumber(value.trim())) {
       add_router_to_bulk(value.trim());
+    } else {
+      show_error("Please scan a valid serial number");
+      elem.focus();
+      return;
+    }
+  }
+};
+
+const bulk_transfer = (event, elem) => {
+  event.preventDefault();
+  const { value } = elem;
+  if (event.inputType == "insertText") {
+    if (value?.includes(" ") || value?.includes("\n")) {
+      if (isValidSerialNumber(value.trim())) {
+        add_router_to_bulk(value.trim(), "#stores");
+        elem.value = "";
+      } else {
+        show_error("Please type a valid serial number");
+        elem.focus();
+        return;
+      }
+    }
+  } else if (value && event.inputType != "deleteContentBackward") {
+    if (isValidSerialNumber(value.trim())) {
+      add_router_to_bulk(value.trim(), "#stores");
+      elem.value = "";
     } else {
       show_error("Please scan a valid serial number");
       elem.focus();
@@ -635,9 +661,8 @@ const create_bulk_routers = async (event, elem) => {
   }
 };
 
-const add_router_to_bulk = (serial_number) => {
-  // <span class="p-2 rounded-sm bg-slate-300 text-gray-500 text-nowrap">dsq-ezad1sq-eza1</span>
-  const container = document.querySelector("#routers");
+const add_router_to_bulk = (serial_number, containerSelector = "#routers") => {
+  const container = document.querySelector(containerSelector);
   const p = document.createElement("p");
   const span = document.createElement("span");
   const i = document.createElement("i");
@@ -681,7 +706,7 @@ const switch_store = async (event, elem) => {
   const new_store = elem.querySelector("[name=store]").value;
   const body = JSON.stringify({ router_id, new_store });
   const res = await fetch("/switch-store/", {
-    method: "POST",
+    method: "PUT",
     body,
     headers: {
       "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
@@ -696,7 +721,43 @@ const switch_store = async (event, elem) => {
   }
 };
 
+const switch_stores = async (event, elem) => {
+  event.preventDefault();
+  const serial_numbers = Array.from(
+    document.querySelectorAll("#stores > p > span")
+  ).map((span) => span.innerText);
+
+  const new_store = elem.querySelector("[name=store]").value;
+  const body = JSON.stringify({ serial_numbers, new_store });
+  const res = await fetch("/switch-store/", {
+    method: "PATCH",
+    body,
+    headers: {
+      "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+    },
+  }).then((res) => res.json());
+  if (res.status == 200) {
+    show_success("Store switched successfully", () => {
+      window.location.reload();
+    });
+  } else {
+    show_error(res.message);
+  }
+};
+
 const toggle_navbar = () => {
   const nav = document.getElementById("navbar-hamburger");
   nav.classList.toggle("hidden");
+};
+
+const switch_dashboard_store = (e) => {
+  const store_id = e.target.value;
+  const searchParams = new URLSearchParams(window.location.search);
+  searchParams.set("store", store_id);
+  const new_url =
+    window.location.origin +
+    window.location.pathname +
+    "?" +
+    searchParams.toString();
+  window.location.href = new_url;
 };

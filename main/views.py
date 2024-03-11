@@ -245,7 +245,7 @@ class DashboardView(View):
         Handles GET request to render the dashboard page with contextual data.
         """
         user = req.user
-        store = user.store
+        store = Store.objects.filter(id=req.GET.get('store')).first() if req.GET.get('store') and Store.objects.filter(id=req.GET.get('store')) else user.store
         query = req.GET
         context = {}
         # Define color scheme for graphical elements
@@ -256,7 +256,7 @@ class DashboardView(View):
         #Routers part
         # Process routers with optional filtering
         router_page = query.get('router_page') if query.get('router_page') else 1
-        routers = Router.objects.filter(store=user.store,deleted=False).order_by('-id')
+        routers = Router.objects.filter(store=store,deleted=False).order_by('-id')
         # Apply filters based on query 
         emei = query.get('emei')
         serial = query.get('serial')
@@ -288,7 +288,7 @@ class DashboardView(View):
         # Category page
         # Similar processing for categories with pagination.
         categories_page = query.get('categories_page') if query.get('categories_page') else 1
-        categories = Category.objects.filter(store=user.store,deleted=False).order_by('-id')
+        categories = Category.objects.filter(store=store,deleted=False).order_by('-id')
         category_name = query.get('category_name')
         category_type = query.get('category_type')
         if category_name:
@@ -385,7 +385,10 @@ class DashboardView(View):
                     
                 store_monitors.append(total)
 
+        
+
         context['stores'] = Store.objects.all()
+        context['store'] = store
         context['routers'] = routers
         context['categories_obj'] = categories
         context['categories'] = routers_categories
@@ -466,7 +469,7 @@ class CreateCategoryView(View):
                 res['message'] = "You don't have enough permissions"
                 return JsonResponse(res,status=res['status'])
             user = req.user
-            store = user.store
+            store = Store.objects.filter(id=req.GET.store).first() if req.GET.store else user.store
             # We format the body of the request to a Python dictionary
             body = json.loads(req.body)
             # We retrieve the name and type from the body of the request
@@ -1147,7 +1150,17 @@ class ReturnView(View):
 
 
 class SwitchStore(View):
-    def post(self,req):
+
+    def get(self,req):
+        context = {}
+        try:
+            store = req.user.store
+            other_store = Store.objects.all().exclude(id=store.id)
+            context['stores'] = other_store
+        except Exception as e: logger.exception(e)
+        return render(req,'main/transfer/index.html',context=context)
+    
+    def put(self,req):
         res = {"status":500,"message":"Something wrong hapenned"}
         try:
             body = json.loads(req.body)
@@ -1168,4 +1181,27 @@ class SwitchStore(View):
         except Exception as e:
             logger.exception(e)
         return JsonResponse(res,status=res['status'])
+
+    def patch(self,req):
+        res = {"status":500,"message":"Something wrong hapenned"}
+        try:
+            body = json.loads(req.body)
+            serial_numbers = body.get('serial_numbers')
+            new_store = body.get('new_store')
+            routers = Router.objects.filter(serial_number__in=serial_numbers)
+            store = Store.objects.filter(id=new_store).first()
+            if routers and store:
+                for router in routers:
+                    router.store = store
+                    router.save()
+                res['status'] = 200
+                res['message'] = "Store switched successfully"
+            else:
+                res['message'] = "Rotuers not found"
+                
+        except Exception as e:
+            logger.exception(e)
+        return JsonResponse(res,status=res['status'])
+    
+
 

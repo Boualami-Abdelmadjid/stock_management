@@ -25,5 +25,5 @@ urlpatterns = [
     path('actions/',ActionsView.as_view(), name='actions'),
     path('logs/',LogsView.as_view(), name='logs'),
     path('logs-operations/',LogsOpsView.as_view(), name='logs-operations'),
-    path('switch-store/', SwitchStore.as_view(), name='switch-store')
+    path('switch-store/', SwitchStore.as_view(), name='switch-store'),
 ]

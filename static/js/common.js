@@ -73,7 +73,7 @@ const scan_change_event = (event, elem) => {
   if (event.inputType == "insertText") {
     if (value?.includes(" ") || value.includes("\n")) {
       if (isValidSerialNumber(value.trim())) {
-        focusNextInputOrSubmit(elem);
+        focusNextInputOrSubmit(event, elem);
       } else {
         show_error("Please scan a valid serial number");
         elem.focus();
@@ -82,7 +82,7 @@ const scan_change_event = (event, elem) => {
     }
   } else if (value && event.inputType != "deleteContentBackward") {
     if (isValidSerialNumber(value.trim())) {
-      focusNextInputOrSubmit(elem);
+      focusNextInputOrSubmit(event, elem);
     } else {
       show_error("Please scan a valid serial number");
       elem.focus();
@@ -91,7 +91,7 @@ const scan_change_event = (event, elem) => {
   }
 };
 
-const focusNextInputOrSubmit = (elem) => {
+const focusNextInputOrSubmit = (event, elem) => {
   const form = elem.closest("form");
   const elemContainer = elem.parentElement;
   const shownInputs = Array.from(

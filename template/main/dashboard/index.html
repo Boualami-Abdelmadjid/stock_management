@@ -2,16 +2,34 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <main class="max-w-[1400px] mx-auto py-8 px-4">
   <!-- Switch views -->
-  <div class="flex justify-center items-center gap-8">
-    <div
+  <div class="flex">
+    {% if user.is_superuser %}
+    <div class="flex items-center gap-4">
+      <label for="store" class="font-medium">Store</label>
+        <select
+          id="type"
+          name="type"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block focus:ring-blue-500 focus:border-blue-500 pl-4 pr-8 py-2 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          onchange="switch_dashboard_store(event)"
+      >
+      {% for other_store in stores %}
+        <option value="{{other_store.id}}" {% if store.id == other_store.id %} selected {% endif %}>{{other_store.name}}</option>
+      {% endfor %}
+      </select>
+
+    </div>
+    {% endif %}
+    <div class="flex justify-center items-center gap-8 mx-auto">
+      <div
       class="page flex w-fit rounded-md border-2 border-primary-500 divide-x-2 divide-primary-500 text-gray-800"
       onclick="switch_pages_handler(event)"
-    >
+      >
       <span name="routers" class="p-2 cursor-pointer page_active dark:text-white">Routers</span>
       <span name="categories" class="p-2 cursor-pointer dark:text-white">Categories</span>
       <span name="graphs" class="p-2 cursor-pointer dark:text-white">Graphs</span>
     </div>
   </div>
+</div>
 
   {% include 'main/router/list.html' %} {% include 'main/category/list.html' %}
   {% include 'main/dashboard/graphs.html' %}
