@@ -674,7 +674,8 @@ const add_router_to_bulk = (serial_number, containerSelector = "#routers") => {
     "border-gray-300",
     "text-nowrap",
     "flex",
-    "items-center"
+    "items-center",
+    "dark:text-gray-800"
   );
   span.innerText = serial_number;
   p.dataset.sn = serial_number;

@@ -148,11 +148,10 @@
       <tr>
         <th scope="col" class="px-6 py-3">Category</th>
         <th scope="col" class="px-6 py-3">Serial number</th>
-        <th scope="col" class="px-6 py-3">IMEI</th>
         <th scope="col" class="px-6 py-3">Status</th>
         <th scope="col" class="px-6 py-3">Reason</th>
         {% if user.role == 'store_manager' %}
-        <th scope="col" class="w-8">Actions</th>
+        <th scope="col" class="w-32 px-4 ">Actions</th>
         {% endif %}
       </tr>
     </thead>
@@ -173,13 +172,12 @@
           {{ router.category.name }}
         </th>
         <td class="px-6 py-4">{{ router.serial_number }}</td>
-        <td class="px-6 py-4">{% if router.emei %} {{ router.emei }}{% else %} - {% endif %}</td>
         <td class="px-6 py-4">{% get_correct_status router.status %}</td>
         <td class="px-6 py-4">
           {% if router.reason %}{{router.reason}}{%else%}-{%endif%}
         </td>
         {% if user.role == 'store_manager' %}
-        <td class="py-4 flex gap-4">
+        <td class="p-4 w-32 flex gap-4">
           <i
             title="edit"
             class="fa-regular fa-pen-to-square text-lg text-primary-400 cursor-pointer"

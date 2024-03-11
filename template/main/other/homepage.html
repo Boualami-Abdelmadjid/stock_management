@@ -1,4 +1,4 @@
-{% include 'base/root.html' %} {% block content %}
+{% extends 'base/root.html' %} {% block content %}
 <main class="max-w-[1400px] mx-auto px-4">
   {% if user.store %}
 
@@ -105,7 +105,6 @@
         <tr>
           <th scope="col" class="px-6 py-3">category</th>
           <th scope="col" class="px-6 py-3">Serial number</th>
-          <th scope="col" class="px-6 py-3 hidden md:block">IMEI</th>
           <th scope="col" class="px-6 py-3">Created at</th>
           {% if user.role == 'store_manager' %}
           <th scope="col" class="px-6 py-3">Actions</th>
@@ -128,7 +127,6 @@
             {{ router.category.name }}
           </th>
           <td class="px-6 py-4">{{router.serial_number }}</td>
-          <td class="px-6 py-4 hidden md:block">{% if router.emei %}  {{ router.emei }} {% else %} - {% endif %} </td>
           <td class="px-6 py-4">{{ router.created_at|date:'Y-m-d H:i' }}</td>
           {% if user.role == 'store_manager' %}
           <td class="px-6 py-4 flex gap-4">
@@ -170,3 +168,4 @@
   {% endif %}
 </main>
 {% endblock %}
+{% block title %} Home | Stock management {% endblock %}

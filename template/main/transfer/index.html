@@ -1,6 +1,6 @@
-{% include 'base/root.html' %} {% block content %}
+{% extends 'base/root.html' %} {% block content %}
 <main>
-  <section class="bg-gray-50 dark:bg-gray-900">
+  <section class="">
     <div
       class="flex flex-col items-center px-6 py-8 mx-auto md:min-h-screen lg:py-24"
     >
@@ -74,3 +74,4 @@
   </section>
 </main>
 {% endblock %}
+{% block title %} Transfers | Stock management {% endblock %}

@@ -245,7 +245,9 @@ class DashboardView(View):
         Handles GET request to render the dashboard page with contextual data.
         """
         user = req.user
-        store = Store.objects.filter(id=req.GET.get('store')).first() if req.GET.get('store') and Store.objects.filter(id=req.GET.get('store')) else user.store
+        check_other_stores = user.is_superuser and req.GET.get('store')
+        store_exists = Store.objects.filter(id=req.GET.get('store')).exists()
+        store = Store.objects.filter(id=req.GET.get('store')).first() if check_other_stores and store_exists else user.store
         query = req.GET
         context = {}
         # Define color scheme for graphical elements

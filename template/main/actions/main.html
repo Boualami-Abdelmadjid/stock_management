@@ -1,5 +1,5 @@
 <!-- Prettier ignore -->
-{% include 'base/root.html' %} {% block content %}
+{% extends 'base/root.html' %} {% block content %}
 <main class="px-4">
   <section class="">
     <div
@@ -186,3 +186,4 @@
 </main>
 
 {% endblock %}
+{% block title %} Actions | Stock management {% endblock %}

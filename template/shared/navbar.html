@@ -3,20 +3,21 @@
 {% url 'profile' as profile %}
 {% url 'dashboard' as dashboard %}
 {% url 'logs' as logs %}
+{% url 'switch-store' as transfer %}
 
 <nav
   class="hidden lg:flex bg-primary-500 text-white px-8 py-4 flex justify-between font-semibold text-lg"
 >
   <!-- Desktop navbar -->
   <div class="hidden lg:flex gap-8 items-center">
-    <a href="/" class="cursor-pointer">Home</a>
-    <a class="cursor-pointer" href="{% url 'actions' %}">Actions</a>
-    <a class="cursor-pointer" href="{% url 'return' %}">Returns</a>
-    <a class="cursor-pointer" href="{% url 'switch-store' %}">Transfers</a>
-    <a class="cursor-pointer" href="{% url 'profile' %}">Profile</a>
+    <a href="/" class="cursor-pointer {% if request.path == '/' %} underline underline-offset-4 {% endif %}">Home</a>
+    <a class="cursor-pointer {% if request.path == actions %} underline underline-offset-4 {% endif %}" href="{% url 'actions' %}">Actions</a>
+    <a class="cursor-pointer {% if request.path == return %} underline underline-offset-4 {% endif %}" href="{% url 'return' %}">Returns</a>
+    <a class="cursor-pointer {% if request.path == transfer %} underline underline-offset-4 {% endif %}" href="{% url 'switch-store' %}">Transfers</a>
+    <a class="cursor-pointer {% if request.path == profile %} underline underline-offset-4 {% endif %}" href="{% url 'profile' %}">Profile</a>
     {% if user.role == "store_manager" %}
-    <a class="cursor-pointer" href="{% url 'dashboard' %}">Dashboard</a>
-    <a class="cursor-pointer" href="{% url 'logs' %}">Logs</a>
+    <a class="cursor-pointer {% if request.path == dashboard %} underline underline-offset-4 {% endif %}" href="{% url 'dashboard' %}">Dashboard</a>
+    <a class="cursor-pointer {% if request.path == logs %} underline underline-offset-4 {% endif %}" href="{% url 'logs' %}">Logs</a>
     {% endif %}
     {% if user.is_superuser %}
     <a class="cursor-pointer" target="_blank" href="/admin">Admin</a>
@@ -65,7 +66,7 @@
           <a href="{% url 'return' %}" class="block cursor-pointer  py-2 px-3 {% if request.path == return %} text-white bg-blue-700 rounded dark:bg-blue-600 {% else %}  text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white {% endif %}">Returns</a>
         </li>
         <li>
-          <a href="{% url 'switch-store' %}" class="block cursor-pointer  py-2 px-3 {% if request.path == return %} text-white bg-blue-700 rounded dark:bg-blue-600 {% else %}  text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white {% endif %}">Transfer</a>
+          <a href="{% url 'switch-store' %}" class="block cursor-pointer  py-2 px-3 {% if request.path == transfer %} text-white bg-blue-700 rounded dark:bg-blue-600 {% else %}  text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white {% endif %}">Transfer</a>
         </li>
         <li>
           <a href="{% url 'profile' %}" class="block cursor-pointer py-2 px-3{% if request.path == profile %} text-white bg-blue-700 rounded dark:bg-blue-600 {% else %}  text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white {% endif %}">Profile</a>

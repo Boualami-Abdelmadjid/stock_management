@@ -1,4 +1,4 @@
-{% include 'base/root.html' %}{% load paginator_tags %} {% load role_tags %}
+{% extends 'base/root.html' %}{% load paginator_tags %} {% load role_tags %}
 {% block content %}
 <main class="max-w-[1400px] mx-auto py-8 px-4">
     <section class="routers">
@@ -167,3 +167,4 @@
       </section>
 </main>
 {% endblock %}
+{% block title %} Returns | Stock management {% endblock %}
