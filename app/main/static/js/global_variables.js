@@ -1,0 +1,2 @@
+let batchEntries = [];
+let scanResult = {}

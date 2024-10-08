@@ -1,0 +1,252 @@
+<!-- Prettier ignore -->
+{% extends 'base/root.html' %} {% block content %}
+  <main class="px-4">
+    <section class="">
+      <div
+        class="flex flex-col items-center px-6 py-8 mx-auto md:min-h-screen lg:py-24"
+      >
+        <div
+          class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
+        >
+          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <h1
+              class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+            >
+              Perform an action
+            </h1>
+            <form
+              class="space-y-4 md:space-y-6"
+              onsubmit="submit_action(event,this)"
+            >
+              <div class="hidden">
+                <label
+                  for="action"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Select an Action</label
+                >
+                <div class="flex flex-wrap gap-x-4">
+                  <div class="flex gap-2 items-center">
+                    <input
+                      onchange="action_change(this)"
+                      checked
+                      name="action"
+                      type="radio"
+                      value="collect"
+                      id="collect"
+                    />
+                    <label for="collect">Collection</label>
+                  </div>
+                  <div class="flex gap-2 items-center">
+                    <input
+                      onchange="action_change(this)"
+                      name="action"
+                      type="radio"
+                      value="sale"
+                      id="sale"
+                    />
+                    <label for="sale">New Sale</label>
+                  </div>
+                  <div class="flex gap-2 items-center">
+                    <input
+                      onchange="action_change(this)"
+                      name="action"
+                      type="radio"
+                      value="return"
+                      id="return"
+                    />
+                    <label for="return">Return</label>
+                  </div>
+                  <div class="flex gap-2 items-center">
+                    <input
+                      onchange="action_change(this)"
+                      name="action"
+                      type="radio"
+                      value="swap"
+                      id="swap"
+                    />
+                    <label for="swap">Device swap</label>
+                  </div>
+                  <div class="flex gap-2 items-center">
+                    <input
+                      onchange="action_change(this)"
+                      name="action"
+                      type="radio"
+                      value="out"
+                      id="out"
+                    />
+                    <label for="out">Internal Use</label>
+                  </div>
+                </div>
+              </div>
+              <div class="collect sale optional">
+                <label
+                  for="order_number"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Order Number</label
+                >
+                <input
+                  type="text"
+                  name="order_number"
+                  id="order_number"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Order Number"
+                />
+              </div>
+
+              <div class="swap hidden optional">
+                <label
+                  for="sn2"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Old Router Serial Number</label
+                >
+                <input
+                  type="text"
+                  name="sn2"
+                  id="sn2"
+                  oninput="scan_change_event(event,this)"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Old Router Serial Number"
+                />
+              </div>
+
+              <div class="hidden return swap optional">
+                <label
+                  for="return_cpe"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Select returned CPE type</label
+                >
+                <div class="flex flex-wrap gap-x-4">
+                  <div class="flex gap-2 items-center">
+                    <input
+                      checked
+                      name="return_cpe"
+                      type="radio"
+                      value="101a"
+                      id="101a"
+                    />
+                    <label for="test101">101A</label>
+                  </div>
+                  <div class="flex gap-2 items-center">
+                    <input
+                      name="return_cpe"
+                      type="radio"
+                      value="test101"
+                      id="test101"
+                    />
+                    <label for="test101">The 101</label>
+                  </div>
+                  <div class="flex gap-2 items-center">
+                    <input
+                      name="return_cpe"
+                      type="radio"
+                      value="testLegacy"
+                      id="testLegacy"
+                    />
+                    <label for="testLegacy">Legacy CPE</label>
+                  </div>
+                  <div class="flex gap-2 items-center">
+                    <input
+                      name="return_cpe"
+                      type="radio"
+                      value="testCPEx"
+                      id="testCPEx"
+                    />
+                    <label for="testCPEx">CPE X</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hidden return optional">
+                <label
+                  for="return_reason"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Select a reason</label
+                >
+                <select
+                  id="return_reason"
+                  name="return_reason"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option disabled selected hidden></option>
+                  <option value="cancellation ">Cancellation</option>
+                  <option value="new_service">New service taken</option>
+                </select>
+              </div>
+              <div class="hidden swap optional">
+                <label
+                  for="swap_reason"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Select a reason</label
+                >
+                <select
+                  id="swap_reason"
+                  name="swap_reason"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option disabled selected hidden></option>
+                  <option value="connection">Device Swap - No Connection</option>
+                  <option value="rebooting">Device Swap - Rebooting</option>
+                  <option value="no power">Device Swap - No Power</option>
+                  <option value="damaged">Device Swap - Damaged</option>
+                </select>
+              </div>
+              <div class="return swap out hidden optional">
+                <label
+                  for="reason"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Comment</label
+                >
+                <textarea
+                  type="text"
+                  name="comment"
+                  id="comment"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Comment"
+                ></textarea>
+              </div>
+              <div class="out optional">
+                <label
+                  for="internal_email"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Trustee email address</label
+                >
+                <input
+                  type="text"
+                  name="internal_email"
+                  id="internal_email"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="employee@rain.co.za"
+                />
+              </div>
+              <div>
+                <label
+                  for="sn1"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Serial Number</label
+                >
+                <input
+                  type="text"
+                  name="sn1"
+                  id="sn1"
+                  oninput="scan_change_event(event,this)"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Serial Number"
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+{% endblock %}
+{% block title %} Actions | Stock management {% endblock %}

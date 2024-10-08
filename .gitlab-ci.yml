@@ -1,0 +1,53 @@
+variables:
+  HARBOR_NAMESPACE: "oss"
+
+include:
+  - project: 'software-engineering/catalyst/pipeline-templates'
+    ref: 'main'
+    file: 'pipeline.docker.helm.gitlab-ci.yml'
+
+stages:
+  - pre-flight
+  - lint
+  - audits
+  - build
+  - deploy
+
+sit:
+  extends: .argo-deploy
+  only:
+    - main
+    - master
+    - development
+    - feature/*
+    - devops-integration
+
+  variables:
+    KUBE_CLUSTER: zeus
+    HELM_NAMESPACE: sit
+
+uat:
+  stage: deploy
+  when: manual
+  extends: .argo-deploy
+  environment: uat
+  dependencies:
+    - version-check
+    - docker
+    - helm-publish
+  needs:
+    - version-check
+    - docker
+    - helm-publish
+    - sit
+  only:
+    - main
+    - master
+    - development
+  variables:
+    KUBE_CLUSTER: sit
+    HELM_NAMESPACE: oss
+
+polaris:
+  script:
+    - /bin/true

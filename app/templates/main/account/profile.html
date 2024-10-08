@@ -1,0 +1,195 @@
+{% extends 'base/root.html' %}{% load role_tags %}{% block content %}
+  <main
+    class="max-w-[1000px] mx-auto py-16 px-4 relative flex flex-col justify-center"
+  >
+    <div class="mb-8">
+      <h2 class="font-medium text-primary-500 text-2xl mb-6">
+        Account Information
+      </h2>
+      <div class="flex flex-col gap-2 w-5/6 lg:w-1/2">
+        <div class="grid grid-cols-2 bg-gray-300 px-4 py-2 rounded-md dark:bg-gray-700">
+          <p class="">Username</p>
+          <p class="font-semibold">{{ user.username }}</p>
+        </div>
+        <div class="grid grid-cols-2 bg-gray-300 px-4 py-2 rounded-md dark:bg-gray-700">
+          <p class="">Email</p>
+          <p class="font-semibold">{{ user.email }}</p>
+        </div>
+        <div class="grid grid-cols-2 bg-gray-300 px-4 py-2 rounded-md dark:bg-gray-700">
+          <p class="">Role</p>
+          <p class="font-semibold">{{ user.role }}</p>
+        </div>
+        {% if user.store %}
+        <div class="grid grid-cols-2 bg-gray-300 px-4 py-2 rounded-md dark:bg-gray-700">
+          <p class="">Store</p>
+          <p class="font-semibold">{{ user.store.name }}</p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% if user.role == 'store_manager' and user.store %}
+      <div class="w-5/6 lg:w-1/2">
+        <h2 class="font-medium text-primary-500 text-2xl">Store management</h2>
+        <div
+          class="flex justify-between mt-2 mb-4 items-center text-primary-500 font-medium"
+        >
+          <h3 class="text-xl text-primary-400">Users of the store</h3>
+          {% if user.role == 'store_manager' %}
+            <button
+              class="inline-block rounded-md bg-primary-600 text-white px-4 py-2"
+              onclick="show_user_form(this,'add')"
+            >
+              Add one
+            </button>
+          {% endif %}
+        </div>
+        <div class="flex flex-col gap-2 my-2">
+          <div
+            class="grid grid-cols-3 bg-gray-300 rounded-md py-2 px-4 justify-items-center font-semibold dark:bg-gray-700"
+          >
+            <p>Username</p>
+            <p>Role</p>
+            {% if user.role == 'store_manager' %}
+              <p>Actions</p>
+            {% endif %}
+          </div>
+          {% for store_user in store_users %}
+            <div
+              data-id="{{ store_user.id }}"
+              data-role="{{ store_user.role }}"
+              data-username="{{ store_user.username }}"
+              class="user_container grid grid-cols-3 bg-gray-200 rounded-md py-2 px-4 justify-items-center dark:bg-gray-700"
+            >
+              <p>{{ store_user.username }}</p>
+              <p>{% get_correct_role store_user.role %}</p>
+              {% if user.role == 'store_manager' %}
+                <p class="flex gap-4">
+                  <i
+                    title="edit"
+                    class="fa-regular fa-pen-to-square text-lg text-primary-400 cursor-pointer dark:bg-gray-700"
+                    onclick="show_user_form(this,'edit')"
+                  ></i>
+                  <i
+                    title="delete"
+                    class="fa-solid fa-trash text-lg text-red-400 cursor-pointer"
+                    onclick="delete_user_from_group(this)"
+                  ></i>
+                </p>
+              {% endif %}
+            </div>
+          {% empty %}
+            <div
+              class="grid grid-cols-3 bg-gray-300 rounded-md py-2 px-4 justify-items-center dark:bg-gray-700"
+            >
+              <p class="text-center col-span-3">
+                No other users associated to the store
+              </p>
+            </div>
+          {% endfor %}
+        </div>
+        <div
+          class=" mt-2 mb-4 font-medium"
+        >
+          <h3 class="text-xl text-primary-400">Store Settings</h3>
+          <div class="flex flex-col gap-2 my-2">
+            <div
+              class="grid grid-cols-3 bg-gray-300 rounded-md py-2 px-4 justify-items-center font-semibold dark:bg-gray-700"
+            >
+              <p>Subject</p>
+              <p>Threshold</p>
+              {% if user.role == 'store_manager' %}
+                <p>Actions</p>
+              {% endif %}
+            </div>
+            <div class="grid grid-cols-3 bg-gray-300 rounded-md py-2 px-4 justify-items-center dark:bg-gray-700">
+              <p class="font-normal">Stock Level</p>
+              <p class="switch  font-normal">{{ user.store.alert_on }}</p>
+              <input class="switch hidden w-16 py-0 px-4 font-normal rounded-md text-gray-800" type="number"
+                     onchange='change_threshold(event)' value="{{ user.store.alert_on }}">
+              <p class="flex gap-4" onclick="toggle_edit_threshold(this)">
+                <i
+                  title="edit"
+                  class="fa-regular fa-pen-to-square text-lg text-primary-400 cursor-pointer"
+
+                ></i>
+
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    {% endif %} {% if user.role == 'store_manager' %}
+    <div
+      class="edit_form user absolute hidden inset-0 w-full h-full backdrop-blur-md py-8"
+    >
+      <div
+        class="flex flex-col items-center px-6 py-8 mx-auto md:h-screen lg:py-24"
+      >
+        <div
+          class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
+        >
+          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <div class="flex justify-between items-center">
+              <h1
+                class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+              >
+                Add a user
+              </h1>
+              <i
+                class="fa-solid fa-xmark text-xl text-red-500 cursor-pointer p-1 rounded-sm hover:bg-gray-200 transition-colors"
+                onclick="close_edit_form(this)"
+              ></i>
+            </div>
+            <form
+              class="space-y-4 md:space-y-6"
+              onsubmit="add_user_to_store(event,this)"
+            >
+              <div>
+                <label
+                  for="username"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Username/Email</label
+                >
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Username or Email"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  for="role"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Select a role</label
+                >
+                <select
+                  id="role"
+                  name="role"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option value="senior_management" selected>
+                    Management
+                  </option>
+                  <option value="stock_handler">Store Assistant</option>
+                </select>
+              </div>
+
+              <button
+                type="submit"
+                class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+              >
+                Add
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  </main>
+{% endblock %}
+{% block title %} Profile | Stock management {% endblock %}

@@ -1,0 +1,162 @@
+{% extends 'base/root.html' %}
+{% block content %}
+<div
+class="flex justify-center gap-16 items-center px-6 py-8 mx-auto md:min-h-screen lg:py-24"
+>
+  <div
+    class="w-fit min-w-[22rem] flex gap-8 bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-lg xl:p-0 dark:bg-gray-800 dark:border-gray-700"
+  >
+    <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+      <h1
+        class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+      >
+          Stock take
+      </h1>
+      <form
+        class="space-y-4 md:space-y-6"
+      >
+
+      {% if categories %}
+      <div>
+        <label
+          for="type"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Select a category</label
+        >
+        <select
+          name="category"
+          id="category"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    {% else %}
+      <p>
+        You have no categories,
+        <a class="text-primary-500" href="{% url 'create-category' %}"
+        >Create one</a
+        >
+      </p>
+    {% endif %}
+
+        <div>
+          <label
+            for="serial_number"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Serial Number</label
+          >
+          <input
+            type="text"
+            name="serial_number"
+            id="serial_number"
+            oninput="addToBulkOnScan(event,this)"
+            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Serial number"
+            required
+          />
+        </div>
+        <div class="grid bg-gray-100 dark:bg-slate-700 py-12 border-dashed border-gray-400 border-2 rounded-md cursor-pointer hover:border-solid" id="uploadFile"  onclick="upload_file()">
+          <input type="file" name="file" hidden onchange="read_uploaded_file(event)">
+          <p class="place-self-center w-fit mx-auto">Upload or Drop a file</p>
+        </div>
+        <button type="button"
+                id="addButton"
+                class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+        >
+          Add to Batch
+        </button>
+      </form>
+      <p id="batchCount" class="text-sm font-medium my-4 text-center">
+        <!-- Initial count; will be updated by JS -->
+        0 routers uploaded
+      </p>
+      <!-- New additions below -->
+      <button type="button" id="submitAll"
+              class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+        Submit All
+      </button>
+      <table id="batchTable" class="min-w-full divide-y divide-gray-200 mt-4">
+        <thead class="bg-gray-50 dark:bg-gray-700">
+        <tr>
+          <th scope="col"
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
+            Serial Number
+          </th>
+          <th scope="col"
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">
+            Category
+          </th>
+        </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800">
+        <!-- Rows added by JS -->
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+
+  <div
+    class="hidden w-[22rem] bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-lg xl:p-0 dark:bg-gray-800 dark:border-gray-700"
+    id="results-container"
+  >
+  <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+      <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">Results</h1>
+  </div>
+      
+    <div class="px-4">
+      <div class="flex justify-between">
+        <h2 class="font-semibold text-lg">Missing routers:</h2>
+        <button class="bg-primary-500 text-white px-4 rounded-md" onclick="download_one_column_routers('missing_routers')">Download</button>
+      </div>
+      <div class="grid gap-1" id="missing-routers"></div>
+    </div>
+
+    <div class="px-4">
+      <div class="flex justify-between">
+        <h2 class="font-semibold text-lg">New Routers:</h2>
+        <button class="bg-primary-500 text-white px-4 rounded-md" onclick="download_one_column_routers('new_routers')">Download</button>
+      </div>
+      <div class="grid gap-1" id="new-routers"></div>
+    </div>
+
+    <div class="px-4 w-full">
+      <div class="flex justify-between">
+        <h2 class="font-semibold text-lg">Wrong status</h2>
+        <button class="bg-primary-500 text-white px-4 rounded-md" onclick="download_double_column_routers('wrong_status', ['serial_number', 'status'])">Download</button>
+      </div>
+      <div class="grid gap-1" id="wrong-status">
+        <div class="grid grid-cols-3 w-full">
+          <span class="col-span-2">
+            Serial number
+          </span>
+          <span>Status</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="px-4 w-full">
+      <div class="flex justify-between">
+        <h2 class="font-semibold text-lg">Wrong stores</h2>
+        <button class="bg-primary-500 text-white px-4 rounded-md" onclick="download_double_column_routers(wrong_stores, ['serial_number', 'belong_to'])">Download</button>
+      </div>
+      <div class="grid gap-1" id="wrong-stores">
+        <div class="grid grid-cols-3 w-full">
+          <span class="col-span-2">
+            Serial number
+          </span>
+          <span>store</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  
+  </div>
+</div>
+{% endblock %}
+{% block title %}Stock Take | Stock management{% endblock %}

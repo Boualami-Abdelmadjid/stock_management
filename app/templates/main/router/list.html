@@ -1,0 +1,227 @@
+{% load paginator_tags %} {% load role_tags %}
+<section class="routers">
+  <div
+    class="flex justify-between mt-8 mb-4 items-center text-primary-500 font-medium"
+  >
+    <h1 class="text-xl">Routers ({{ routers_count }})</h1>
+    {% if routers %}
+      <div class="relative">
+        <div
+          class="suggestions hidden justify-items-center absolute top-12 w-full bg-white z-10 border-2 border-gray-300 rounded-md"
+        ></div>
+      </div>
+      <div class="flex gap-2">
+        <button
+          class="rounded-md bg-red-600 text-white px-4 py-2"
+          onclick="export_routers(event)"
+        >
+          Export All
+        </button>
+        {% if user.role == 'store_manager' %}
+          <button
+            onclick="this.nextElementSibling.click()"
+            class="rounded-md bg-green-500 text-white px-4 py-2"
+          >
+            Upload file
+          </button>
+          <input
+            type="file"
+            onchange="file_import(event)"
+            accept=".xlsx,.csv"
+            name="file"
+            hidden
+          />
+          <a
+            class="inline-block rounded-md bg-orange-600 text-white px-4 py-2"
+            href="{% url 'create-routers' %}"
+          >Bulk Add</a
+          >
+          <a
+            class="inline-block rounded-md bg-primary-600 text-white px-4 py-2"
+            href="{% url 'create-router' %}"
+          >Create one</a
+          >
+        {% else %}
+          <span></span>
+
+        {% endif %}</div> {% endif %}
+  </div>
+  <form class="my-2 flex gap-4 items-center p-2">
+    <h2 class="text-lg text-primary-400">Filters</h2>
+    <input name="view" value="routers" hidden/>
+    <input type="text" hidden readonly name="store" value="{{ store.id }}">
+    <div class="flex items-center gap-4">
+      <label
+        for="serial"
+        class="block text-sm font-medium text-gray-900 dark:text-white text-nowrap"
+      >Serial number</label
+      >
+      <input
+        type="text"
+        name="serial"
+        id="serial"
+        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Serial number"
+      />
+    </div>
+    <div class="flex items-center gap-4">
+      <label
+        for="emei"
+        class="block text-sm font-medium text-gray-900 dark:text-white"
+      >Imei</label
+      >
+      <input
+        type="text"
+        name="emei"
+        id="emei"
+        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Imei"
+      />
+    </div>
+    <div class="flex items-center gap-4">
+      <label
+        for="router_type"
+        class="block pl-2 text-sm font-medium text-gray-900 dark:text-white"
+      >Type</label
+      >
+      <select
+        id="router_type"
+        name="router_type"
+        class="grow pr-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      >
+        <option></option>
+        <option value="indoor">Indoor</option>
+        <option value="outdoor">Outdoor</option>
+      </select>
+    </div>
+    <div class="flex items-center gap-4">
+      <label
+        for="router_category"
+        class="block pl-2 text-sm font-medium text-gray-900 dark:text-white"
+      >Category</label
+      >
+      <select
+        id="router_category"
+        name="router_category"
+        class="grow pr-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      >
+        <option></option>
+        {% for category in categories %}
+          <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="flex items-center gap-4">
+      <label
+        for="status"
+        class="block pl-2 text-sm font-medium text-gray-900 dark:text-white"
+      >Status</label
+      >
+      <select
+        id="status"
+        name="status"
+        class="grow pr-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      >
+        <option value=""></option>
+        <option value="in_stock">In stock</option>
+        <option value="new_sale">New sale</option>
+        <option value="collected">Collected</option>
+        <option value="return">Return</option>
+        <option value="swap">Device swap</option>
+      </select>
+    </div>
+
+    <button
+      type="submit"
+      class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+    >
+      Filter
+    </button>
+  </form>
+  {% if routers %}
+
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+    >
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
+      <tr>
+        <th scope="col" class="px-6 py-3">Category</th>
+        <th scope="col" class="px-6 py-3">Serial number</th>
+        <th scope="col" class="px-6 py-3">Status</th>
+        <th scope="col" class="px-6 py-3">Reason</th>
+        {% if user.role == 'store_manager' %}
+          <th scope="col" class="w-32 px-4 ">Actions</th>
+        {% endif %}
+      </tr>
+      </thead>
+      <tbody>
+      {% for router in routers %}
+        <tr
+          data-id="{{ router.id }}"
+          data-sn="{{ router.serial_number }}"
+          data-emei="{% if router.emei %}{{ router.emei }}{% endif %}"
+          data-status="{{ router.status }}"
+          data-category="{{ router.category.id }}"
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+        >
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {{ router.category.name }}
+          </th>
+          <td class="px-6 py-4">{{ router.serial_number }}</td>
+          <td class="px-6 py-4">{% get_correct_status router.status %}</td>
+          <td class="px-6 py-4">
+            {% if router.reason %}{{ router.reason }}{% else %}-{% endif %}
+          </td>
+          {% if user.role == 'store_manager' %}
+            <td class="p-4 w-32 flex gap-4">
+              <i
+                title="edit"
+                class="fa-regular fa-pen-to-square text-lg text-primary-400 cursor-pointer"
+                onclick="open_edit_router(this)"
+              ></i>
+              <i title="switch stores" onclick="toggle_switch_router(this)"
+                 class="fa-solid fa-right-left text-lg text-orange-400 cursor-pointer"></i>
+              <i
+                title="delete"
+                class="fa-solid fa-trash text-lg text-red-400 cursor-pointer"
+                onclick="delete_router({{ router.id }})"
+              ></i>
+            </td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <div class="flex gap-2 justify-center my-4">
+      <!-- here -->
+      {% for i in routers_paginator %} {% if routers.number == i %}
+        <a
+          class="px-3 py-1 rounded-md border-2 text-primary-500 border-primary-500"
+        >
+          {{ i }}
+        </a>
+      {% else %} {% if i == paginator.ELLIPSIS %}
+          <a class="px-3 py-1 rounded-md border-2"> {{ paginator.ELLIPSIS }} </a>
+        {% else %}
+
+          <a class="px-3 py-1 rounded-md border-2" href="?router_page={{ i }}"
+          >{{ i }}</a
+          >
+
+        {% endif %} {% endif %} {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-center text-lg font-semibold mt-8">
+      You have no routers
+      <a class="text-primary-500" href="{% url 'create-router' %}">Create one</a>
+    </p>
+  {% endif %} {% if user.role == 'store_manager' %}
+  <!-- Edit form -->
+  {% include 'main/router/edit-form.html' %} {% endif %}
+  <!-- Switch stores form -->
+  {% include 'main/router/switch-form.html' %}
+</section>

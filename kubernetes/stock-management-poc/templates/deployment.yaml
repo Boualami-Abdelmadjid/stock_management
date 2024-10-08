@@ -1,0 +1,83 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "fullName" . }}
+  labels:
+  {{- include "labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      component: app
+  {{- include "labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        component: app
+    {{- include "labels" . | nindent 8 }}
+    spec:
+      terminationGracePeriodSeconds: 40
+      serviceAccountName: {{ include "fullName" . }}
+      restartPolicy: Always
+      containers:
+        - name: {{ include "fullName" . }}
+          image: {{ include "image" . }}
+          imagePullPolicy: {{ .Values.service.image.pullPolicy | default "Always" }}
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "sleep 30"]
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: {{ .Values.service.port }}
+          livenessProbe:
+            initialDelaySeconds: 15
+            timeoutSeconds: 3
+            periodSeconds: 15
+            successThreshold: 1
+            failureThreshold: 3
+            httpGet:
+              scheme: HTTP
+              port: {{ .Values.service.port }}
+{{/*              path: /search/*/}}
+              path: /
+          readinessProbe:
+            initialDelaySeconds: 15
+            timeoutSeconds: 3
+            periodSeconds: 15
+            successThreshold: 1
+            failureThreshold: 3
+            httpGet:
+              scheme: HTTP
+              port: {{ .Values.service.port }}
+{{/*              path: /search/*/}}
+              path: /
+          env:
+            - name: KUBERNETES_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "fullName" . }}-redis
+                  key: REDIS_PASSWORD
+          envFrom:
+            - configMapRef:
+                name: {{ include "fullName" . }}
+            - secretRef:
+                name: {{ include "fullName" . }}
+          resources:
+          {{ .Values.resources | toYaml | nindent 12 }}
+          securityContext:
+          {{ .Values.securityContext | toYaml | nindent 12 }}
+          volumeMounts:
+            - mountPath: /tmp
+              name: tmp-volume
+      volumes:
+        - name: tmp-volume
+          emptyDir: {}

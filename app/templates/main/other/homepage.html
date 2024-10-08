@@ -1,0 +1,32 @@
+{% extends 'base/root.html' %} {% block content %}
+  <main class="max-w-[1400px] mx-auto px-4">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Landing Pad</title>
+      <style>
+          body {
+              font-family: Arial, sans-serif;
+              margin: 10;
+              padding: 0px;
+              text-align: center; /* Centering the content */
+          }
+
+          h1 {
+              color: #0283CF;
+              font-size: 5rem
+          }
+
+          p {
+              color: #666;
+              font-size: 3rem;
+          }
+      </style>
+    </head>
+    <body>
+    <h1>Welcome {{ user.username }}</h1>
+    <p>You are currently logged in at {{ user.store }}</p>
+    </body>
+  </main>
+{% endblock %}
+{% block title %} Home | Stock management {% endblock %}

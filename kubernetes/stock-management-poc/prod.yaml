@@ -1,0 +1,31 @@
+---
+environment: prod
+
+ingress:
+  hostname: stock_managementpoc.ops.rain.co.za
+  secretName: ops-rain-co-za
+
+replicaCount: 1
+
+env:
+  CSRF_TRUSTED_ORIGINS: "https://stock_managementpoc.ops.rain.co.za"
+  DEBUG: "false"
+  NETBOX_DELETE_LEGACY_DATA: "true"
+  REDIS_HOST: "stock_managementpoc-redis-master"
+  REDIS_PORT: "6379"
+  REDIS_SSL: "false"
+  TIME_ZONE: "Africa/Johannesburg"
+  DB_HOST: "zeus-psql-01.rain.network"
+  DB_NAME: "stock_managementpoc"
+  DB_PASSWORD: "stock_managementpoc"
+  DB_PORT: "5432"
+  DB_USER: "stock_managementpoc"
+  DB_SCHEMA: "stock_managementpoc"
+  MAPS_URL: "https://maps.google.com/?q="
+  S3_BUCKET: "rain-netbox-media-network-automation-prod"
+  S3_KEY: "AKIAUDSLCUWPDRMVAGEE"
+  S3_SECRET: "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"
+
+secrets: {}
+
+secretsRedis: {}

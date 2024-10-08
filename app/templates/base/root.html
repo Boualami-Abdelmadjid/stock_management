@@ -1,0 +1,47 @@
+{% load static %} {% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en" class="">
+<script>
+    localStorage.getItem('dark') == 'false' ? document.querySelector("html").classList.remove("dark") : document.querySelector("html").classList.add("dark");
+</script>
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %} {% endblock %}</title>
+  <title>Stock management</title>
+  <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+  <link rel="stylesheet" href="{% static 'css/tailwind.css' %}"/>
+  <script src="{% static 'js/main.js' %}"></script>
+  <script
+    async
+    src="https://kit.fontawesome.com/f192566f0e.js"
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://unpkg.com/read-excel-file@5.x/bundle/read-excel-file.min.js"></script>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+  />
+  <script
+    type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/toastify-js"
+  ></script>
+  <script src="{% static 'js/common.js' %}"></script>
+  <script src="{% static 'js/global_variables.js' %}"></script>
+
+</head>
+<body id="root" class="bg-gray-100  dark:bg-gray-900 dark:text-white ">
+{% include 'shared/navbar.html' %} {% csrf_token %}
+{% block content %} {% endblock %}
+</body>
+<script defer>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('input[name=emei]')?.addEventListener('keypress', (e) => {
+            if (event.which == '10' || event.which == '13') {
+                event.preventDefault();
+            }
+        })
+    })
+</script>
+</html>

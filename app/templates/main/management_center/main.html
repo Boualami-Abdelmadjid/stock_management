@@ -1,0 +1,38 @@
+{% extends 'base/root.html' %}
+
+{% block content %}
+  <main class="flex justify-center items-center h-screen">
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 w-full max-w-6xl mx-auto">
+      <!-- Button 1 -->
+      <div>
+        <a href="{% url 'create-router' %}"
+           class="block w-full h-full px-4 py-8 bg-white rounded shadow hover:bg-gray-200 hover:shadow-xl transition-shadow duration-300 ease-in-out text-center text-black font-semibold text-lg uppercase">
+          NEW STOCK
+        </a>
+      </div>
+      <!-- Button 2 -->
+      <div>
+        <a href="{% url 'ccd-return' %}"
+           class="block w-full h-full px-4 py-8 bg-white rounded shadow hover:bg-gray-200 hover:shadow-xl transition-shadow duration-300 ease-in-out text-center text-black font-semibold text-lg uppercase">
+          RETURN TO CCD
+        </a>
+      </div>
+      <!-- Button 3 -->
+      <div>
+        <a href="{% url 'transfer' %}"
+           class="block w-full h-full px-4 py-8 bg-white rounded shadow hover:bg-gray-200 hover:shadow-xl transition-shadow duration-300 ease-in-out text-center text-black font-semibold text-lg uppercase">
+          TRANSFER STOCK
+        </a>
+      </div>
+      <!-- Button 4 -->
+      <div>
+        <a href="{% url 'stock-take' %}"
+           class="block w-full h-full px-4 py-8 bg-white rounded shadow hover:bg-gray-200 hover:shadow-xl transition-shadow duration-300 ease-in-out text-center text-black font-semibold text-lg uppercase">
+          STOCK TAKE
+        </a>
+      </div>
+    </section>
+  </main>
+{% endblock %}
+
+{% block title %} Actions | Stock management {% endblock %}

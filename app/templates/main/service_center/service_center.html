@@ -1,0 +1,47 @@
+{% extends 'base/root.html' %}
+
+{% block content %}
+  <main class="flex justify-center items-center h-screen">
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 w-full max-w-6xl mx-auto">
+      <!-- Button 1 -->
+      <div>
+        <a href="{% url 'actions' %}?action=sale"
+           class="block w-full h-full px-4 py-8 bg-white rounded shadow hover:bg-gray-200 hover:shadow-xl transition-shadow duration-300 ease-in-out text-center text-black font-semibold text-lg uppercase">
+          NEW SALES
+        </a>
+      </div>
+      <!-- Button 2 -->
+      <div>
+        <a href="{% url 'actions' %}?action=collect"
+           class="block w-full h-full px-4 py-8 bg-white rounded shadow hover:bg-gray-200 hover:shadow-xl transition-shadow duration-300 ease-in-out text-center text-black font-semibold text-lg uppercase">
+          COLLECTIONS
+        </a>
+      </div>
+      <!-- Button 3 -->
+      <div>
+        <a href="{% url 'actions' %}?action=return"
+           class="block w-full h-full px-4 py-8 bg-white rounded shadow hover:bg-gray-200 hover:shadow-xl transition-shadow duration-300 ease-in-out text-center text-black font-semibold text-lg uppercase">
+          RETURNS
+        </a>
+      </div>
+      <!-- Button 4 -->
+      <div>
+        <a href="{% url 'actions' %}?action=swap"
+           class="block w-full h-full px-4 py-8 bg-white rounded shadow hover:bg-gray-200 hover:shadow-xl transition-shadow duration-300 ease-in-out text-center text-black font-semibold text-lg uppercase">
+          SWOP-OUT
+        </a>
+      </div>
+      <!-- Button 5 can be added here if needed -->
+      <!-- Button 6 -->
+      <div>
+        <a href="{% url 'actions' %}?action=out"
+           class="block w-full h-full px-4 py-8 bg-white rounded shadow hover:bg-gray-200 hover:shadow-xl transition-shadow duration-300 ease-in-out text-center text-black font-semibold text-lg uppercase">
+          STAFF-ALLOCATION
+        </a>
+      </div>
+    </section>
+  </main>
+{% endblock %}
+
+{% block title %} Actions | Stock management {% endblock %}
+

@@ -1,0 +1,40 @@
+---
+imagePullSecrets:
+  - name: harbor-cicd-pull-secret
+
+replicaCount: 1
+restartPolicy: Never
+
+service:
+  image:
+    repository: harbor.cicd.rain.co.za/oss
+    name: stock-management-poc
+    pullPolicy: Always
+    # Leave the tag empty
+    tag:
+#  port: 8080
+  port: 8000
+  redisPort: 6379
+
+ingress:
+  hostname:
+  secretName:
+
+resources:
+  requests:
+    cpu: 1000m
+    memory: "2Gi"
+  limits:
+    cpu: 1500m
+    memory: "5Gi"
+
+securityContext:
+  allowPrivilegeEscalation: false
+  privileged: false
+  # The upstream netbox container is not designed
+  # to operate in strict security context.
+  readOnlyRootFilesystem: false
+  runAsNonRoot: false
+
+env: {}
+secrets: {}

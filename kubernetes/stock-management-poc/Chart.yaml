@@ -1,0 +1,8 @@
+apiVersion: v2
+name: stock-management-poc
+description: Store Inventory Management
+type: application
+# Do not be concerned about the versions here, leave them on 1.0.0
+# The CI/CD pipelines will inject versions into the Helm Chart
+version: 1.0.0
+appVersion: "1.0.0"

@@ -1,0 +1,14 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "==5.0.1"
+django-tailwind = "==3.8.0"
+boto3 = "==1.34.30"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"

@@ -1,0 +1,7 @@
+venv/
+db.sqlite3
+*.pyc
+debug.log*
+main.log*
+.idea/
+app/static/*

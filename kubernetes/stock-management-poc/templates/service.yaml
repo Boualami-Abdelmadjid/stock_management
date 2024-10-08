@@ -1,0 +1,50 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "fullName" . }}
+  labels:
+    component: app
+  {{- include "labels" . | nindent 4 }}
+spec:
+  selector:
+    component: app
+  {{- include "labels" . | nindent 4 }}
+  type: ClusterIP
+  ports:
+  - name: http
+    targetPort: http
+    port: {{ .Values.service.port }}
+    protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "fullName" . }}-redis-headless
+  labels:
+  {{- include "redisHeadlessLabels" . | nindent 4 }}
+spec:
+  selector:
+  {{- include "redisMasterLabels" . | nindent 4 }}
+  type: ClusterIP
+  ports:
+  - name: tcp-redis
+    targetPort: redis
+    port: {{ .Values.service.redisPort }}
+    protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "fullName" . }}-redis-master
+  labels:
+  {{- include "redisMasterLabels" . | nindent 4 }}
+spec:
+  selector:
+  {{- include "redisMasterLabels" . | nindent 4 }}
+  type: ClusterIP
+  ports:
+  - name: tcp-redis
+    targetPort: redis
+    port: {{ .Values.service.redisPort }}
+    protocol: TCP

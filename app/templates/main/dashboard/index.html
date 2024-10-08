@@ -1,0 +1,215 @@
+{% extends 'base/root.html' %} {% load paginator_tags %} {% block content %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <main class="max-w-[1400px] mx-auto py-8 px-4">
+    <!-- Switch views -->
+    <div class="flex">
+      {% if user.is_superuser %}
+        <div class="flex items-center gap-4">
+          <label for="store" class="font-medium">Store</label>
+          <select
+            id="type"
+            name="type"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block focus:ring-blue-500 focus:border-blue-500 pl-4 pr-8 py-2 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            onchange="switch_dashboard_store(event)"
+          >
+            {% for other_store in stores %}
+              <option value="{{ other_store.id }}" {% if store.id == other_store.id %}
+                      selected {% endif %}>{{ other_store.name }}</option>
+            {% endfor %}
+          </select>
+
+        </div>
+      {% endif %}
+      <div class="flex justify-center items-center gap-8 mx-auto">
+        <div
+          class="page flex w-fit rounded-md border-2 border-primary-500 divide-x-2 divide-primary-500 text-gray-800"
+          onclick="switch_pages_handler(event)"
+        >
+          <span name="routers" class="p-2 cursor-pointer page_active dark:text-white">Routers</span>
+          <span name="categories" class="p-2 cursor-pointer dark:text-white">Categories</span>
+          <span name="graphs" class="p-2 cursor-pointer dark:text-white">Graphs</span>
+        </div>
+      </div>
+    </div>
+
+    {% include 'main/router/list.html' %} {% include 'main/category/list.html' %}
+    {% include 'main/dashboard/graphs.html' %}
+  </main>
+  <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const view = urlParams.get("view");
+      if (view) {
+          document.querySelector(`.page>span[name=${view}]`).click();
+      }
+
+  </script>
+  <script>
+      let dark = false
+      if (document.querySelector('html').classList.contains('dark')) {
+          dark = true
+      }
+  </script>
+  <script>
+      // Configuration options for the chart
+      let options = {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true,
+                      fontColor: dark ? "white" : '#60a5fa',
+                  }
+              }],
+              xAxes: [{
+                  ticks: {
+                      fontColor: dark ? "white" : '#60a5fa',
+                  }
+              }]
+          },
+          legend: {
+              labels: {
+                  fontColor: dark ? "white" : '#60a5fa',
+              }
+          }
+      };
+      {% for monitor in monitors %}
+
+      {% endfor %}
+      let data = {
+          labels: {{days|safe}},
+          datasets: [
+              {% for monitor in monitors %}
+                  {
+                      label: "{{monitor.label}}",
+                      data: {{monitor.values|safe}},
+                      backgroundColor: "{{monitor.color}}",
+                      borderColor: "{{monitor.border}}",
+                      borderWidth: 1,
+                      color: "#666"
+                  },
+              {% endfor %}
+          ],
+      };
+
+
+      // Get the canvas element
+      var ctx = document.getElementById("myBarChart").getContext("2d");
+
+      // Create the bar chart
+      var myBarChart = new Chart(ctx, {
+          type: "bar",
+          data: data,
+          options: options,
+      });
+  </script>
+  <script>
+      let LineData = {
+          labels: {{days|safe}},
+          datasets: [
+              {
+                  label: "{{user.store.name}}",
+                  data: {{store_monitors|safe}},
+                  backgroundColor: "rgba(75, 192, 192, 0.2)",
+                  borderColor: "rgba(75, 192, 192, 1)",
+                  borderWidth: 1,
+              },
+          ],
+      };
+
+
+      // Get the canvas element
+      var ctx = document.getElementById("myLineChart").getContext("2d");
+
+      // Create the line chart
+      var myLineChart = new Chart(ctx, {
+          type: "line",
+          data: LineData,
+          options: options,
+      });
+  </script>
+  <script>
+
+      let add = {
+          labels: {{days|safe}},
+          datasets: [
+              {% for key,values in add.items %}
+                  {
+                      label: "{{key}}",
+                      data:  {{values.obj|safe}},
+                      backgroundColor: "{{values.color}}",
+                      borderColor: "{{values.border}}",
+                      borderWidth: 1,
+                  },
+              {% endfor %}
+          ],
+
+      };
+
+
+      // Get the canvas element
+      var ctx = document.getElementById("add").getContext("2d");
+
+      // Create the line chart
+      var myLineChart = new Chart(ctx, {
+          type: "bar",
+          data: add,
+          options: options,
+      });
+  </script>
+  <script>
+      let editedData = {
+          labels: {{days|safe}},
+          datasets: [
+              {% for key,values in edit.items %}
+                  {
+                      label: "{{key}}",
+                      data:  {{values.obj|safe}},
+                      backgroundColor: "{{values.color}}",
+                      borderColor: "{{values.border}}",
+                      borderWidth: 1,
+                  },
+              {% endfor %}
+          ],
+
+      };
+
+
+      // Get the canvas element
+      var ctx = document.getElementById("edit").getContext("2d");
+
+      // Create the line chart
+      var myLineChart = new Chart(ctx, {
+          type: "bar",
+          data: editedData,
+          options: options,
+      });
+  </script>
+  <script>
+      let deletedData = {
+          labels: {{days|safe}},
+          datasets: [
+              {% for key,values in delete.items %}
+                  {
+                      label: "{{key}}",
+                      data:  {{values.obj|safe}},
+                      backgroundColor: "{{values.color}}",
+                      borderColor: "{{values.border}}",
+                      borderWidth: 1,
+                  },
+              {% endfor %}
+          ],
+
+      };
+
+
+      // Get the canvas element
+      var ctx = document.getElementById("delete").getContext("2d");
+
+      // Create the line chart
+      var myLineChart = new Chart(ctx, {
+          type: "bar",
+          data: deletedData,
+          options: options,
+      });
+  </script>
+{% endblock %}
+{% block title %} Dashboard | Stock management {% endblock %}

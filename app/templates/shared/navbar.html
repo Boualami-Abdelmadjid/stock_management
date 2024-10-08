@@ -1,0 +1,113 @@
+{% url 'actions' as actions %}
+{% url 'return' as return %}
+{% url 'profile' as profile %}
+{% url 'dashboard' as dashboard %}
+{% url 'logs' as logs %}
+{% url 'switch-store' as transfer %}
+{% url 'service_center' as service_center %}
+{% url 'management_center' as management_center %}
+{% url 'create-router' as create_router %}
+{% url 'ccd-return' as ccd_return %}
+
+<nav
+  class="hidden lg:flex bg-primary-500 text-white px-8 py-4 flex justify-between font-semibold text-lg"
+>
+  <!-- Desktop navbar -->
+  <div class="hidden lg:flex gap-8 items-center">
+    <a href="/" class="cursor-pointer {% if request.path == '/' %} underline underline-offset-4 {% endif %}">Home</a>
+    <a
+      class="cursor-pointer {% if request.path == service_center or request.path == actions %} underline underline-offset-4 {% endif %}"
+      href="{% url 'service_center' %}">Service Center</a>
+    <a
+      class="cursor-pointer {% if request.path == management_center or request.path == create_router or request.path == ccd_return %} underline underline-offset-4 {% endif %}"
+      href="{% url 'management_center' %}">Management Center</a>
+    <a class="cursor-pointer {% if request.path == profile %} underline underline-offset-4 {% endif %}"
+       href="{% url 'profile' %}">Profile</a>
+    {% if user.is_superuser %}
+      <a class="cursor-pointer" target="_blank" href="/admin">Admin</a>
+    {% endif %}
+  </div>
+  <div class="hidden lg:flex gap-8 items-center">
+    <div class="light_switch ">
+      <i class="fa-solid fa-sun  cursor-pointer !hidden dark:!inline-block " onclick="toggleDark('false')"></i>
+      <i class="fa-solid fa-moon  cursor-pointer !inline-block dark:!hidden" onclick="toggleDark('true')"></i>
+    </div>
+    {% if user.is_authenticated %}
+      <span>Welcome {{ user.username }}</span>
+      {% if user.store %}
+        <span class="bg-primary-800 text-white py-1 px-4 rounded-md">{{ user.store }}</span>
+      {% endif %}
+      <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+      </form>
+    {% else %}
+      <a class="cursor-pointer" href="{% url 'login' %}">Login</a>
+      <a class="cursor-pointer" href="{% url 'signup' %}">Signup</a>
+    {% endif %}
+  </div>
+
+</nav>
+<!-- Mobile navbar -->
+<nav class="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700 lg:hidden">
+
+  <button onclick="toggle_navbar()" type="button"
+          class="ml-auto block  p-2 w-10 h-10 text-sm text-gray-500 rounded-lg  dark:text-gray-400  dark:focus:ring-gray-600">
+    <span class="sr-only">Open main menu</span>
+    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M1 1h15M1 7h15M1 13h15"/>
+    </svg>
+  </button>
+  <div class="hidden w-full absolute top-6 z-10" id="navbar-hamburger">
+    <ul class="flex flex-col font-medium mt-4  bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+      <li>
+        <a href="/"
+           class="block cursor-pointer py-2 px-3  {% if request.path == '/' %} text-white bg-blue-700 rounded dark:bg-blue-600 {% else %}  text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white {% endif %} "
+           aria-current="page">Home</a>
+      </li>
+      <li>
+        <a href="{% url 'service_center' %}"
+           class="block cursor-pointer  py-2 px-3 {% if request.path == service_center or request.path == actions %} text-white bg-blue-700 rounded dark:bg-blue-600 {% else %}  text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white {% endif %}"
+           aria-current="page">Service Center</a>
+      </li>
+      <li>
+        <a href="{% url 'management_center' %}"
+           class="block cursor-pointer  py-2 px-3 {% if request.path == management_center  or request.path == create_router or request.path == ccd_return %} text-white bg-blue-700 rounded dark:bg-blue-600 {% else %}  text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white {% endif %}"
+           aria-current="page">Management Center</a>
+      </li>
+      <li>
+        <a href="{% url 'profile' %}"
+           class="block cursor-pointer py-2 px-3{% if request.path == profile %} text-white bg-blue-700 rounded dark:bg-blue-600 {% else %}  text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white {% endif %}">Profile</a>
+      </li>
+      {% if user.role == "store_manager" %}
+      {% endif %}
+      {% if user.is_superuser %}
+        <li>
+          <a target="_blank" href="/admin"
+             class="block cursor-pointer py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Admin</a>
+        </li>
+
+      {% endif %}
+      <li>
+        {% if user.is_authenticated %}
+          <form
+            class="block cursor-pointer py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+          </form>
+        {% else %}
+          <a
+            class="block cursor-pointer py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            href="{% url 'login' %}">Login</a>
+          <a
+            class="block cursor-pointer py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            href="{% url 'signup' %}">Signup</a>
+        {% endif %}
+      </li>
+
+    </ul>
+  </div>
+  </div>
+</nav>

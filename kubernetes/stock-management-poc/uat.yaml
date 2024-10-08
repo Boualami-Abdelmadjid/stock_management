@@ -1,0 +1,48 @@
+---
+environment: uat
+
+env:
+  CSRF_TRUSTED_ORIGINS: https://stockmanagementpoc.sit.rain.co.za
+  DEBUG: false
+  NETBOX_DELETE_LEGACY_DATA: true
+  REDIS_HOST: stockmanagementpoc-redis-master
+  REDIS_PORT: 6379
+  REDIS_SSL: false
+  TIME_ZONE: Africa/Johannesburg
+  SKIP_SUPERUSER: false
+  DB_HOST: zeus-psql-01.rain.network
+  DB_NAME: stockmanagementpoc_uat
+  DB_PASSWORD: stockmanagementpoc
+  DB_SCHEMA: stockmanagementpoc
+  DB_PORT: 5432
+  DB_USER: stockmanagementpoc
+  MAPS_URL: "https://maps.google.com/?q="
+#  BIND_PORT: 8080
+  BIND_PORT: 8000
+
+ingress:
+  hostname: stockmanagementpoc.sit.rain.co.za
+  secretName: sit-rain-co-za
+
+replicaCount: 1
+
+secrets:
+  DB_HOST: "zeus-psql-01.rain.network"
+  DB_NAME: "stockmanagementpoc_uat"
+  DB_PASSWORD: "stockmanagementpoc"
+  DB_PORT: "5432"
+  DB_USER: "stockmanagementpoc"
+  DB_SCHEMA: "stockmanagementpoc"
+  SECRET_KEY: "19Z2mwH%F*40ayfAHdr&nQfv^xLbT7m$f@)e--ia!Pm=ZotER)"
+  SOCIAL_AUTH_AZUREAD_TENANT_OAUTH2_KEY: "a8ed833a-6be8-403d-9830-5f1228f82bc5"
+  SOCIAL_AUTH_AZUREAD_TENANT_OAUTH2_RESOURCE: "https://graph.microsoft.com/"
+  SOCIAL_AUTH_AZUREAD_TENANT_OAUTH2_SECRET: "lQR8Q~2A5A4Tf672FWhOzFfTFm9OSnOTkuoh0b2."
+  SOCIAL_AUTH_AZUREAD_TENANT_OAUTH2_TENANT_ID: "5b67f9a1-ea53-476b-a4ed-075b7bab99f8"
+  SUPERUSER_PASSWORD: "UVCxdJvKnHlmQ9zciG"
+  SUPERUSER_API_TOKEN: "0123456789abcdef0123456789abcdef01234567"
+  ADMIN_TOKEN: "0123456789abcdef0123456789abcdef01234567"
+  S3_SECRET_SPARC: R8SfyH3VYnDualz9a2AAjaj65owUoFy2MeN1Pomu
+
+secretsRedis:
+  redis_password: Xa8kZmej0o
+  allow_empty_password: no
